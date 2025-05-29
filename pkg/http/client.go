@@ -32,32 +32,54 @@ func WithTransport(transport *http.Client) SetupFunc {
 	}
 }
 
-// NewClient создает новый HTTP клиент с настройками.
-// Принимает:
-//   - baseURL: базовый URL для всех запросов
-//   - setup: опциональные функции настройки (WithMiddleware, WithTransport)
+// NewClient создает и возвращает новый HTTP клиент с настройками.
+//
+// Параметры:
+//   - baseURL: базовый URL для всех запросов (обязательный)
+//   - setup: вариативный список функций настройки (опционально):
+//     - WithMiddleware: добавляет middleware обработчики
+//     - WithTransport: устанавливает кастомный HTTP транспорт
 //
 // Примеры использования:
-//   // Простой клиент без middleware
-//   client := NewClient("http://example.com")
 //
-//   // Клиент с Circuit Breaker
-//   client := NewClient("http://example.com",
-//     WithMiddleware(WithCircuitBreakerMiddleware(gobreaker.Settings{})),
-//   )
+// 1. Простой клиент без дополнительных настроек:
+//    client := NewClient("https://api.example.com")
 //
-//   // Клиент с Retry и Circuit Breaker
-//   client := NewClient("http://example.com",
-//     WithMiddleware(WithCircuitBreakerMiddleware(gobreaker.Settings{})),
-//     WithTransport(NewRetryableTransport(3, 1*time.Second, 5*time.Second)),
-//   )
+// 2. Клиент с Circuit Breaker:
+//    client := NewClient("https://api.example.com",
+//      WithMiddleware(CircuitBreakerMiddleware(gobreaker.Settings{
+//        Name:        "api-client",
+//        MaxRequests: 5,
+//        Interval:    30 * time.Second,
+//        Timeout:     10 * time.Second,
+//      })),
+//    )
 //
-//   // Клиент с кастомным транспортом
-//   client := NewClient("http://example.com",
-//     WithTransport(&http.Client{Timeout: 30*time.Second}),
-//   )
+// 3. Клиент с Retry и Circuit Breaker:
+//    client := NewClient("https://api.example.com",
+//      WithMiddleware(CircuitBreakerMiddleware(gobreaker.Settings{})),
+//      WithTransport(NewRetryableTransport(3, 1*time.Second, 5*time.Second)),
+//    )
 //
-// Возвращает реализацию HTTPClient.
+// 4. Клиент с кастомным транспортом:
+//    client := NewClient("https://api.example.com",
+//      WithTransport(&http.Client{
+//        Timeout: 30 * time.Second,
+//      }),
+//    )
+//
+// 5. Комбинированный клиент:
+//    client := NewClient("https://api.example.com",
+//      WithMiddleware(
+//        CircuitBreakerMiddleware(gobreaker.Settings{}),
+//        YourCustomMiddleware(),
+//      ),
+//      WithTransport(NewRetryableTransport(3, 1*time.Second, 5*time.Second)),
+//    )
+//
+// Возвращает:
+//   - Реализацию интерфейса HTTPClient, готовую к использованию
+//   - При ошибках в middleware или транспорте может вернуть ошибку
 func NewClient(baseURL string, setup ...SetupFunc) HTTPClient {
 	c := &httpClient{
 		baseURL:   baseURL,

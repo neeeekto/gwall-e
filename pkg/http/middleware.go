@@ -16,7 +16,7 @@ var nonRepeatableErrorStatuses = map[int]struct{}{
 	http.StatusTooManyRequests:     {}, // 429
 }
 
-// WithCircuitBreakerMiddleware создает middleware для реализации Circuit Breaker паттерна.
+// CircuitBreakerMiddleware создает middleware для реализации Circuit Breaker паттерна.
 // Принимает конфигурацию для CircuitBreaker и возвращает MiddlewareFunc.
 // Middleware будет:
 //   - Создавать новый CircuitBreaker с переданными настройками
@@ -32,10 +32,10 @@ var nonRepeatableErrorStatuses = map[int]struct{}{
 //       Timeout:     10 * time.Second,
 //   }
 //   client := NewClient("http://example.com",
-//     WithMiddleware(WithCircuitBreakerMiddleware(settings)),
+//     WithMiddleware(CircuitBreakerMiddleware(settings)),
 //     WithTransport(NewRetryableTransport(3, 1*time.Second, 5*time.Second)),
 //   )
-func WithCircuitBreakerMiddleware(settings gobreaker.Settings) MiddlewareFunc {
+func CircuitBreakerMiddleware(settings gobreaker.Settings) MiddlewareFunc {
 	cb := gobreaker.NewCircuitBreaker(settings)
 	return func(req *http.Request, next func(*http.Request) (*http.Response, error)) (*http.Response, error) {
 		res, err := cb.Execute(func() (interface{}, error) {

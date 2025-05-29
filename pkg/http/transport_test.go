@@ -6,6 +6,8 @@ import (
 	"net/http/httptest"
 	"time"
 
+	"github.com/sony/gobreaker"
+
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
@@ -47,6 +49,7 @@ var _ = Describe("HTTP Client Transport", func() {
 		}
 
 		client = NewClient(testServer.URL, 
+			WithMiddleware(CircuitBreakerMiddleware(gobreaker.Settings{})),
 			WithMiddleware(middleware),
 			WithTransport(customClient),
 		)
