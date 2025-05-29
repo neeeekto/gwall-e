@@ -2,9 +2,7 @@ package http
 
 import (
 	"net/http"
-	"time"
 
-	"github.com/hashicorp/go-retryablehttp"
 	"github.com/sony/gobreaker"
 )
 
@@ -33,7 +31,10 @@ var nonRepeatableErrorStatuses = map[int]struct{}{
 //       Interval:    30 * time.Second,
 //       Timeout:     10 * time.Second,
 //   }
-//   client := NewClient("http://example.com", WithCircuitBreakerMiddleware(settings))
+//   client := NewClient("http://example.com",
+//     WithMiddleware(WithCircuitBreakerMiddleware(settings)),
+//     WithTransport(NewRetryableTransport(3, 1*time.Second, 5*time.Second)),
+//   )
 func WithCircuitBreakerMiddleware(settings gobreaker.Settings) MiddlewareFunc {
 	cb := gobreaker.NewCircuitBreaker(settings)
 	return func(req *http.Request, next func(*http.Request) (*http.Response, error)) (*http.Response, error) {
@@ -57,31 +58,5 @@ func WithCircuitBreakerMiddleware(settings gobreaker.Settings) MiddlewareFunc {
 			return nil, err
 		}
 		return res.(*http.Response), nil
-	}
-}
-
-// WithRetryMiddleware создает middleware для повторения неудачных запросов
-func WithRetryMiddleware(maxRetries int, minWait, maxWait time.Duration) MiddlewareFunc {
-	client := retryablehttp.NewClient()
-	client.RetryMax = maxRetries
-	client.RetryWaitMin = minWait
-	client.RetryWaitMax = maxWait
-	client.CheckRetry = retryablehttp.DefaultRetryPolicy
-	client.Backoff = retryablehttp.DefaultBackoff
-
-	return func(req *http.Request, next func(*http.Request) (*http.Response, error)) (*http.Response, error) {
-		// Конвертируем стандартный http.Request в retryablehttp.Request
-		retryReq, err := retryablehttp.FromRequest(req)
-		if err != nil {
-			return nil, err
-		}
-
-		// Выполняем запрос с повторами
-		resp, err := client.Do(retryReq)
-		if err != nil {
-			return nil, err
-		}
-
-		return resp, nil
 	}
 }

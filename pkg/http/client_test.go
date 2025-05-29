@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
+	"time"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -100,7 +101,7 @@ var _ = Describe("HTTP Client", func() {
 				return next(req)
 			}
 
-			client = NewClient(testServer.URL, middleware)
+			client = NewClient(testServer.URL, WithMiddleware(middleware))
 		})
 
 		AfterEach(func() {
@@ -135,6 +136,97 @@ var _ = Describe("HTTP Client", func() {
 			resp, err := client.Do(context.Background(), req)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(resp.StatusCode).To(Equal(http.StatusOK))
+		})
+	})
+	
+	Context("Transport Configuration", func() {
+		var (
+			client    HTTPClient
+			testServer *httptest.Server
+		)
+	
+		BeforeEach(func() {
+			testServer = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(http.StatusOK)
+			}))
+		})
+	
+		AfterEach(func() {
+			testServer.Close()
+		})
+	
+		It("should use custom transport", func() {
+			customClient := &http.Client{
+				Timeout: 30 * time.Second,
+			}
+
+			client = NewClient(testServer.URL, WithTransport(customClient))
+			Expect(client.(*httpClient).transport).To(Equal(customClient))
+		})
+
+		It("should combine middleware and transport", func() {
+			var middlewareCalled bool
+			middleware := func(req *http.Request, next func(*http.Request) (*http.Response, error)) (*http.Response, error) {
+				middlewareCalled = true
+				return next(req)
+			}
+
+			customClient := &http.Client{
+				Timeout: 30 * time.Second,
+			}
+
+			client = NewClient(testServer.URL,
+				WithMiddleware(middleware),
+				WithTransport(customClient),
+			)
+
+			_, err := client.Get(context.Background(), "/", nil, nil)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(middlewareCalled).To(BeTrue())
+			Expect(client.(*httpClient).transport).To(Equal(customClient))
+		})
+	})
+
+	Context("Transport Configuration", func() {
+		BeforeEach(func() {
+			testServer = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(http.StatusOK)
+			}))
+		})
+
+		AfterEach(func() {
+			testServer.Close()
+		})
+
+		It("should use custom transport", func() {
+			customClient := &http.Client{
+				Timeout: 30 * time.Second,
+			}
+
+			client = NewClient(testServer.URL, WithTransport(customClient))
+			Expect(client.(*httpClient).transport).To(Equal(customClient))
+		})
+
+		It("should combine middleware and transport", func() {
+			var middlewareCalled bool
+			middleware := func(req *http.Request, next func(*http.Request) (*http.Response, error)) (*http.Response, error) {
+				middlewareCalled = true
+				return next(req)
+			}
+
+			customClient := &http.Client{
+				Timeout: 30 * time.Second,
+			}
+
+			client = NewClient(testServer.URL,
+				WithMiddleware(middleware),
+				WithTransport(customClient),
+			)
+
+			_, err := client.Get(context.Background(), "/", nil, nil)
+			Expect(err).NotTo(HaveOccurred())
+			Expect(middlewareCalled).To(BeTrue())
+			Expect(client.(*httpClient).transport).To(Equal(customClient))
 		})
 	})
 })

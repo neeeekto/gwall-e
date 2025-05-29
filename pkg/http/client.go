@@ -6,26 +6,74 @@ import (
 	"net/http"
 )
 
+// MiddlewareFunc определяет тип функции middleware
 type MiddlewareFunc func(*http.Request, func(*http.Request) (*http.Response, error)) (*http.Response, error)
+
+// SetupFunc определяет тип функции для настройки клиента
+type SetupFunc func(*httpClient)
 
 type httpClient struct {
 	baseURL     string
-	client      *http.Client
+	transport   *http.Client
 	middleware  []MiddlewareFunc
 }
 
-
-func NewClient(baseURL string, middleware ...MiddlewareFunc) HTTPClient {
-	return &httpClient{
-		baseURL:    baseURL,
-		client:     &http.Client{},
-		middleware: middleware,
+// WithMiddleware добавляет middleware в клиент
+func WithMiddleware(middleware ...MiddlewareFunc) SetupFunc {
+	return func(c *httpClient) {
+		c.middleware = append(c.middleware, middleware...)
 	}
+}
+
+// WithTransport устанавливает кастомный http.Client
+func WithTransport(transport *http.Client) SetupFunc {
+	return func(c *httpClient) {
+		c.transport = transport
+	}
+}
+
+// NewClient создает новый HTTP клиент с настройками.
+// Принимает:
+//   - baseURL: базовый URL для всех запросов
+//   - setup: опциональные функции настройки (WithMiddleware, WithTransport)
+//
+// Примеры использования:
+//   // Простой клиент без middleware
+//   client := NewClient("http://example.com")
+//
+//   // Клиент с Circuit Breaker
+//   client := NewClient("http://example.com",
+//     WithMiddleware(WithCircuitBreakerMiddleware(gobreaker.Settings{})),
+//   )
+//
+//   // Клиент с Retry и Circuit Breaker
+//   client := NewClient("http://example.com",
+//     WithMiddleware(WithCircuitBreakerMiddleware(gobreaker.Settings{})),
+//     WithTransport(NewRetryableTransport(3, 1*time.Second, 5*time.Second)),
+//   )
+//
+//   // Клиент с кастомным транспортом
+//   client := NewClient("http://example.com",
+//     WithTransport(&http.Client{Timeout: 30*time.Second}),
+//   )
+//
+// Возвращает реализацию HTTPClient.
+func NewClient(baseURL string, setup ...SetupFunc) HTTPClient {
+	c := &httpClient{
+		baseURL:   baseURL,
+		transport: &http.Client{},
+	}
+
+	for _, fn := range setup {
+		fn(c)
+	}
+
+	return c
 }
 
 func (c *httpClient) applyMiddleware(req *http.Request) (*http.Response, error) {
 	handler := func(r *http.Request) (*http.Response, error) {
-		return c.client.Do(r)
+		return c.transport.Do(r)
 	}
 
 	for i := len(c.middleware) - 1; i >= 0; i-- {

@@ -9,5 +9,5 @@ import (
 
 func TestIdmServicesSuite(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "HTTP Pckage Suite")
+	RunSpecs(t, "HTTP Package Suite")
 }
