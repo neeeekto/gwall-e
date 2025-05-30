@@ -41,12 +41,12 @@ services:
       - "8083:8080"
     restart: unless-stopped
 
-  audiologs:
+  auditlogs:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        SERVICE: audio_logs
+        SERVICE: audit_logs
     ports:
       - "8084:8080"
     restart: unless-stopped

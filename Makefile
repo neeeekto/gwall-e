@@ -6,7 +6,7 @@ build: build-agents build-ui
 	@cd services/auto_healing && go build
 	@cd services/host_manager && go build
 	@cd services/scenario && go build
-	@cd services/audio_logs && go build
+	@cd services/audit_logs && go build
 
 build-apps:
 	@echo "Building all apps..."
@@ -26,7 +26,7 @@ run:
 	@cd services/auto_healing && go run cmd/main.go &
 	@cd services/host_manager && go run cmd/main.go &
 	@cd services/scenario && go run cmd/main.go &
-	@cd services/audio_logs && go run cmd/main.go &
+	@cd services/audit_logs && go run cmd/main.go &
 	@cd apps/agent && go run cmd/main.go &
 
 test:
@@ -35,4 +35,4 @@ test:
 	@cd services/auto_healing && go test ./...
 	@cd services/host_manager && go test ./...
 	@cd services/scenario && go test ./...
-	@cd services/audio_logs && go test ./...
+	@cd services/audit_logs && go test ./...
