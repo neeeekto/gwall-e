@@ -45,7 +45,7 @@ func CircuitBreakerMiddleware(config CircuitBreakerConfig) MiddlewareFunc {
 			return counts.ConsecutiveFailures >= config.MaxFailures
 		},
 		IsSuccessful: func(err error) bool {
-			var cbErr *CircuitBreakerError
+			var cbErr *NonRepeatableError
 			if errors.As(err, &cbErr) {
 				return false
 			}
@@ -61,7 +61,7 @@ func CircuitBreakerMiddleware(config CircuitBreakerConfig) MiddlewareFunc {
 			}
 
 			if _, ok := nonRepeatableErrorStatuses[resp.StatusCode]; ok {
-				return nil, &CircuitBreakerError{
+				return nil, &NonRepeatableError{
 					StatusCode: resp.StatusCode,
 					Message:    http.StatusText(resp.StatusCode),
 				}

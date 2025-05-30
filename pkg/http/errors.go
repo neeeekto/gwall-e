@@ -2,12 +2,12 @@ package http
 
 import "fmt"
 
-// CircuitBreakerError представляет ошибку, которая может привести к размыканию circuit breaker
-type CircuitBreakerError struct {
+// NonRepeatableError представляет ошибку для статус-кодов, которые не должны повторяться
+type NonRepeatableError struct {
 	StatusCode int
 	Message    string
 }
 
-func (e *CircuitBreakerError) Error() string {
+func (e *NonRepeatableError) Error() string {
 	return fmt.Sprintf("circuit breaker error: %d %s", e.StatusCode, e.Message)
 }
