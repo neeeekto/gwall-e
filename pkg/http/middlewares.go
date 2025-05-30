@@ -70,6 +70,9 @@ func CircuitBreakerMiddleware(config CircuitBreakerConfig) MiddlewareFunc {
 		})
 
 		if err != nil {
+			if errors.Is(err, gobreaker.ErrOpenState) {
+				return nil, ErrCircuitBreakOpen
+			}
 			return nil, err
 		}
 		return res.(*http.Response), nil

@@ -1,6 +1,14 @@
 package http
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	// ErrCircuitBreakOpen возвращается когда circuit breaker открыт
+	ErrCircuitBreakOpen = errors.New("circuit breaker is open")
+)
 
 // NonRepeatableError представляет ошибку для статус-кодов, которые не должны повторяться
 type NonRepeatableError struct {
