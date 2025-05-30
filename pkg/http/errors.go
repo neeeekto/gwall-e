@@ -17,5 +17,5 @@ type NonRepeatableError struct {
 }
 
 func (e *NonRepeatableError) Error() string {
-	return fmt.Sprintf("circuit breaker error: %d %s", e.StatusCode, e.Message)
+	return fmt.Sprintf("non repeatable error: %d %s", e.StatusCode, e.Message)
 }
