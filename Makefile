@@ -14,11 +14,11 @@ build-apps:
 
 build-ui:
 	@echo "Building UI..."
-	@cd gwall-e-ui && npm install && npm run build
+	@cd ui && npm install && npm run build
 
 run-ui-dev:
 	@echo "Running UI in development mode..."
-	@cd gwall-e-ui && npx nx serve dashboard
+	@cd ui && npx nx serve dashboard
 
 run:
 	@echo "Running all services..."
