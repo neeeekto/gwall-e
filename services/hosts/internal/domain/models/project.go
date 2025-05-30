@@ -13,7 +13,6 @@ const (
 	TypeShadowServer ProjectType = "shadow-server"
 )
 
-// Project represents a project entity
 type Project struct {
 	ID           string              `bson:"_id"`
 	Name         string              `bson:"name"`
@@ -26,6 +25,7 @@ type Project struct {
 	Profiling    ProjectProfiling    `bson:"profiling"`
 	Notification ProjectNotification `bson:"notification"`
 	Monitoring   ProjectMonitoring   `bson:"monitoring"`
+	Task         ProjectTask         `bson:"task"`
 }
 
 // NewProject creates a new Project instance
