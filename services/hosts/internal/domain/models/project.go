@@ -21,7 +21,7 @@ type Project struct {
 	Tags         []string            `bson:"tags"`
 	Description  string              `bson:"description"`
 	CMS          ProjectCMS          `bson:"cms"`
-	Networks     ProjectNetwork      `bson:"network"`
+	Network     ProjectNetwork      `bson:"network"`
 	Deploying    ProjectDeploying    `bson:"deploying"`
 	Profiling    ProjectProfiling    `bson:"profiling"`
 	Notification ProjectNotification `bson:"notification"`
