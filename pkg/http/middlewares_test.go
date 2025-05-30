@@ -5,11 +5,9 @@ import (
 	"net/http"
 	"time"
 
+	. "github.com/gwall-e/pkg/http"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	"github.com/sony/gobreaker"
-
-	. "github.com/gwall-e/pkg/http"
 )
 
 var _ = Describe("CircuitBreakerMiddleware", func() {
@@ -39,11 +37,11 @@ var _ = Describe("CircuitBreakerMiddleware", func() {
 			}
 		})
 
-		It("should return CircuitBreakerError", func() {
+		It("should return NonRepeatableError", func() {
 			resp, err := middleware(req, nextHandler)
 			Expect(resp).To(BeNil())
 			Expect(err).To(HaveOccurred())
-			Expect(err).To(BeAssignableToTypeOf(&CircuitBreakerError{}))
+			Expect(err).To(BeAssignableToTypeOf(&NonRepeatableError{}))
 		})
 	})
 
@@ -93,11 +91,11 @@ var _ = Describe("CircuitBreakerMiddleware", func() {
 		It("should open circuit after max failures", func() {
 			// First call - failure
 			_, err := middleware(req, nextHandler)
-			Expect(err).To(BeAssignableToTypeOf(&CircuitBreakerError{}))
+			Expect(err).To(BeAssignableToTypeOf(&NonRepeatableError{}))
 
 			// Second call - circuit should be open
 			_, err = middleware(req, nextHandler)
-			Expect(err).To(MatchError(gobreaker.ErrOpenState))
+			Expect(err).To(MatchError(ErrCircuitBreakOpen))
 
 			Expect(callCount).To(Equal(1)) // Only first call should reach handler
 		})
