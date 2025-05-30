@@ -10,7 +10,7 @@ build: build-agents build-ui
 
 build-apps:
 	@echo "Building all apps..."
-	@cd apps/gwall-e-agent && go build
+	@cd apps/agent && go build
 
 build-ui:
 	@echo "Building UI..."
@@ -27,7 +27,7 @@ run:
 	@cd services/host_manager && go run cmd/main.go &
 	@cd services/scenario && go run cmd/main.go &
 	@cd services/audio_logs && go run cmd/main.go &
-	@cd apps/gwall-e-agent && go run cmd/main.go &
+	@cd apps/agent && go run cmd/main.go &
 
 test:
 	@echo "Testing all services..."
