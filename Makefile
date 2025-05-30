@@ -1,6 +1,6 @@
-.PHONY: build run test build-agents
+.PHONY: build run test build-agents build-ui run-ui-dev
 
-build: build-agents
+build: build-agents build-ui
 	@echo "Building all services..."
 	@cd services/host_task && go build
 	@cd services/auto_healing && go build
@@ -11,6 +11,14 @@ build: build-agents
 build-apps:
 	@echo "Building all apps..."
 	@cd apps/gwall-e-agent && go build
+
+build-ui:
+	@echo "Building UI..."
+	@cd gwall-e-ui && npm install && npm run build
+
+run-ui-dev:
+	@echo "Running UI in development mode..."
+	@cd gwall-e-ui && npx nx serve dashboard
 
 run:
 	@echo "Running all services..."
