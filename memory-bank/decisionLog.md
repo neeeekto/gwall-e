@@ -32,3 +32,5 @@
 * Обновлена основная модель Project для включения ProjectTier
 * Решение основано на анализе существующих моделей (ProjectTask, ProjectCMS) и стандартах проекта из systemPatterns.md
 [2025-05-31 00:49:13] - Добавлены новые поля в ProjectNetwork: owned_vlans ([]int), vlan_scheme (enum), native_vlan (int), extra_vlans ([]int), dns_domain (string). Создан новый тип VlanScheme с вариантами STATIC, MTN, MTN_HOSTID, CLOUD, MOCK, MTN_WITHOUT_FASTBONE.
+[2025-05-31 00:52:54] - Добавлены новые поля в ProjectProfiling: name (string), tags ([]string). Поля предназначены для идентификации и категоризации профилирования.
+[2025-05-31 01:29:13] - Добавлены новые поля в ProjectDeploying: config (interface{}), tags ([]string), network (string), policy (enum), secrets ([]Secret). Создан тип DeploymentPolicy с 16 вариантами политик развертывания.
