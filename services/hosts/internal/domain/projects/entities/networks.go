@@ -1,4 +1,4 @@
-package models
+package entities
 
 // VlanScheme represents VLAN allocation scheme
 type VlanScheme string

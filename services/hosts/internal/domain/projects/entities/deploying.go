@@ -1,4 +1,4 @@
-package models
+package entities
 
 // Secret represents a deployment secret (structure to be defined later)
 type Secret struct {

@@ -37,3 +37,4 @@
 [2025-05-31 12:56:30] - Обновлен интерфейс DeploymentPolicyProvider: добавлены ctx и name в метод Generate, переименован hostModel в host. Соответствующие изменения внесены в реализацию DeploymentPolicyProviderImpl.
 [2025-05-31 12:58:27] - Реорганизована структура domain: создана папка projects, куда перенесены все project-сущности. Модели перемещены в projects/models, команды - в projects/commands.
 [2025-05-31 12:59:23] - Перенесена папка contracts в domain/projects/. Обновлены импорты в зависимых файлах.
+[2025-05-31 14:45:45] - Рефакторинг: переименованы все папки models в домене в entities. Обновлены package declarations и импорты в зависимых файлах.

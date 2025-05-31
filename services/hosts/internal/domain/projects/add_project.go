@@ -2,9 +2,9 @@ package projects
 
 import (
 	"context"
-	"github.com/gwall-e/hosts/internal/domain/projects/models"
+	"github.com/gwall-e/hosts/internal/domain/projects/entities"
 )
 
-func (c *ProjectService) AddProject(ctx context.Context, project *models.Project) error {
+func (c *ProjectService) AddProject(ctx context.Context, project *entities.Project) error {
 	return nil
 }
