@@ -12,7 +12,7 @@ const (
 	VlanSchemeMTNWithoutFastBone VlanScheme = "MTN_WITHOUT_FASTBONE"
 )
 
-type ProjectNetwork struct {
+type Network struct {
 	OwnedVlans []int      `bson:"owned_vlans"`
 	VlanScheme VlanScheme `bson:"vlan_scheme"`
 	NativeVlan int        `bson:"native_vlan"`

@@ -2,7 +2,7 @@ package host_deployment
 
 import (
 	"context"
-	"github.com/gwall-e/hosts/internal/domain/contracts"
+	"github.com/gwall-e/hosts/internal/domain/projects/contracts"
 )
 
 // DeploymentPolicyProviderImpl implements DeploymentPolicyProvider interface

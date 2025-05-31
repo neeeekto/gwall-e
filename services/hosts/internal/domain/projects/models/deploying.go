@@ -6,7 +6,7 @@ type Secret struct {
 }
 
 // ProjectDeploying contains deployment configuration for a project
-type ProjectDeploying struct {
+type Deploying struct {
 	// Config holds deployment configuration data
 	Config interface{} `bson:"config"`
 

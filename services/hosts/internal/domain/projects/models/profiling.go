@@ -1,6 +1,6 @@
 package models
 
-type ProjectProfiling struct {
+type Profiling struct {
 	Name string   `bson:"name"`
 	Tags []string `bson:"tags"`
 }

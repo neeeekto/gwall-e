@@ -35,3 +35,5 @@
 [2025-05-31 00:52:54] - Добавлены новые поля в ProjectProfiling: name (string), tags ([]string). Поля предназначены для идентификации и категоризации профилирования.
 [2025-05-31 01:29:13] - Добавлены новые поля в ProjectDeploying: config (interface{}), tags ([]string), network (string), policy (enum), secrets ([]Secret). Создан тип DeploymentPolicy с 16 вариантами политик развертывания.
 [2025-05-31 12:56:30] - Обновлен интерфейс DeploymentPolicyProvider: добавлены ctx и name в метод Generate, переименован hostModel в host. Соответствующие изменения внесены в реализацию DeploymentPolicyProviderImpl.
+[2025-05-31 12:58:27] - Реорганизована структура domain: создана папка projects, куда перенесены все project-сущности. Модели перемещены в projects/models, команды - в projects/commands.
+[2025-05-31 12:59:23] - Перенесена папка contracts в domain/projects/. Обновлены импорты в зависимых файлах.
