@@ -2,9 +2,14 @@ package projects
 
 import (
 	"context"
-	"github.com/gwall-e/hosts/internal/domain/projects/entities"
+	"github.com/gwall-e/hosts/internal/domain/common"
 )
 
-func (c *ProjectService) AddProject(ctx context.Context, project *entities.Project) error {
+type AddProjectDTO struct {
+	Name string         
+	Type common.UnitType 
+}
+
+func (c *ProjectService) AddProject(ctx context.Context, data *AddProjectDTO) error {
 	return nil
 }
