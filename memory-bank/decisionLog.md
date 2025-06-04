@@ -26,15 +26,3 @@
 * Сборка и запуск через Makefile и Docker Compose
 * Стандартизированная структура директорий для всех сервисов
 * Использование ginkgo и gomega для тестирования
-[2025-05-31 00:39:34] - Добавление доменной модели ProjectTier
-* Создана новая доменная модель ProjectTier для представления уровней проекта
-* Модель содержит поля: name (название уровня), level (числовой уровень), resources (доступные ресурсы)
-* Обновлена основная модель Project для включения ProjectTier
-* Решение основано на анализе существующих моделей (ProjectTask, ProjectCMS) и стандартах проекта из systemPatterns.md
-[2025-05-31 00:49:13] - Добавлены новые поля в ProjectNetwork: owned_vlans ([]int), vlan_scheme (enum), native_vlan (int), extra_vlans ([]int), dns_domain (string). Создан новый тип VlanScheme с вариантами STATIC, MTN, MTN_HOSTID, CLOUD, MOCK, MTN_WITHOUT_FASTBONE.
-[2025-05-31 00:52:54] - Добавлены новые поля в ProjectProfiling: name (string), tags ([]string). Поля предназначены для идентификации и категоризации профилирования.
-[2025-05-31 01:29:13] - Добавлены новые поля в ProjectDeploying: config (interface{}), tags ([]string), network (string), policy (enum), secrets ([]Secret). Создан тип DeploymentPolicy с 16 вариантами политик развертывания.
-[2025-05-31 12:56:30] - Обновлен интерфейс DeploymentPolicyProvider: добавлены ctx и name в метод Generate, переименован hostModel в host. Соответствующие изменения внесены в реализацию DeploymentPolicyProviderImpl.
-[2025-05-31 12:58:27] - Реорганизована структура domain: создана папка projects, куда перенесены все project-сущности. Модели перемещены в projects/models, команды - в projects/commands.
-[2025-05-31 12:59:23] - Перенесена папка contracts в domain/projects/. Обновлены импорты в зависимых файлах.
-[2025-05-31 14:45:45] - Рефакторинг: переименованы все папки models в домене в entities. Обновлены package declarations и импорты в зависимых файлах.
