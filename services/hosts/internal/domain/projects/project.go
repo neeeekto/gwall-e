@@ -4,11 +4,10 @@ import (
 	"context"
 
 	"github.com/gwall-e/hosts/events"
-	"github.com/gwall-e/hosts/
 	"github.com/gwall-e/hosts/internal/domain/projects/contracts"
 	"github.com/gwall-e/hosts/internal/domain/projects/entities"
-	"github.com/gwall-e/hosts/events"
-	"github.com/gwall-e/pkg/common"
+	"github.com/gwall-e/hosts/internal/domain/projects/validators"
+	"github.com/gwall-e/pkg/http"
 )
 
 type Project struct {
