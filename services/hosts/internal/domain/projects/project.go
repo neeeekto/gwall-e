@@ -7,13 +7,13 @@ import (
 	"github.com/gwall-e/hosts/internal/domain/projects/contracts"
 	"github.com/gwall-e/hosts/internal/domain/projects/entities"
 	"github.com/gwall-e/hosts/internal/domain/projects/validators"
-	"github.com/gwall-e/pkg/http"
+	"github.com/gwall-e/pkg/core_entities"
 )
 
 type Project struct {
 	ID           string                 `bson:"_id"`
 	Name         string                 `bson:"name"`
-	Type         common.UnitType        `bson:"type"`
+	Type         core_entities.UnitType `bson:"type"`
 	Tags         []string               `bson:"tags"`
 	Description  string                 `bson:"description"`
 	CMS          []entities.CMS         `bson:"cms"`
@@ -37,7 +37,7 @@ func (p *Project) addEvent(event interface{}) {
 	p.events = append(p.events, event)
 }
 
-func NewProject(ctx context.Context, checker contracts.ProjectChecker, id string, name string, projectType common.UnitType, desc string) (*Project, error) {
+func NewProject(ctx context.Context, checker contracts.ProjectChecker, id string, name string, projectType core_entities.UnitType, desc string) (*Project, error) {
 	err := validators.ValidateId(ctx, checker, id)
 	if err != nil {
 		return nil, err
