@@ -12,3 +12,16 @@ type ProjectAddedEvent struct {
 func (e *ProjectAddedEvent) SetOccurredOn(t int64) {
 	e.OccurredOn = t
 }
+
+// nil - no updates for this field
+type ProjectInfoChangedEvent struct {
+	ID          string    `bson:"id"`
+	Name        *string   `bson:"description"`
+	Description *string   `bson:"description"`
+	Tags        *[]string `bson:"tags"`
+	OccurredOn  int64     `bson:"occurred_on"`
+}
+
+func (e *ProjectInfoChangedEvent) SetOccurredOn(t int64) {
+	e.OccurredOn = t
+}

@@ -1,3 +1,4 @@
 package validators
 
-const MAX_ID_LENGT = 32
+const MaxIdLength = 32
+const MaxNameLength = MaxIdLength
