@@ -1,27 +1,20 @@
 package events
 
-import "github.com/gwall-e/pkg/core_entities"
+import . "github.com/gwall-e/pkg/core_entities"
 
 type ProjectAddedEvent struct {
-	ID         string                 `bson:"id"`
-	Name       string                 `bson:"name"`
-	Type       core_entities.UnitType `bson:"type"`
-	OccurredOn int64                  `bson:"occurred_on"`
-}
-
-func (e *ProjectAddedEvent) SetOccurredOn(t int64) {
-	e.OccurredOn = t
+	EventBase
+	ID   string   `bson:"id"`
+	Name string   `bson:"name"`
+	Type UnitType `bson:"type"`
 }
 
 // nil - no updates for this field
 type ProjectInfoChangedEvent struct {
+	EventBase
 	ID          string    `bson:"id"`
-	Name        *string   `bson:"description"`
+	Name        *string   `bson:"name"`
 	Description *string   `bson:"description"`
 	Tags        *[]string `bson:"tags"`
-	OccurredOn  int64     `bson:"occurred_on"`
-}
-
-func (e *ProjectInfoChangedEvent) SetOccurredOn(t int64) {
-	e.OccurredOn = t
+	Owners      *[]string `bson:"tags"`
 }
