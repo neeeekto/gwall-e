@@ -1,4 +1,4 @@
-package core_entities
+package core
 
 import "time"
 
@@ -8,7 +8,6 @@ type Event interface {
 
 type EventBase struct {
 	OccurredOn int64 `bson:"occurred_on"`
-	
 }
 
 func (e *EventBase) SetOccurredOn(t int64) {

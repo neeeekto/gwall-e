@@ -12,14 +12,14 @@ import (
 	"github.com/gwall-e/hosts/internal/domain/projects/entities"
 	"github.com/gwall-e/hosts/internal/domain/projects/errors"
 	"github.com/gwall-e/hosts/internal/domain/projects/validators"
-	"github.com/gwall-e/pkg/core_entities"
+	"github.com/gwall-e/pkg/core"
 )
 
 type Project struct {
-	core_entities.Events `bson:"-"`
+	core.Events `bson:"-"`
 	ID                   string                 `bson:"_id"`
 	Name                 string                 `bson:"name"`
-	Type                 core_entities.UnitType `bson:"type"`
+	Type                 core.UnitType `bson:"type"`
 	Tags                 []string               `bson:"tags"`
 	Description          string                 `bson:"description"`
 	CMS                  []entities.CMS         `bson:"cms"`
@@ -34,7 +34,7 @@ type Project struct {
 	Inventory            *entities.Inventory    `bson:"inventory"`
 }
 
-func NewProject(ctx context.Context, checker contracts.ProjectChecker, id string, name string, projectType core_entities.UnitType) (*Project, error) {
+func NewProject(ctx context.Context, checker contracts.ProjectChecker, id string, name string, projectType core.UnitType) (*Project, error) {
 	err := validators.ValidateId(ctx, checker, id)
 	if err != nil {
 		return nil, err

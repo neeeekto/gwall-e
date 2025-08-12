@@ -1,4 +1,4 @@
-package core_entities
+package core
 
 // UnitType represents the type of infrastructure unit (server, VM, etc.)
 type UnitType string

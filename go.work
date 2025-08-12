@@ -2,6 +2,8 @@ go 1.23.8
 
 use (
 	./services/hosts
+	./services/ops
+	./services/autohealing
+	./services/audit
 	./pkg
 )
-

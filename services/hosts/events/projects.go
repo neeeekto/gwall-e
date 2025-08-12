@@ -1,6 +1,6 @@
 package events
 
-import . "github.com/gwall-e/pkg/core_entities"
+import . "github.com/gwall-e/pkg/core"
 
 type ProjectAddedEvent struct {
 	EventBase
