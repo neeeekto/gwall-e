@@ -2,8 +2,9 @@ package validators
 
 import (
 	"context"
-	"github.com/gwall-e/hosts/internal/domain/projects/contracts"
-	"github.com/gwall-e/hosts/internal/domain/projects/errors"
+
+	"github.com/gwall-e/services/hosts/internal/domain/projects/contracts"
+	"github.com/gwall-e/services/hosts/internal/domain/projects/errors"
 )
 
 func ValidateId(ctx context.Context, checker contracts.ProjectChecker, id string) error {

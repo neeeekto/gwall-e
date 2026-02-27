@@ -1,4 +1,4 @@
-module github.com/gwall-e/hosts
+module github.com/gwall-e/services/hosts
 
 go 1.23.6
 

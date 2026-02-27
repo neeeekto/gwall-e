@@ -7,31 +7,31 @@ import (
 	"strings"
 
 	set "github.com/deckarep/golang-set/v2"
-	"github.com/gwall-e/hosts/events"
-	"github.com/gwall-e/hosts/internal/domain/projects/contracts"
-	"github.com/gwall-e/hosts/internal/domain/projects/entities"
-	"github.com/gwall-e/hosts/internal/domain/projects/errors"
-	"github.com/gwall-e/hosts/internal/domain/projects/validators"
 	"github.com/gwall-e/pkg/core"
+	"github.com/gwall-e/services/hosts/events"
+	"github.com/gwall-e/services/hosts/internal/domain/projects/contracts"
+	"github.com/gwall-e/services/hosts/internal/domain/projects/entities"
+	"github.com/gwall-e/services/hosts/internal/domain/projects/errors"
+	"github.com/gwall-e/services/hosts/internal/domain/projects/validators"
 )
 
 type Project struct {
-	core.Events `bson:"-"`
-	ID                   string                 `bson:"_id"`
-	Name                 string                 `bson:"name"`
-	Type                 core.UnitType `bson:"type"`
-	Tags                 []string               `bson:"tags"`
-	Description          string                 `bson:"description"`
-	CMS                  []entities.CMS         `bson:"cms"`
-	Network              *entities.Network      `bson:"network"`
-	Deploying            *entities.Deploying    `bson:"deploying"`
-	Profiling            *entities.Profiling    `bson:"profiling"`
-	Notification         *entities.Notification `bson:"notification"`
-	Monitoring           *entities.Monitoring   `bson:"monitoring"`
-	Task                 *entities.Task         `bson:"task"`
-	Tier                 byte                   `bson:"tier"`
-	Owners               []string               `bson:"owners"`
-	Inventory            *entities.Inventory    `bson:"inventory"`
+	core.Events  `bson:"-"`
+	ID           string                 `bson:"_id"`
+	Name         string                 `bson:"name"`
+	Type         core.UnitType          `bson:"type"`
+	Tags         []string               `bson:"tags"`
+	Description  string                 `bson:"description"`
+	CMS          []entities.CMS         `bson:"cms"`
+	Network      *entities.Network      `bson:"network"`
+	Deploying    *entities.Deploying    `bson:"deploying"`
+	Profiling    *entities.Profiling    `bson:"profiling"`
+	Notification *entities.Notification `bson:"notification"`
+	Monitoring   *entities.Monitoring   `bson:"monitoring"`
+	Task         *entities.Task         `bson:"task"`
+	Tier         byte                   `bson:"tier"`
+	Owners       []string               `bson:"owners"`
+	Inventory    *entities.Inventory    `bson:"inventory"`
 }
 
 func NewProject(ctx context.Context, checker contracts.ProjectChecker, id string, name string, projectType core.UnitType) (*Project, error) {

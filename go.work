@@ -1,9 +1,10 @@
-go 1.23.8
+go 1.24.6
 
 use (
+	./pkg
+	./services/analytics
+	./services/audit
+	./services/healing
 	./services/hosts
 	./services/ops
-	./services/autohealing
-	./services/audit
-	./pkg
 )
