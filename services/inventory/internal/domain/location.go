@@ -1,4 +1,4 @@
-package entities
+package domain
 
 type Location struct {
 	Country  string

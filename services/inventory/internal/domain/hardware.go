@@ -1,4 +1,15 @@
-package entities
+package domain
+
+type HostHardware struct {
+	Name        string
+	Platform    string
+	IPMIMac     string
+	Motherboard string
+	MACs        []string
+	RAM         []HardwareRAM
+	CPU         []HardwareCPU
+	Drives      []HardwareDrive
+}
 
 type HardwareRAM struct {
 	Slot          string
@@ -32,9 +43,4 @@ type HardwareDrive struct {
 	SerialNumber string
 	Interface    string
 	CapacityGB   uint32
-}
-
-type HardwareGpu struct {
-	Count  uint32
-	Models []string
 }
