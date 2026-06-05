@@ -4,7 +4,4 @@ use (
 	./pkg
 	./services/analytics
 	./services/audit
-	./services/healing
-	./services/hosts
-	./services/ops
 )
