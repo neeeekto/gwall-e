@@ -92,7 +92,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Раскладка базы знаний и точки входа | 2/2 | Complete   | 2026-06-17 |
+| 1. Раскладка базы знаний и точки входа | 2/2 | Complete    | 2026-06-17 |
 | 2. Стабильные доки-основы | 0/TBD | Not started | - |
 | 3. Доки конвенций и архитектуры | 0/TBD | Not started | - |
 | 4. Enforcement-слой (тулинг) | 0/TBD | Not started | - |
