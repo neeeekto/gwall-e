@@ -4,4 +4,5 @@ use (
 	./pkg
 	./services/analytics
 	./services/audit
+	./services/inventory
 )
