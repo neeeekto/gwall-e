@@ -33,7 +33,7 @@
 ### Enforcement-тулинг (ENF)
 
 - [x] **ENF-01**: `.golangci.yml` (golangci-lint v2; gofumpt как форматтер; gci для порядка импортов), консистентный с workspace
-- [ ] **ENF-02**: `lefthook.yml` — хуки: pre-commit (lint + format), pre-push (тесты), commit-msg (commitlint)
+- [x] **ENF-02**: `lefthook.yml` — хуки: pre-commit (lint + format), pre-push (тесты), commit-msg (commitlint)
 - [ ] **ENF-03**: Конфиг commitlint (Conventional Commits), подключённый к commit-msg хуку
 - [x] **ENF-04**: Скелет `buf.yaml` + `buf.gen.yaml` для proto (lint / breaking / codegen)
 - [ ] **ENF-05**: Каждое механизируемое правило в `knowledge/*.md` помечено статусом enforcement (CI-gated / hook / convention-only)
@@ -80,7 +80,7 @@ Acknowledged, но вне текущего milestone.
 | DOC-05 | Phase 3 | Complete |
 | PAT-01 | Phase 3 | Complete |
 | ENF-01 | Phase 4 | Complete |
-| ENF-02 | Phase 4 | Pending |
+| ENF-02 | Phase 4 | Complete |
 | ENF-03 | Phase 4 | Config delivered (04-02); commit-msg wiring 04-03 |
 | ENF-04 | Phase 4 | Complete |
 | ENF-05 | Phase 4 | Pending |

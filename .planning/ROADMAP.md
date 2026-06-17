@@ -114,7 +114,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Существует скелет `buf.yaml` + `buf.gen.yaml` для proto (lint / breaking / codegen)
   5. Каждое механизируемое правило в `knowledge/*.md` помечено статусом enforcement (CI-gated / hook / convention-only)
 
-**Plans:** 2/4 plans executed
+**Plans:** 3/4 plans executed
 
 **Wave 1**
 
@@ -123,7 +123,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 04-03-PLAN.md — `lefthook.yml` (pre-commit lint+format, pre-push in-ws тесты, commit-msg commitlint) [ENF-02]
+- [x] 04-03-PLAN.md — `lefthook.yml` (pre-commit lint+format, pre-push in-ws тесты, commit-msg commitlint) [ENF-02]
 
 **Wave 3** *(blocked on Waves 1–2 completion)*
 
@@ -139,4 +139,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Раскладка базы знаний и точки входа | 2/2 | Complete    | 2026-06-17 |
 | 2. Стабильные доки-основы | 3/3 | Complete   | 2026-06-17 |
 | 3. Доки конвенций и архитектуры | 5/5 | Complete    | 2026-06-17 |
-| 4. Enforcement-слой (тулинг) | 1/4 | In Progress|  |
+| 4. Enforcement-слой (тулинг) | 3/4 | In Progress|  |

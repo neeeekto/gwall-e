@@ -4,14 +4,14 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-06-17T15:18:00.000Z"
+last_updated: "2026-06-17T15:30:40.845Z"
 last_activity: 2026-06-17 -- Completed Phase 4 Plan 02 (commitlint + buf skeleton)
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 14
-  completed_plans: 12
-  percent: 79
+  completed_plans: 13
+  percent: 75
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-06-17)
 ## Current Position
 
 Phase: 4 (enforcement) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-06-17 -- Completed Phase 4 Plan 02 (commitlint + buf skeleton)
 
@@ -65,6 +65,7 @@ Progress: [█████░░░░░] 50%
 | Phase 03 P05 | 2min | 3 tasks | 3 files |
 | Phase 04 P01 | 3min | 2 tasks | 2 files |
 | Phase 04 P02 | 4min | 3 tasks | 5 files |
+| Phase 04 P03 | ~6min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -88,6 +89,7 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 03 P05]: финальная волна интеграции — 4 дока Phase 3 вписаны в README-индекс, boundaries-карту владения и AGENTS-таблицу статусов; стале-статусы «запланировано (Phase 2/3)» сняты (no-phantom, WARNING-1); glossary.md честно оставлен без ссылки «отложено (domain-milestone)»; link integrity по всем knowledge/*.md зелёная
 - [Phase ?]: [Phase 04 P01]: .golangci.yml v2 (linters.default standard + errorlint + depguard) — biting no-cqrs-bus ban on pkg/mediatr, dormant domain-imports-inward-only layer rule (D-05), gofumpt+gci embedded in formatters (D-02); Makefile pins golangci v2.12.2/lefthook v2.1.9/buf v1.71.0 (D-11, root go.mod untouched). config verify not run (tool absent) — structural YAML validation only (no-phantom)
 - [Phase ?]: [Phase 04 P02]: commitlint config (ENF-03) — private package.json exact-pinning @commitlint/cli + @commitlint/config-conventional 21.0.2 (the single Node devDep, D-04), commitlint.config.mjs (.mjs forces ESM under Node 22) extends config-conventional; round-trip verified (rejects bad, accepts docs(04):/feat(04): GSD style). buf v2 SKELETON (ENF-04, D-10) — buf.yaml lint+breaking + buf.gen.yaml pinned plugins protocolbuffers/go v1.36.5 + grpc/go v1.5.1, marked not-hooked / codegen-activates-when-proto-land (no-phantom); buf absent → structural validation only, no buf build claimed. Legitimacy gate (T-4-SC) auto-approved on live npm evidence (latest 21.0.2, real repo, no postinstall, not deprecated)
+- [Phase ?]: 04-03: lefthook.yml wires pre-commit (golangci-lint per-module + GOWORK=off inventory), pre-push (in-workspace tests only, inventory excluded D-03), commit-msg (npx --no-install commitlint); buf in no hook (D-10)
 
 ### Pending Todos
 
@@ -107,6 +109,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-06-17T15:18:00.000Z
+Last session: 2026-06-17T15:30:32.773Z
 Stopped at: Completed 04-02-PLAN.md
 Resume file: None
