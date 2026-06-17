@@ -1,0 +1,15 @@
+# Source: buf.build/docs/configuration/v2/buf-yaml — CITED
+#
+# SKELETON (D-10, no-phantom): NO .proto files exist yet. This is an honest seed,
+# NOT working linting. buf is wired into NO lefthook hook this phase. The lint/breaking
+# rules below ACTIVATE WHEN real .proto schemas are added under the `proto` module path.
+# Until then `buf build` succeeds on an empty module (empty output, not an error).
+version: v2
+modules:
+  - path: proto            # future proto root — no files yet (skeleton)
+lint:
+  use:
+    - STANDARD
+breaking:
+  use:
+    - FILE

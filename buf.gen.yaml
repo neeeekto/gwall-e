@@ -1,0 +1,18 @@
+# Source: buf.build/docs/configuration/v2/buf-gen-yaml — CITED
+#
+# SKELETON (D-10, no-phantom): pins codegen plugin versions but is INERT — there are NO
+# .proto files yet, so `buf generate` produces nothing. This is NOT working codegen. Proto
+# codegen ACTIVATES WHEN .proto schemas are ADDED. Plugin versions are exact-pinned
+# (supply-chain hardening) to match the protobuf runtime in the root go.mod (v1.36.5).
+# Not wired into any hook this phase.
+version: v2
+plugins:
+  - remote: buf.build/protocolbuffers/go:v1.36.5   # protoc-gen-go (exact pin)
+    out: gen/go
+    opt:
+      - paths=source_relative
+  - remote: buf.build/grpc/go:v1.5.1               # protoc-gen-go-grpc (exact pin)
+    out: gen/go
+    opt:
+      - paths=source_relative
+  # Optional (STACK.md): protovalidate plugin — add only when validation schemas exist.
