@@ -14,7 +14,7 @@
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Раскладка базы знаний и точки входа** - `knowledge/` + тонкий `CLAUDE.md`/`AGENTS.md` + authoring-стандарт (completed 2026-06-17)
-- [ ] **Phase 2: Стабильные доки-основы** - структура, сборка, git, границы (глоссарий отложен в domain-milestone)
+- [x] **Phase 2: Стабильные доки-основы** - структура, сборка, git, границы (глоссарий отложен в domain-milestone) (completed 2026-06-17)
 - [ ] **Phase 3: Доки конвенций и архитектуры** - стиль/язык, тесты, DDD+гексагон (без CQRS), паттерны
 - [ ] **Phase 4: Enforcement-слой (тулинг)** - golangci-lint v2, lefthook, commitlint, buf + статус enforcement
 
@@ -56,7 +56,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. `knowledge/git.md` фиксирует git-конвенции: ветки, Conventional Commits, нормы PR, когда коммитить
   4. `knowledge/boundaries.md` содержит правила «do-not»: не чинить/не расширять WIP-леса; стале `README`/`Makefile`/`docker-compose.yml` не авторитетны; не документировать несуществующие фичи
 
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 
 **Wave 1**
 
@@ -68,7 +68,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 3** *(blocked on Wave 1+2 completion)*
 
-- [ ] 02-03-PLAN.md — `boundaries.md` (do-not правила + карта владения фактами) + обратная ссылка structure.md + индекс
+- [x] 02-03-PLAN.md — `boundaries.md` (do-not правила + карта владения фактами) + обратная ссылка structure.md + индекс
 
 ### Phase 3: Доки конвенций и архитектуры
 
@@ -107,6 +107,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Раскладка базы знаний и точки входа | 2/2 | Complete    | 2026-06-17 |
-| 2. Стабильные доки-основы | 2/3 | In Progress|  |
+| 2. Стабильные доки-основы | 3/3 | Complete   | 2026-06-17 |
 | 3. Доки конвенций и архитектуры | 0/TBD | Not started | - |
 | 4. Enforcement-слой (тулинг) | 0/TBD | Not started | - |
