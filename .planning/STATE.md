@@ -1,34 +1,33 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: Awaiting next milestone
-stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-06-17T18:03:11.534Z"
-last_activity: 2026-06-17 — Milestone v1.0 completed and archived
+milestone: v2.0
+milestone_name: L2-видение платформы
+status: planning
+last_updated: "2026-06-17T21:36:08.035Z"
+last_activity: 2026-06-17
 progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 14
-  completed_plans: 14
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-06-17)
+See: .planning/PROJECT.md (updated 2026-06-18)
 
-**Core value:** Безопасное и согласованное управление парком серверов как услугой; этот milestone закладывает фундамент конвенций для ИИ/команды.
-**Current focus:** Phase 4 — enforcement
+**Core value:** Безопасное и согласованное управление парком серверов как услугой.
+**Current focus:** v2.0 — L2-видение платформы (карта доменов зафиксирована; см. [L2-ARCHITECTURE.md](L2-ARCHITECTURE.md))
 
 ## Current Position
 
-Phase: Milestone v1.0 complete
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-06-17 — Milestone v1.0 completed and archived
+Status: Defining requirements
+Last activity: 2026-06-17 — Milestone v2.0 started
 
 ## Performance Metrics
 

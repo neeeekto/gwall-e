@@ -4,7 +4,7 @@
 
 gwall-e — платформа **Hardware-as-a-Service** для дата-центров. Она даёт овнерам, SRE и ITDC единый инструмент, чтобы инвентаризировать хосты и VM, видеть их состояние, выписывать SSH-права, выполнять действия над хостами (в т.ч. массовые) и автоматически их чинить — при этом сохраняя согласованность: никто не может «забрать» чужой хост в обход правил.
 
-Технически это набор Go-микросервисов (бэкенд, DDD/гексагональная архитектура) и React/Nx фронтенд.
+Технически это набор Go-микросервисов (бэкенд, DDD/гексагональная архитектура) и React/Nx фронтенд. По характеру gwall-e — **большой оркестратор над внешними системами**: «тяжёлые» операции (профилировка, наливка, сетевые изменения) выполняют внешние провайдеры, а gwall-e дирижирует, держит единый источник истины и обеспечивает согласованность с владельцами нагрузки.
 
 ## Core Value
 
@@ -26,24 +26,42 @@ gwall-e — платформа **Hardware-as-a-Service** для дата-цен�
 
 > **Известный gap (v1.0):** DOC-02 — `build.md` audit-рецепт `cd services/audit && go build ./...` падает (exit 1); рабочие формы — `go build ./cmd` / `go vet ./...`. Принят как tech debt, см. MILESTONES.md и STATE.md Deferred Items.
 
+## Current Milestone: v2.0 — L2-видение платформы
+
+**Goal:** зафиксировать верхнеуровневую (L2) карту доменов платформы и направление движения —
+«куда движемся и как что будем делать» — БЕЗ скоупа конкретной реализации. Первый buildable-эпик
+(Inventory) режется в требования/фазы следующим `/gsd-new-milestone`.
+
+**Что даёт milestone:** L2-карта доменов (12 бизнес-доменов + 3 платформенных + отложенный
+Host Agent), кросс-доменный принцип сущностей, гибридная модель синхронизации (choreography +
+orchestration на Kafka), Coordination-контракт согласования с Owner CMS, ключевые архитектурные
+решения. Полная карта — в **[L2-ARCHITECTURE.md](L2-ARCHITECTURE.md)**.
+
 ### Active
 
-<!-- Видение платформы. Это гипотезы до тех пор, пока не отгружены и не подтверждены. -->
+<!-- Видение платформы (L2). Каждый домен → отдельный будущий milestone. Гипотезы до отгрузки. -->
 
-**Следующий milestone (кандидаты):**
+**Tech debt из v1.0 (внести в первый buildable-эпик):**
 
-- [ ] DOC-07: `knowledge/glossary.md` — ubiquitous language доменных терминов (отложено из v1, активируется в domain-milestone когда проектируется доменная модель)
-- [ ] Починить DOC-02 build-рецепт + закрыть Nyquist sign-off и live-firing UAT (tech debt из v1.0)
+- [ ] DOC-07: `knowledge/glossary.md` — ubiquitous language доменных терминов (активируется при проектировании доменной модели)
+- [ ] Починить DOC-02 build-рецепт + закрыть Nyquist sign-off и live-firing UAT
 
-**Видение платформы (будущие эпики/milestone'ы):**
+**L2-домены платформы (each = сервис = будущий эпик/milestone):**
 
-- [ ] Инвентаризация хостов в ДЦ и VM (единый источник правды)
-- [ ] Выдача и управление SSH-правами на доступ к хостам
-- [ ] Выполнение действий над хостами (ребут, переналивка и т.п.)
-- [ ] Массовые работы над группами хостов
-- [ ] Автопочинка хостов
-- [ ] Мониторинг состояния хостов (здоровье, проверки, CPU и т.д.)
-- [ ] Согласованность работ/действий между овнерами и SRE/ITDC (никто не может забрать хосты просто так)
+- [ ] **Inventory** — идентичность/ЖЦ Project/Host/VM, железо, локация, ссылка на owner; solo/sync-инвентарь *(фундамент, первый эпик)*
+- [ ] **Network** — свитчи, VLAN, IPAM, сетевые шаблоны, смена VLAN
+- [ ] **Health / Monitoring** — runtime, health-checks, config-compliance
+- [ ] **Access** — вся авторизация: owner-роли, права/роли, временные гранты, IDM-sync, SSH-гранты
+- [ ] **Coordination** ⭐ — approve-before-start с Owner CMS, CMS-конфиг, локи, предохранители/лимиты
+- [ ] **Actions** — единичные операции (reboot/reimage/profile), каталог наливок
+- [ ] **Scenarios** — кампании плановых массовых работ (окна, drain, shutdown на учения, move owner)
+- [ ] **Remediation** — авто-починка по правилам SRE (Automation Plot), self-healing
+- [ ] **Audit** — лог всех действий в системе
+- [ ] **Analytics** — аналитика парка
+- [ ] **Orchestrator** — кросс-доменные lifecycle-саги (provision, decommission с вето)
+- [ ] **Integrations** — адаптеры к внешним провайдерам операций (gwall-e оркестрирует, исполняют они)
+- [ ] **Платформенные:** API Gateway/BFF · Search (OpenSearch) · Notifications
+- [ ] **Host Agent** *(отложен)* — агент на хосте: сбор данных + исполнение + раздача SSH; домен vs часть Health решаем позже
 
 ### Out of Scope
 
@@ -89,6 +107,19 @@ gwall-e — платформа **Hardware-as-a-Service** для дата-цен�
 | Фундамент проектируется заново (снесён `internal/` inventory, `pkg/mediatr`, `tx.go`) | Старый код — леса; архитектура переосмыслена без CQRS/TxManager | ✓ Good — MUST NOT возрождать CQRS зафиксирован + depguard ban на `pkg/mediatr` (v1.0) |
 | Enforcement: golangci-lint v2 + lefthook + commitlint + buf, версии пиннятся в `Makefile` | Механизировать правила; локальная проводка хуков до полного CI | ⚠️ Revisit — live firing требует bootstrap (`make tools`+`lefthook install`); CI ещё нет |
 | DOC-07 (glossary) отложен из v1 в domain-milestone | Доменная модель ещё не спроектирована; риск расхождения | — Pending — активируется в domain-milestone |
+| **v2.0 milestone — только L2-видение** (карта доменов + направление), без кода | Большой проект; нужно понять «куда движемся» до нарезки реализации | — Pending — эпики режутся следующими milestone'ами |
+| **Сервис = домен** (DDD bounded context); 12 бизнес + 3 платформенных + Host Agent | Изоляция, автономия, дружелюбно к команде/ИИ | — Pending (L2) — см. [L2-ARCHITECTURE.md](L2-ARCHITECTURE.md) |
+| **Кросс-доменный принцип:** общий ID, у каждого домена свой агрегат; single identity owner = Inventory | Одна сущность для пользователя ≠ одна модель; нет общей таблицы между сервисами | — Pending (L2) |
+| **Sync: choreography (события) для идентичности + orchestration-саги для длинных процессов**; proactive backfill во все домены | Разделить «факт сущности» и «бизнес-процесс»; автономия BC; ресёрч-обоснование | — Pending (L2) |
+| **Kafka как event-backbone** (outbox→relay→Kafka compacted by entityID) | Фан-аут 1→N доменов + replay/backfill для онбординга нового сервиса; outbox v1.0 не меняется | — Pending (L2) |
+| **Coordination-контракт:** approve-before-start, gwall-e не действует без approve Owner CMS (async, ~1ч) | Прямая реализация core value «согласованность»; никто не забирает хост в обход | — Pending (L2) |
+| **Owner в двух слоях:** Inventory (`Project.owner` = подразделение, из внешней инвентори) vs Access (owner-роль = полные права) | Бизнес-владелец ≠ набор людей с доступом; кросс-доменный принцип | — Pending (L2) |
+| **Access — единый домен авторизации** (owner-роли, права, SSH-гранты, IDM-sync, права в gwall-e); отдельного RBAC нет | Вся авторизация в одном месте | — Pending (L2) |
+| **Decommission — гарантированная saga с вето** (домены валидируют удаление) через Orchestrator | Нельзя удалить Project с хостами и т.п.; согласованный каскадный снос | — Pending (L2) |
+| **Orchestrator / Coordination / Scenarios — три разных сервиса** | Lifecycle-саги ≠ approve-gate ≠ кампании массовых работ | — Pending (L2) |
+| **Integrations — провайдеры операций** (profile/reimage/network/reboot); CMS→Coordination, IDM→Access, ext-inv→Inventory | gwall-e оркестрирует, исполняют внешние провайдеры | — Pending (L2) |
+| **VM — только инвентаризация** (создаёт внешняя система); действий над VM нет | Скоуп: мы инвентори-система для VM | — Pending (L2) |
+| **Search — поверх OpenSearch**, event-fed, много индексов, для людей и машин | Единый поиск/выгрузка по всему парку как consumer событий | — Pending (L2) |
 
 ## Evolution
 
@@ -108,4 +139,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-17 after v1.0 milestone — Фундамент (knowledge base + enforcement). 4 фазы / 14 планов / 17 v1-требований ✓ (DOC-07 отложен в domain-milestone). База знаний `knowledge/` (10 доков), тонкие точки входа (`AGENTS.md`/`CLAUDE.md`), enforcement-тулинг (golangci-lint v2 / lefthook / commitlint / buf-скелет). Известный gap: DOC-02 (build.md audit-рецепт). Дальше — `/gsd-new-milestone`.*
+*Last updated: 2026-06-18 — старт milestone v2.0 (L2-видение платформы). Зафиксирована L2-карта: 12 бизнес-доменов (Inventory, Network, Health, Access, Coordination, Actions, Scenarios, Remediation, Audit, Analytics, Orchestrator, Integrations) + 3 платформенных (Gateway/Search/Notifications) + отложенный Host Agent; кросс-доменный принцип сущностей; гибридная синхронизация (choreography + orchestration на Kafka); Coordination-контракт. Полная карта — [L2-ARCHITECTURE.md](L2-ARCHITECTURE.md). Дальше — `/gsd-new-milestone` для нарезки первого эпика (Inventory) в требования/фазы.*
