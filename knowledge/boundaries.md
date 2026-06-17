@@ -68,6 +68,15 @@
 | Конвенции тестов: Ginkgo v2 + Gomega, спек-структура, мокинг портов | [testing.md](testing.md) | существует |
 | Слои/направление импортов, Execute, query-lite, UnitOfWork, outbox+relay, PullEvents, MUST NOT CQRS | [architecture.md](architecture.md) | существует |
 | Пошаговые рецепты add use case / query / aggregate / repository | [patterns.md](patterns.md) | существует |
+| Таксономия статусов enforcement (`hook` / `convention-only` / `CI-gated`-reserved) | [authoring.md](authoring.md) | существует |
+| Bootstrap тулинга (`make tools` / `npm install` / `lefthook install`), исключение `inventory` из pre-push | [build.md](build.md) | существует |
+
+> Enforcement-конфиги живут в **корне репо** (не в `knowledge/`), но факты о них
+> канонизированы выше: `.golangci.yml` (lint+format), `lefthook.yml` (git-хуки),
+> `package.json` + `commitlint.config.mjs` (commit-msg), `Makefile` (пиннинг версий) —
+> **существуют** после Phase 4. Скелет buf (`buf.yaml` / `buf.gen.yaml`) **существует как
+> заготовка**, но рабочего proto-codegen **нет** (нет `.proto`; не включён ни в один хук) —
+> описывать его как «работающий» **WON'T** (no-phantom).
 
 - **MUST** искать факт в его каноне по этой карте и **MUST** ссылаться на него
   относительной markdown-ссылкой. Копировать тот же факт в другой док — **WON'T**, потому

@@ -17,6 +17,10 @@
 - Точки входа [AGENTS.md](../AGENTS.md) и [CLAUDE.md](../CLAUDE.md) лежат в **корне репо**
   (не в `knowledge/`) и служат тонкими указателями на эту базу: `AGENTS.md` — источник
   истины, `CLAUDE.md` — тонкий указатель на него.
+- Enforcement-конфиги (`.golangci.yml`, `lefthook.yml`, `package.json`,
+  `commitlint.config.mjs`, `Makefile`; скелет `buf.yaml`/`buf.gen.yaml`) лежат в **корне
+  репо**. База знаний канонизирует **факты** о них: легенду статусов — [authoring.md](authoring.md),
+  bootstrap и команды — [build.md](build.md), карту владения — [boundaries.md](boundaries.md).
 
 ## Индекс
 

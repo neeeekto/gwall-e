@@ -13,6 +13,41 @@
   перечисляет [structure.md](structure.md) — здесь список не дублируется (**WON'T**,
   чтобы не плодить копии; вместо этого — ссылка на канон).
 
+## Bootstrap тулинга (разово на клон)
+
+Enforcement-тулинг (lint/format/git-хуки/commit-msg) ставится **один раз на клон**. Три
+шага по порядку:
+
+- **MUST** ставить Go-инструменты через `make tools` — он ставит golangci-lint, lefthook и
+  buf пиннутыми версиями. Версии — канон в корневом [`Makefile`](../Makefile)
+  (`*_VERSION`-переменные); здесь номера не дублируются (**WON'T** — копии расходятся;
+  вместо этого — ссылка). `gofumpt` отдельно **WON'T** ставить: он работает встроенно
+  внутри golangci-lint v2 `formatters`.
+
+  `make tools`
+
+- **MUST** ставить commitlint через `npm install` — это **единственная** Node-зависимость
+  (private `package.json`, exact-pin; канон по самому набору — `package.json` в корне).
+  Расширять Node-тулинг сверх commitlint — **WON'T**; вместо этого держать его
+  изолированным в dev-зависимостях.
+
+  `npm install`
+
+- **MUST** активировать git-хуки через `lefthook install` — он прописывает хуки из
+  корневого [`lefthook.yml`](../lefthook.yml) в `.git/hooks/` текущего клона (локальное
+  состояние, не коммитится). До этого шага хуки **не** срабатывают.
+
+  `lefthook install`
+
+После bootstrap'а хуки бьют на реальных git-событиях: `pre-commit` — lint+format,
+`pre-push` — тесты in-workspace модулей, `commit-msg` — commitlint (Conventional Commits).
+В `pre-push` модуль `inventory` **исключён намеренно** (WIP вне `go.work`, см. раздел
+inventory ниже и `boundaries.md`) — это осознанное исключение, **не** пропуск.
+
+> proto-тулинг (buf) поставится `make tools`'ом, но в git-хуки **не** включён: `.proto` в
+> репозитории ещё нет, codegen — заготовка. Выдавать buf-codegen за «работающий» — **WON'T**
+> (no-phantom); он активируется, когда появятся схемы.
+
 ## Тесты общих пакетов (`pkg`)
 
 **MUST** прогонять тесты общей библиотеки из её модуля:
