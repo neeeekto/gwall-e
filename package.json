@@ -1,0 +1,9 @@
+{
+  "name": "gwall-e-tooling",
+  "private": true,
+  "description": "Dev-only tooling (commitlint). Not a Node app — single isolated Node dependency.",
+  "devDependencies": {
+    "@commitlint/cli": "21.0.2",
+    "@commitlint/config-conventional": "21.0.2"
+  }
+}
