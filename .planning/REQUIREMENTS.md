@@ -16,8 +16,8 @@
 
 ### Доки конвенций (DOC)
 
-- [ ] **DOC-01**: `knowledge/structure.md` — раскладка `go.work`, какие модули в/вне workspace, статус `inventory` как WIP (на уровне возможностей, без хрупкой карты путей)
-- [ ] **DOC-02**: `knowledge/build.md` — команды сборки/запуска/тестов, включая `GOWORK=off` для `inventory`, `cd pkg && go test`, фронтенд `npx nx`
+- [x] **DOC-01**: `knowledge/structure.md` — раскладка `go.work`, какие модули в/вне workspace, статус `inventory` как WIP (на уровне возможностей, без хрупкой карты путей)
+- [x] **DOC-02**: `knowledge/build.md` — команды сборки/запуска/тестов, включая `GOWORK=off` для `inventory`, `cd pkg && go test`, фронтенд `npx nx`
 - [ ] **DOC-03**: `knowledge/testing.md` — конвенции тестов: Ginkgo v2 + Gomega, комментарии в тестах на английском, структура спеков
 - [ ] **DOC-04**: `knowledge/style.md` — канонический MUST по языку (русские комментарии/доменная терминология; имена — английские); типизированные ID; sentinel vs обёрнутые ошибки; маппинг DTO→домен внутри хендлера
 - [ ] **DOC-05**: `knowledge/architecture.md` — DDD + гексагон (БЕЗ CQRS-шины): правила слоёв/импортов, usecases-interactor (`Execute`), query-lite (read-side в DTO), порт `UnitOfWork`, transactional outbox + relay, фабрики агрегатов и `PullEvents`; явный MUST NOT возрождать CQRS-диспетчер/`TxManager`
@@ -70,8 +70,8 @@ Acknowledged, но вне текущего milestone.
 | KB-02 | Phase 1 | Complete |
 | KB-03 | Phase 1 | Complete |
 | KB-04 | Phase 1 | Complete |
-| DOC-01 | Phase 2 | Pending |
-| DOC-02 | Phase 2 | Pending |
+| DOC-01 | Phase 2 | Complete |
+| DOC-02 | Phase 2 | Complete |
 | DOC-06 | Phase 2 | Pending |
 | DOC-08 | Phase 2 | Pending |
 | DOC-07 | — (v2/domain-milestone) | Deferred |
