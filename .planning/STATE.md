@@ -4,13 +4,13 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Phase 3 context gathered
-last_updated: "2026-06-17T13:53:42.110Z"
+last_updated: "2026-06-17T13:58:36.734Z"
 last_activity: 2026-06-17 -- Phase 03 execution started
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 10
-  completed_plans: 8
+  completed_plans: 9
   percent: 50
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-06-17)
 ## Current Position
 
 Phase: 03 (conventions-architecture-docs) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 Status: Ready to execute
 Last activity: 2026-06-17 -- Phase 03 execution started
 
@@ -60,6 +60,7 @@ Progress: [███░░░░░░░] 30%
 | Phase 03 P01 | 4min | 1 tasks | 1 files |
 | Phase 03 P02 | 2min | 1 tasks | 1 files |
 | Phase 03 P03 | ~4m | 1 tasks | 1 files |
+| Phase 03 P04 | 4min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,7 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 03 P01]: style.md — единственный канон языка кода (RU-комментарии/EN-имена/EN-тесты), typed IDs, sentinel-vs-wrapped errors (%w), DTO→домен в хендлере; формат правило+плохо/хорошо (D-08), forward-enforcement-метки (D-11), общий Go-стиль не дублируется (gofumpt Phase 4 + Effective Go, D-07), плейсхолдер Order зафиксирован для downstream (D-05)
 - [Phase ?]: 03-02: mockery закреплён как канонический генератор моков портов (testing.md); обвязка planned Phase 4
 - [Phase ?]: architecture.md держит инварианты/why; how-to рецепты — в patterns.md (D-04, pointer-over-copy)
+- [Phase ?]: [Phase 03 P04]: patterns.md — копируемые рецепты (PAT-01) вертикальным срезом до wiring; ссылается на architecture.md (правила) и style.md (язык/ошибки), не дублирует (D-04 pointer-over-copy); иллюстративные помеченные сниппеты на плейсхолдере Order (D-01/D-05)
 
 ### Pending Todos
 
@@ -98,6 +100,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-06-17T13:53:20.512Z
+Last session: 2026-06-17T13:58:28.050Z
 Stopped at: Phase 3 context gathered
 Resume file: .planning/phases/03-conventions-architecture-docs/03-CONTEXT.md

@@ -28,7 +28,7 @@
 
 ### Pattern catalog (PAT)
 
-- [ ] **PAT-01**: `knowledge/patterns.md` — рецепты «как добавить use case / query / aggregate / repository» как копируемые пошаговые процедуры, согласованные с `architecture.md`
+- [x] **PAT-01**: `knowledge/patterns.md` — рецепты «как добавить use case / query / aggregate / repository» как копируемые пошаговые процедуры, согласованные с `architecture.md`
 
 ### Enforcement-тулинг (ENF)
 
@@ -78,7 +78,7 @@ Acknowledged, но вне текущего milestone.
 | DOC-04 | Phase 3 | Complete |
 | DOC-03 | Phase 3 | Complete |
 | DOC-05 | Phase 3 | Complete |
-| PAT-01 | Phase 3 | Pending |
+| PAT-01 | Phase 3 | Complete |
 | ENF-01 | Phase 4 | Pending |
 | ENF-02 | Phase 4 | Pending |
 | ENF-03 | Phase 4 | Pending |

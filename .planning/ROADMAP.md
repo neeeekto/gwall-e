@@ -82,7 +82,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. `knowledge/architecture.md` существует и явно заявляет DDD + гексагон БЕЗ CQRS-шины: правила слоёв/импортов, usecases-interactor (`Execute`), query-lite (read-side в DTO), порт `UnitOfWork`, transactional outbox + relay, фабрики агрегатов и `PullEvents`; содержит явный MUST NOT возрождать CQRS-диспетчер/`TxManager`
   4. `knowledge/patterns.md` даёт копируемые пошаговые рецепты «как добавить use case / query / aggregate / repository», согласованные с `architecture.md`
 
-**Plans:** 3/5 plans executed
+**Plans:** 4/5 plans executed
 
 **Wave 1**
 
@@ -95,7 +95,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 03-04-PLAN.md — `patterns.md` (4 рецепта вертикальным срезом, ссылки на architecture.md) [PAT-01]
+- [x] 03-04-PLAN.md — `patterns.md` (4 рецепта вертикальным срезом, ссылки на architecture.md) [PAT-01]
 
 **Wave 4** *(blocked on Waves 1–3 completion)*
 
@@ -125,5 +125,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Раскладка базы знаний и точки входа | 2/2 | Complete    | 2026-06-17 |
 | 2. Стабильные доки-основы | 3/3 | Complete   | 2026-06-17 |
-| 3. Доки конвенций и архитектуры | 3/5 | In Progress|  |
+| 3. Доки конвенций и архитектуры | 4/5 | In Progress|  |
 | 4. Enforcement-слой (тулинг) | 0/TBD | Not started | - |
