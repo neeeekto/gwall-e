@@ -33,8 +33,9 @@ SRE/ITDC.
 |-----|-------|--------|
 | [knowledge/README.md](knowledge/README.md) | Индекс базы знаний: карта и порядок чтения | есть |
 | [knowledge/authoring.md](knowledge/authoring.md) | Стандарт авторинга: как писать правила | есть |
-| `glossary.md`, `structure.md`, `build.md`, `git.md`, `boundaries.md` | Домен, раскладка, сборка, git, границы | запланировано (Phase 2) |
-| `style.md`, `testing.md`, `architecture.md`, `patterns.md` | Стиль кода, тесты, архитектура, рецепты слоёв | запланировано (Phase 3) |
+| [knowledge/structure.md](knowledge/structure.md), [knowledge/build.md](knowledge/build.md), [knowledge/git.md](knowledge/git.md), [knowledge/boundaries.md](knowledge/boundaries.md) | Раскладка, сборка, git, границы | есть |
+| `glossary.md` | Домен: ubiquitous language (EN/RU) | отложено (domain-milestone) |
+| [knowledge/style.md](knowledge/style.md), [knowledge/testing.md](knowledge/testing.md), [knowledge/architecture.md](knowledge/architecture.md), [knowledge/patterns.md](knowledge/patterns.md) | Стиль кода, тесты, архитектура, рецепты слоёв | есть |
 
 Ссылки даны только на существующие файлы. Будущие доки перечислены **без ссылок** со статусом
 «запланировано» — ссылка появится вместе с самим файлом.
@@ -50,5 +51,5 @@ SRE/ITDC.
 - **WON'T** «чинить» WIP-леса в `services/inventory` — это незавершённая работа, а не баг;
   если что-то не собирается, сначала свериться с правилами, а не патчить наугад.
 - **WON'T** доверять корневым `README.md`, `Makefile`, `docker-compose.yml` — они устаревшие
-  и неавторитетны; источник истины — этот файл и `knowledge/`. Полное правило придёт в
-  `knowledge/boundaries.md` (Phase 2).
+  и неавторитетны; источник истины — этот файл и `knowledge/`. Полное правило — в
+  [knowledge/boundaries.md](knowledge/boundaries.md).
