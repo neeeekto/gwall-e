@@ -35,7 +35,7 @@
 - [x] **ENF-01**: `.golangci.yml` (golangci-lint v2; gofumpt как форматтер; gci для порядка импортов), консистентный с workspace
 - [ ] **ENF-02**: `lefthook.yml` — хуки: pre-commit (lint + format), pre-push (тесты), commit-msg (commitlint)
 - [ ] **ENF-03**: Конфиг commitlint (Conventional Commits), подключённый к commit-msg хуку
-- [ ] **ENF-04**: Скелет `buf.yaml` + `buf.gen.yaml` для proto (lint / breaking / codegen)
+- [x] **ENF-04**: Скелет `buf.yaml` + `buf.gen.yaml` для proto (lint / breaking / codegen)
 - [ ] **ENF-05**: Каждое механизируемое правило в `knowledge/*.md` помечено статусом enforcement (CI-gated / hook / convention-only)
 
 ## v2 Requirements
@@ -81,8 +81,8 @@ Acknowledged, но вне текущего milestone.
 | PAT-01 | Phase 3 | Complete |
 | ENF-01 | Phase 4 | Complete |
 | ENF-02 | Phase 4 | Pending |
-| ENF-03 | Phase 4 | Pending |
-| ENF-04 | Phase 4 | Pending |
+| ENF-03 | Phase 4 | Config delivered (04-02); commit-msg wiring 04-03 |
+| ENF-04 | Phase 4 | Complete |
 | ENF-05 | Phase 4 | Pending |
 
 **Coverage:**
