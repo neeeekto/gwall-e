@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Раскладка базы знаний и точки входа** - `knowledge/` + тонкий `CLAUDE.md`/`AGENTS.md` + authoring-стандарт (completed 2026-06-17)
 - [x] **Phase 2: Стабильные доки-основы** - структура, сборка, git, границы (глоссарий отложен в domain-milestone) (completed 2026-06-17)
 - [x] **Phase 3: Доки конвенций и архитектуры** - стиль/язык, тесты, DDD+гексагон (без CQRS), паттерны (completed 2026-06-17)
-- [ ] **Phase 4: Enforcement-слой (тулинг)** - golangci-lint v2, lefthook, commitlint, buf + статус enforcement
+- [x] **Phase 4: Enforcement-слой (тулинг)** - golangci-lint v2, lefthook, commitlint, buf + статус enforcement (completed 2026-06-17)
 
 ## Phase Details
 
@@ -114,7 +114,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Существует скелет `buf.yaml` + `buf.gen.yaml` для proto (lint / breaking / codegen)
   5. Каждое механизируемое правило в `knowledge/*.md` помечено статусом enforcement (CI-gated / hook / convention-only)
 
-**Plans:** 3/4 plans executed
+**Plans:** 4/4 plans complete
 
 **Wave 1**
 
@@ -127,7 +127,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 3** *(blocked on Waves 1–2 completion)*
 
-- [ ] 04-04-PLAN.md — ENF-05 flip forward-меток + канон-легенда `authoring.md` + bootstrap `build.md` + ownership-map `boundaries.md` [ENF-05]
+- [x] 04-04-PLAN.md — ENF-05 flip forward-меток + канон-легенда `authoring.md` + bootstrap `build.md` + ownership-map `boundaries.md` [ENF-05]
 
 ## Progress
 
@@ -139,4 +139,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Раскладка базы знаний и точки входа | 2/2 | Complete    | 2026-06-17 |
 | 2. Стабильные доки-основы | 3/3 | Complete   | 2026-06-17 |
 | 3. Доки конвенций и архитектуры | 5/5 | Complete    | 2026-06-17 |
-| 4. Enforcement-слой (тулинг) | 3/4 | In Progress|  |
+| 4. Enforcement-слой (тулинг) | 4/4 | Complete   | 2026-06-17 |
