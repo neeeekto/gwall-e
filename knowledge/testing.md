@@ -62,22 +62,39 @@ func TestIdmServicesSuite(t *testing.T) {
   стили и теряют Gomega-репорт; вместо этого — matcher-ассерт Gomega.
   ⟶ convention-only (review-enforced)
 
-Реальный пример спека (Source: `pkg/http/middlewares_test.go`, компилируется):
+Реальный пример спека (Source: `pkg/http/middlewares_test.go` — реальный, компилируется):
 
 ```go
 var _ = Describe("CircuitBreakerMiddleware", func() {
-	var middleware MiddlewareFunc
+	var (
+		middleware  MiddlewareFunc
+		nextHandler func(*http.Request) (*http.Response, error)
+		req         *http.Request
+	)
 
 	BeforeEach(func() {
-		middleware = CircuitBreakerMiddleware(CircuitBreakerConfig{MaxFailures: 1})
+		config := CircuitBreakerConfig{
+			MaxRequests: 1,
+			Interval:    1 * time.Second,
+			Timeout:     1 * time.Second,
+			MaxFailures: 1,
+		}
+		middleware = CircuitBreakerMiddleware(config)
+		req, _ = http.NewRequest("GET", "http://example.com", nil)
 	})
 
-	Context("when next handler returns a regular error", func() {
+	Context("when next handler returns regular error", func() {
+		BeforeEach(func() {
+			nextHandler = func(r *http.Request) (*http.Response, error) {
+				// next returns a transport error; middleware must propagate it
+				return nil, errors.New("connection error")
+			}
+		})
+
 		It("should return the error", func() {
-			// next returns a transport error; middleware must propagate it
-			resp, err := middleware(req, failingHandler)
+			resp, err := middleware(req, nextHandler)
 			Expect(resp).To(BeNil())
-			Expect(err).To(HaveOccurred())
+			Expect(err).To(MatchError("connection error"))
 		})
 	})
 })
