@@ -64,7 +64,10 @@
 | Команды сборки/запуска/тестов (вкл. `GOWORK=off`) | [build.md](build.md) | существует |
 | Git-конвенции: ветки, Conventional Commits, PR, когда коммитить | [git.md](git.md) | существует |
 | Стандарт авторинга (MUST/SHOULD/WON'T, парность, pointer-over-copy) | [authoring.md](authoring.md) | существует |
-| Язык кода/комментариев, типизированные ID, маппинг DTO→домен | `style.md` | запланировано (Phase 3) |
+| Язык кода/комментариев, типизированные ID, маппинг DTO→домен | [style.md](style.md) | существует |
+| Конвенции тестов: Ginkgo v2 + Gomega, спек-структура, мокинг портов | [testing.md](testing.md) | существует |
+| Слои/направление импортов, Execute, query-lite, UnitOfWork, outbox+relay, PullEvents, MUST NOT CQRS | [architecture.md](architecture.md) | существует |
+| Пошаговые рецепты add use case / query / aggregate / repository | [patterns.md](patterns.md) | существует |
 
 - **MUST** искать факт в его каноне по этой карте и **MUST** ссылаться на него
   относительной markdown-ссылкой. Копировать тот же факт в другой док — **WON'T**, потому
