@@ -23,11 +23,11 @@ CQRS-шины**. Здесь — инварианты и *почему* (прав
 - **MUST** держать направление импортов строго внутрь, на `domain`. `domain` импортирует
   что-либо наружу (use cases, инфраструктуру, транспорт) — **WON'T**, потому что это
   выворачивает гексагон и тянет инфраструктуру в ядро; вместо этого — `domain` объявляет
-  **порты** (интерфейсы), а реализации живут в адаптерах снаружи. ⟶ planned: CI-gated
-  Phase 4 (depguard)
+  **порты** (интерфейсы), а реализации живут в адаптерах снаружи.
+  ⟶ hook (lint: depguard, dormant) — становится CI-gated при появлении CI.
 - **MUST** объявлять в `domain` только агрегаты, value objects, доменные события и
   **порты**; конкретные реализации (Mongo, gRPC) — **WON'T** держать в домене; вместо
-  этого — в `repositories`/`api`. ⟶ planned: CI-gated Phase 4 (depguard)
+  этого — в `repositories`/`api`. ⟶ hook (lint: depguard, dormant)
 
 Направление зависимостей (стрелка = «может импортировать»):
 
@@ -52,9 +52,10 @@ CQRS-шины**. Здесь — инварианты и *почему* (прав
 | `app`          | Composition root: ручной DI, связывает порты с реализациями  | все слои       |
 | `cmd`          | `main`: точка входа, поднимает `app`                          | `app`          |
 
-> Корректность направления (`domain` не импортирует наружу) — Manual-Only ревью
-> ([03-VALIDATION.md](../.planning/phases/03-conventions-architecture-docs/03-VALIDATION.md),
-> D-06): обязательный гейт.
+> Корректность направления (`domain` не импортирует наружу) сегодня держится **ревью**:
+> depguard-правило написано вперёд, но **дремлет** (`hook (lint: depguard, dormant)`) —
+> его path-селектор `**/internal/domain/**` пока не матчит ни одного Go-файла (кода слоёв
+> ещё нет). Как только код слоёв появится, правило активируется автоматически.
 
 ## Write-side: use case через `Execute`
 
@@ -148,7 +149,7 @@ if err := outbox.Append(ctx, events); err != nil { // тот же ctx = та ж�
 - **WON'T** возрождать CQRS-диспетчер (`CommandDispatcher` / `QueryDispatcher`),
   `pkg/mediatr` или mediatr-подобную шину — это снятая сложность; вместо диспетчера —
   inbound-адаптер (`api`/`cron`) зовёт нужный use case **напрямую**.
-  ⟶ planned: CI-gated Phase 4 (depguard на запрет импорта снесённых пакетов)
+  ⟶ hook (lint: depguard, biting) — depguard `no-cqrs-bus` кусает сегодня на импорт `pkg/mediatr`.
 - **WON'T** возрождать `TxManager` / `tx.go` как обёртку транзакций — вместо менеджера
   транзакций — порт `UnitOfWork` в `domain` (см. выше).
-  ⟶ planned: CI-gated Phase 4 (depguard на запрет импорта снесённых пакетов)
+  ⟶ hook (lint: depguard, biting) — кусает на реинтродукции снесённого `tx`-диспетчера.

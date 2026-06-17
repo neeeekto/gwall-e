@@ -7,8 +7,8 @@
 а не копия.
 
 Все правила следуют стандарту [authoring.md](authoring.md) (MUST/SHOULD/WON'T, парность
-«запрет → do», pointer-over-copy). Механизируемые правила несут пред-пометку будущего
-enforcement-статуса (Phase 4 переключит её на фактическую — D-11, не ретрофит с нуля).
+«запрет → do», pointer-over-copy). Механизируемые правила несут фактический
+enforcement-статус (легенда — [authoring.md](authoring.md) §«Статус enforcement»).
 
 ## Каркас suite (MUST)
 
@@ -108,12 +108,14 @@ var _ = Describe("CircuitBreakerMiddleware", func() {
 - **SHOULD** мокать порты через **mockery** (`vektra/mockery`) и проверять результат
   use case через Gomega-ассерт. Писать fake-реализации портов вручную — **WON'T**,
   потому что ручной фейк дрейфует от интерфейса при его изменении; вместо этого —
-  генерируемый mockery-мок, синхронный с портом. ⟶ planned: Phase 4 (go:generate)
+  генерируемый mockery-мок, синхронный с портом. ⟶ convention-only (review-enforced) —
+  mockery-обвязка отложена.
 - **MUST** не выдавать mockery за «уже настроенный»: в репозитории его сейчас **нет**.
   Установка инструмента (`go install github.com/vektra/mockery/...`), `.mockery.yaml`
-  и `go:generate`-обвязка — **planned: Phase 4** (ENF-05). Показывать рабочую команду
-  генерации как проверенную — **WON'T** (no-phantom, [authoring.md](authoring.md));
-  вместо этого фиксируется только **выбор инструмента и конвенция** ниже.
+  и `go:generate`-обвязка — **отложены** (out of scope ENF-05; дозревают с восстановлением
+  кода слоёв). Показывать рабочую команду генерации как проверенную — **WON'T**
+  (no-phantom, [authoring.md](authoring.md)); вместо этого фиксируется только **выбор
+  инструмента и конвенция** ниже.
 
 Целевой вид (иллюстрация — **не** код из компилируемого файла; плейсхолдер `Order`,
 вне домена gwall-e). mockery v3 генерирует testify-style мок с expecter API
@@ -123,7 +125,7 @@ var _ = Describe("CircuitBreakerMiddleware", func() {
 qualified-импорт, не dot-import (в отличие от ginkgo/gomega):
 
 ```go
-// Иллюстрация / целевой вид (planned: Phase 4). НЕ из компилируемого файла.
+// Иллюстрация / целевой вид (mockery-обвязка отложена). НЕ из компилируемого файла.
 import "github.com/stretchr/testify/mock" // обычный импорт; ginkgo/gomega — dot-import
 
 var _ = Describe("RegisterOrderUseCase", func() {
