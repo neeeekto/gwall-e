@@ -29,10 +29,10 @@
 | [build.md](build.md) | Команды сборки/запуска/тестов (вкл. `GOWORK=off`) | Перед сборкой/прогоном тестов | существует |
 | [git.md](git.md) | Git-конвенции: ветки, Conventional Commits, PR | Перед коммитом/PR | существует |
 | [boundaries.md](boundaries.md) | Правила «do-not»: WIP-леса, устаревшие файлы, phantom rules + карта владения фактами | Чтобы не «чинить» лишнее | существует |
-| `style.md` | Канон языка кода, типизированные ID, ошибки, маппинг DTO→домен | При написании Go-кода | запланировано (Phase 3) |
-| `testing.md` | Конвенции тестов: Ginkgo + Gomega, структура спеков | При написании тестов | запланировано (Phase 3) |
-| `architecture.md` | DDD + гексагон (БЕЗ CQRS-шины): слои, usecases, query-lite, UnitOfWork | Перед изменением архитектуры | запланировано (Phase 3) |
-| `patterns.md` | Рецепты: как добавить use case / query / aggregate / repository | При добавлении нового слоя | запланировано (Phase 3) |
+| [style.md](style.md) | Канон языка кода, типизированные ID, ошибки, маппинг DTO→домен | При написании Go-кода | существует |
+| [testing.md](testing.md) | Конвенции тестов: Ginkgo + Gomega, структура спеков | При написании тестов | существует |
+| [architecture.md](architecture.md) | DDD + гексагон (БЕЗ CQRS-шины): слои, usecases, query-lite, UnitOfWork | Перед изменением архитектуры | существует |
+| [patterns.md](patterns.md) | Рецепты: как добавить use case / query / aggregate / repository | При добавлении нового слоя | существует |
 
 Ссылки в таблице ведут только на реально существующие файлы. Будущие доки перечислены
 **без ссылок** со статусом «запланировано» — ссылка появится вместе с самим файлом.
@@ -42,7 +42,7 @@
 1. [authoring.md](authoring.md) — как читаются и пишутся правила (сила тегов, парность запрет→«do»).
 2. Точки входа [AGENTS.md](../AGENTS.md) / [CLAUDE.md](../CLAUDE.md) (корень репо) — короткая шапка и навигация.
 3. [structure.md](structure.md), [build.md](build.md) — где что лежит и как собирать.
-4. `style.md`, `testing.md`, `architecture.md`, `patterns.md` — как писать код *(Phase 3)*.
+4. [style.md](style.md), [testing.md](testing.md), [architecture.md](architecture.md), [patterns.md](patterns.md) — как писать код.
 5. [git.md](git.md), [boundaries.md](boundaries.md) — процесс и границы.
 6. `glossary.md` — общий язык домена *(отложен в domain-milestone)*.
 
