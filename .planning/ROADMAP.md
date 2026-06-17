@@ -7,6 +7,7 @@
 ## Phases
 
 **Phase Numbering:**
+
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
@@ -20,52 +21,68 @@ Decimal phases appear between their surrounding integers in numeric order.
 ## Phase Details
 
 ### Phase 1: Раскладка базы знаний и точки входа
+
 **Goal**: Структура базы знаний и тонкие точки входа зафиксированы; единый authoring-стандарт задан так, что все последующие доки ему следуют
 **Depends on**: Nothing (first phase)
 **Requirements**: KB-01, KB-02, KB-03, KB-04
 **Success Criteria** (what must be TRUE):
+
   1. Существует каталог `knowledge/` с `README.md`, который перечисляет порядок чтения и 1-строчное назначение каждого дока
   2. Корневой `CLAUDE.md` урезан до тонкого индекса (~<150 строк), ссылается на `knowledge/*.md` (progressive disclosure) и не дублирует детали
   3. Существует `AGENTS.md` как тонкий кросс-тульный указатель на `CLAUDE.md`/`knowledge/` без дублирования контента
   4. Зафиксирован authoring-стандарт: каждое нормативное правило помечается MUST/SHOULD/WON'T, каждый запрет сопровождается предписанной альтернативой («do»)
-**Plans:** 2 plans
-Plans:
+
+**Plans:** 2 plansPlans:
+**Wave 1**
+
 - [ ] 01-01-PLAN.md — authoring-стандарт (`knowledge/authoring.md`) + индекс (`knowledge/README.md`)
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 01-02-PLAN.md — `AGENTS.md` (источник истины) + урезание `CLAUDE.md` до тонкого гибрида
 
 ### Phase 2: Стабильные доки-основы
+
 **Goal**: Команда/ИИ имеют стабильные доки навигации и процессов — общий язык домена, раскладка репозитория, команды сборки/тестов, git-конвенции и границы «не трогать»
 **Depends on**: Phase 1
 **Requirements**: DOC-07, DOC-01, DOC-02, DOC-06, DOC-08
 **Success Criteria** (what must be TRUE):
+
   1. `knowledge/glossary.md` фиксирует ubiquitous language (host, VM, owner, SRE, ITDC, namespace, project и т.д.) с маппингом EN/RU и существует до доков архитектуры/паттернов
   2. `knowledge/structure.md` описывает раскладку `go.work` и какие модули в/вне workspace (статус `inventory` как WIP) на уровне возможностей, без хрупкой карты путей
   3. `knowledge/build.md` даёт команды сборки/запуска/тестов, включая `GOWORK=off` для `inventory`, `cd pkg && go test`, фронтенд `npx nx`
   4. `knowledge/git.md` фиксирует git-конвенции: ветки, Conventional Commits, нормы PR, когда коммитить
   5. `knowledge/boundaries.md` содержит правила «do-not»: не чинить/не расширять WIP-леса; стале `README`/`Makefile`/`docker-compose.yml` не авторитетны; не документировать несуществующие фичи
+
 **Plans**: TBD
 
 ### Phase 3: Доки конвенций и архитектуры
+
 **Goal**: Канонические правила стиля/языка, тестирования и целевой архитектуры (DDD + гексагон БЕЗ CQRS-шины) зафиксированы вместе с копируемым каталогом паттернов
 **Depends on**: Phase 2
 **Requirements**: DOC-04, DOC-03, DOC-05, PAT-01
 **Success Criteria** (what must be TRUE):
+
   1. `knowledge/style.md` даёт канонический MUST по языку (русские комментарии/доменная терминология; имена — английские), типизированные ID, sentinel vs обёрнутые ошибки, маппинг DTO→домен внутри хендлера — и является единственным местом правила про язык комментариев
   2. `knowledge/testing.md` фиксирует конвенции тестов: Ginkgo v2 + Gomega, комментарии в тестах на английском, структуру спеков
   3. `knowledge/architecture.md` существует и явно заявляет DDD + гексагон БЕЗ CQRS-шины: правила слоёв/импортов, usecases-interactor (`Execute`), query-lite (read-side в DTO), порт `UnitOfWork`, transactional outbox + relay, фабрики агрегатов и `PullEvents`; содержит явный MUST NOT возрождать CQRS-диспетчер/`TxManager`
   4. `knowledge/patterns.md` даёт копируемые пошаговые рецепты «как добавить use case / query / aggregate / repository», согласованные с `architecture.md`
+
 **Plans**: TBD
 
 ### Phase 4: Enforcement-слой (тулинг)
+
 **Goal**: Механизируемые правила базы знаний подкреплены тулингом, а каждое правило помечено статусом enforcement — база перестаёт быть только декларативной
 **Depends on**: Phase 3
 **Requirements**: ENF-01, ENF-02, ENF-03, ENF-04, ENF-05
 **Success Criteria** (what must be TRUE):
+
   1. Существует `.golangci.yml` (golangci-lint v2; gofumpt как форматтер; gci для порядка импортов), консистентный с workspace
   2. Существует `lefthook.yml` с хуками: pre-commit (lint + format), pre-push (тесты), commit-msg (commitlint)
   3. Существует конфиг commitlint (Conventional Commits), подключённый к commit-msg хуку
   4. Существует скелет `buf.yaml` + `buf.gen.yaml` для proto (lint / breaking / codegen)
   5. Каждое механизируемое правило в `knowledge/*.md` помечено статусом enforcement (CI-gated / hook / convention-only)
+
 **Plans**: TBD
 
 ## Progress
