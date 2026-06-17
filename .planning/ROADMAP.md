@@ -28,7 +28,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Корневой `CLAUDE.md` урезан до тонкого индекса (~<150 строк), ссылается на `knowledge/*.md` (progressive disclosure) и не дублирует детали
   3. Существует `AGENTS.md` как тонкий кросс-тульный указатель на `CLAUDE.md`/`knowledge/` без дублирования контента
   4. Зафиксирован authoring-стандарт: каждое нормативное правило помечается MUST/SHOULD/WON'T, каждый запрет сопровождается предписанной альтернативой («do»)
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 01-01-PLAN.md — authoring-стандарт (`knowledge/authoring.md`) + индекс (`knowledge/README.md`)
+- [ ] 01-02-PLAN.md — `AGENTS.md` (источник истины) + урезание `CLAUDE.md` до тонкого гибрида
 
 ### Phase 2: Стабильные доки-основы
 **Goal**: Команда/ИИ имеют стабильные доки навигации и процессов — общий язык домена, раскладка репозитория, команды сборки/тестов, git-конвенции и границы «не трогать»
@@ -72,7 +75,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Раскладка базы знаний и точки входа | 0/TBD | Not started | - |
+| 1. Раскладка базы знаний и точки входа | 0/2 | Planned | - |
 | 2. Стабильные доки-основы | 0/TBD | Not started | - |
 | 3. Доки конвенций и архитектуры | 0/TBD | Not started | - |
 | 4. Enforcement-слой (тулинг) | 0/TBD | Not started | - |
