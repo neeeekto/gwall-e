@@ -118,10 +118,14 @@ var _ = Describe("CircuitBreakerMiddleware", func() {
 Целевой вид (иллюстрация — **не** код из компилируемого файла; плейсхолдер `Order`,
 вне домена gwall-e). mockery v3 генерирует testify-style мок с expecter API
 (`mock.EXPECT().Method().Return(...)`); конструктор `NewMockX(t)` авто-регистрирует
-`t.Cleanup` с проверкой ожиданий, а в Ginkgo вместо `t` передаётся `GinkgoT()`:
+`t.Cleanup` с проверкой ожиданий, а в Ginkgo вместо `t` передаётся `GinkgoT()`. Матчеры
+`mock.Anything` приходят из `github.com/stretchr/testify/mock` — это **обычный**
+qualified-импорт, не dot-import (в отличие от ginkgo/gomega):
 
 ```go
 // Иллюстрация / целевой вид (planned: Phase 4). НЕ из компилируемого файла.
+import "github.com/stretchr/testify/mock" // обычный импорт; ginkgo/gomega — dot-import
+
 var _ = Describe("RegisterOrderUseCase", func() {
 	It("saves the order via the port", func() {
 		repo := NewMockOrderRepository(GinkgoT()) // авто-Cleanup сверит ожидания
