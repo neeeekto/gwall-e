@@ -1,0 +1,62 @@
+# Source: golangci-lint.run v2 docs (linters.default, formatters, depguard, errorlint) — CITED
+# golangci-lint v2 schema. Single source of truth for lint + format (ENF-01).
+# Run mechanic (lefthook pre-commit, plan 04-03) lints in-workspace modules (go.work:
+# pkg, services/analytics, services/audit) AND inventory separately with GOWORK=off.
+version: "2"
+
+linters:
+  default: standard            # v2: replaces enable-all/disable-all
+  enable:
+    - errorlint                # flips style.md "%w / errors.Is" mark -> hook
+    - depguard                 # layer-direction (dormant) + resurrection bans (biting)
+  settings:
+    errorlint:
+      errorf: true             # require %w when wrapping with fmt.Errorf
+      asserts: true
+      comparison: true
+    depguard:
+      rules:
+        # --- BITING TODAY: ban resurrecting removed subsystems (D-06) ---
+        no-cqrs-bus:
+          list-mode: lax
+          files:
+            - "$all"
+          deny:
+            - pkg: "github.com/gwall-e/pkg/mediatr"
+              desc: "CQRS bus removed intentionally; inbound adapter calls the use case directly (architecture.md MUST NOT CQRS). BITING: any reintroduction fails lint today."
+        no-tx-manager:
+          list-mode: lax
+          files:
+            - "$all"
+          deny:
+            # forward best-guess path for the removed tx dispatcher (Assumption A3):
+            # the exact historical import path is gone from the repo, so this guard
+            # bites only if that package is reintroduced under this path.
+            - pkg: "github.com/gwall-e/services/inventory/internal/tx"
+              desc: "TxManager/tx dispatcher removed; use the domain UnitOfWork port (architecture.md UnitOfWork). Forward guard: fires on reintroduction under this path."
+        # --- DORMANT until layer code exists (D-05): domain must not import outward ---
+        domain-imports-inward-only:
+          list-mode: strict
+          files:
+            - "**/internal/domain/**"   # no such Go files yet -> rule matches nothing today
+          allow:
+            - "$gostd"
+            - "github.com/gwall-e/pkg"   # shared lib allowed; refine when layers land
+          deny:
+            - pkg: "github.com/gwall-e/services"
+              desc: "domain imports nothing outward; declare ports, implement in adapters (architecture.md Слои). DORMANT until layer code exists — no internal/domain Go files yet, so this rule matches nothing and asserts no active enforcement."
+
+formatters:
+  enable:
+    - gofumpt                  # flips style.md "gofumpt planned: hook" -> hook (format)
+    - gci
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+        - prefix(github.com/gwall-e)   # project import group
+      custom-order: true
+    gofumpt:
+      module-path: github.com/gwall-e
+      extra-rules: false
