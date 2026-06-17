@@ -32,10 +32,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Существует `AGENTS.md` как тонкий кросс-тульный указатель на `CLAUDE.md`/`knowledge/` без дублирования контента
   4. Зафиксирован authoring-стандарт: каждое нормативное правило помечается MUST/SHOULD/WON'T, каждый запрет сопровождается предписанной альтернативой («do»)
 
-**Plans:** 2 plansPlans:
+**Plans:** 1/2 plans executed
 **Wave 1**
 
-- [ ] 01-01-PLAN.md — authoring-стандарт (`knowledge/authoring.md`) + индекс (`knowledge/README.md`)
+- [x] 01-01-PLAN.md — authoring-стандарт (`knowledge/authoring.md`) + индекс (`knowledge/README.md`)
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -92,7 +92,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Раскладка базы знаний и точки входа | 0/2 | Planned | - |
+| 1. Раскладка базы знаний и точки входа | 1/2 | In Progress|  |
 | 2. Стабильные доки-основы | 0/TBD | Not started | - |
 | 3. Доки конвенций и архитектуры | 0/TBD | Not started | - |
 | 4. Enforcement-слой (тулинг) | 0/TBD | Not started | - |

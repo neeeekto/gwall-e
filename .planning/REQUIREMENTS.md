@@ -10,9 +10,9 @@
 ### Knowledge Base — структура и точки входа (KB)
 
 - [ ] **KB-01**: Корневой `CLAUDE.md` урезан до тонкого индекса (~<150 строк), который ссылается на `knowledge/*.md` (progressive disclosure), без дублирования деталей
-- [ ] **KB-02**: Есть `knowledge/README.md` — индекс базы знаний с порядком чтения и 1-строчным назначением каждого дока
+- [x] **KB-02**: Есть `knowledge/README.md` — индекс базы знаний с порядком чтения и 1-строчным назначением каждого дока
 - [ ] **KB-03**: Есть `AGENTS.md` как тонкий кросс-тульный указатель на `CLAUDE.md`/`knowledge/` (без дублирования контента)
-- [ ] **KB-04**: Зафиксирован authoring-стандарт: каждое нормативное правило помечается MUST/SHOULD/WON'T, каждый запрет сопровождается предписанной альтернативой («do»)
+- [x] **KB-04**: Зафиксирован authoring-стандарт: каждое нормативное правило помечается MUST/SHOULD/WON'T, каждый запрет сопровождается предписанной альтернативой («do»)
 
 ### Доки конвенций (DOC)
 
@@ -65,9 +65,9 @@ Acknowledged, но вне текущего milestone.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | KB-01 | Phase 1 | Pending |
-| KB-02 | Phase 1 | Pending |
+| KB-02 | Phase 1 | Complete |
 | KB-03 | Phase 1 | Pending |
-| KB-04 | Phase 1 | Pending |
+| KB-04 | Phase 1 | Complete |
 | DOC-07 | Phase 2 | Pending |
 | DOC-01 | Phase 2 | Pending |
 | DOC-02 | Phase 2 | Pending |
@@ -84,6 +84,7 @@ Acknowledged, но вне текущего milestone.
 | ENF-05 | Phase 4 | Pending |
 
 **Coverage:**
+
 - v1 requirements: 18 total
 - Mapped to phases: 18 ✓
 - Unmapped: 0
