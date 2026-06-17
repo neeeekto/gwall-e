@@ -62,34 +62,32 @@ Acknowledged, но вне текущего milestone.
 
 ## Traceability
 
-Заполняется при создании roadmap.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| KB-01 | TBD | Pending |
-| KB-02 | TBD | Pending |
-| KB-03 | TBD | Pending |
-| KB-04 | TBD | Pending |
-| DOC-01 | TBD | Pending |
-| DOC-02 | TBD | Pending |
-| DOC-03 | TBD | Pending |
-| DOC-04 | TBD | Pending |
-| DOC-05 | TBD | Pending |
-| DOC-06 | TBD | Pending |
-| DOC-07 | TBD | Pending |
-| DOC-08 | TBD | Pending |
-| PAT-01 | TBD | Pending |
-| ENF-01 | TBD | Pending |
-| ENF-02 | TBD | Pending |
-| ENF-03 | TBD | Pending |
-| ENF-04 | TBD | Pending |
-| ENF-05 | TBD | Pending |
+| KB-01 | Phase 1 | Pending |
+| KB-02 | Phase 1 | Pending |
+| KB-03 | Phase 1 | Pending |
+| KB-04 | Phase 1 | Pending |
+| DOC-07 | Phase 2 | Pending |
+| DOC-01 | Phase 2 | Pending |
+| DOC-02 | Phase 2 | Pending |
+| DOC-06 | Phase 2 | Pending |
+| DOC-08 | Phase 2 | Pending |
+| DOC-04 | Phase 3 | Pending |
+| DOC-03 | Phase 3 | Pending |
+| DOC-05 | Phase 3 | Pending |
+| PAT-01 | Phase 3 | Pending |
+| ENF-01 | Phase 4 | Pending |
+| ENF-02 | Phase 4 | Pending |
+| ENF-03 | Phase 4 | Pending |
+| ENF-04 | Phase 4 | Pending |
+| ENF-05 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 18 total
-- Mapped to phases: 0 (заполнит roadmap)
-- Unmapped: 18 ⚠️ (до roadmap)
+- Mapped to phases: 18 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-06-17*
-*Last updated: 2026-06-17 after initial definition*
+*Last updated: 2026-06-17 after roadmap creation (traceability filled)*
