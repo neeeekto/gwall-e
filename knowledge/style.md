@@ -33,7 +33,7 @@ Phase 4); повторять их здесь — **WON'T**, потому что 
   и инструментарий; вместо этого — английское имя + русский комментарий. ⟶ convention-only
   (review-enforced)
 - **MUST** писать комментарии в тестах **на английском** (тесты — техническая, не доменная
-  область). Полная конвенция тестов — `testing.md` (planned, Phase 3), здесь — только
+  область). Полная конвенция тестов — [testing.md](testing.md), здесь — только
   правило языка. ⟶ convention-only (review-enforced)
 
 ```go
@@ -105,6 +105,6 @@ func (h *OrderHandler) Register(ctx context.Context, req *pb.RegisterOrderReques
 ```
 
 Архитектурные правила слоёв (направление импортов, `UnitOfWork`, outbox) — канон в
-`architecture.md` (planned, Phase 3); здесь — только стиль кода уровня файла, не
+[architecture.md](architecture.md); здесь — только стиль кода уровня файла, не
 архитектура. Команды сборки/тестов — канон в [build.md](build.md). Дублировать их здесь —
 **WON'T**; вместо этого — ссылка.
