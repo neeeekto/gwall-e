@@ -114,11 +114,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Существует скелет `buf.yaml` + `buf.gen.yaml` для proto (lint / breaking / codegen)
   5. Каждое механизируемое правило в `knowledge/*.md` помечено статусом enforcement (CI-gated / hook / convention-only)
 
-**Plans:** 4 plans
+**Plans:** 1/4 plans executed
 
 **Wave 1**
 
-- [ ] 04-01-PLAN.md — `.golangci.yml` (v2: errorlint + depguard баны/dormant) + `Makefile` `make tools` пиннинг [ENF-01]
+- [x] 04-01-PLAN.md — `.golangci.yml` (v2: errorlint + depguard баны/dormant) + `Makefile` `make tools` пиннинг [ENF-01]
 - [ ] 04-02-PLAN.md — commitlint (`package.json` + `commitlint.config.mjs`) + buf-скелет (`buf.yaml`/`buf.gen.yaml`) [ENF-03, ENF-04]
 
 **Wave 2** *(blocked on Wave 1 completion)*
@@ -139,4 +139,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Раскладка базы знаний и точки входа | 2/2 | Complete    | 2026-06-17 |
 | 2. Стабильные доки-основы | 3/3 | Complete   | 2026-06-17 |
 | 3. Доки конвенций и архитектуры | 5/5 | Complete    | 2026-06-17 |
-| 4. Enforcement-слой (тулинг) | 0/4 | Not started | - |
+| 4. Enforcement-слой (тулинг) | 1/4 | In Progress|  |

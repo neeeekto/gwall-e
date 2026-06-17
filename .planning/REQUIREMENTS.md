@@ -32,7 +32,7 @@
 
 ### Enforcement-тулинг (ENF)
 
-- [ ] **ENF-01**: `.golangci.yml` (golangci-lint v2; gofumpt как форматтер; gci для порядка импортов), консистентный с workspace
+- [x] **ENF-01**: `.golangci.yml` (golangci-lint v2; gofumpt как форматтер; gci для порядка импортов), консистентный с workspace
 - [ ] **ENF-02**: `lefthook.yml` — хуки: pre-commit (lint + format), pre-push (тесты), commit-msg (commitlint)
 - [ ] **ENF-03**: Конфиг commitlint (Conventional Commits), подключённый к commit-msg хуку
 - [ ] **ENF-04**: Скелет `buf.yaml` + `buf.gen.yaml` для proto (lint / breaking / codegen)
@@ -79,7 +79,7 @@ Acknowledged, но вне текущего milestone.
 | DOC-03 | Phase 3 | Complete |
 | DOC-05 | Phase 3 | Complete |
 | PAT-01 | Phase 3 | Complete |
-| ENF-01 | Phase 4 | Pending |
+| ENF-01 | Phase 4 | Complete |
 | ENF-02 | Phase 4 | Pending |
 | ENF-03 | Phase 4 | Pending |
 | ENF-04 | Phase 4 | Pending |
