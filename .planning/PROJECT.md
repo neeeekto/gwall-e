@@ -99,4 +99,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-17 after initialization*
+*Last updated: 2026-06-17 after Phase 1 (раскладка базы знаний + точки входа: `knowledge/` структура, `authoring.md`, тонкий `CLAUDE.md`, `AGENTS.md`). KB-01..04 ✓*
