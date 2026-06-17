@@ -56,7 +56,19 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. `knowledge/git.md` фиксирует git-конвенции: ветки, Conventional Commits, нормы PR, когда коммитить
   4. `knowledge/boundaries.md` содержит правила «do-not»: не чинить/не расширять WIP-леса; стале `README`/`Makefile`/`docker-compose.yml` не авторитетны; не документировать несуществующие фичи
 
-**Plans**: TBD
+**Plans:** 3 plans
+
+**Wave 1**
+
+- [ ] 02-01-PLAN.md — `structure.md` (раскладка go.work) + `build.md` (команды сборки/тестов) + индекс
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 02-02-PLAN.md — `git.md` (git-конвенции + краткий GSD-блок) + индекс
+
+**Wave 3** *(blocked on Wave 1+2 completion)*
+
+- [ ] 02-03-PLAN.md — `boundaries.md` (do-not правила + карта владения фактами) + обратная ссылка structure.md + индекс
 
 ### Phase 3: Доки конвенций и архитектуры
 
@@ -95,6 +107,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Раскладка базы знаний и точки входа | 2/2 | Complete    | 2026-06-17 |
-| 2. Стабильные доки-основы | 0/TBD | Not started | - |
+| 2. Стабильные доки-основы | 0/3 | Not started | - |
 | 3. Доки конвенций и архитектуры | 0/TBD | Not started | - |
 | 4. Enforcement-слой (тулинг) | 0/TBD | Not started | - |
