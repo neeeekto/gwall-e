@@ -21,7 +21,7 @@
 - [ ] **DOC-03**: `knowledge/testing.md` — конвенции тестов: Ginkgo v2 + Gomega, комментарии в тестах на английском, структура спеков
 - [ ] **DOC-04**: `knowledge/style.md` — канонический MUST по языку (русские комментарии/доменная терминология; имена — английские); типизированные ID; sentinel vs обёрнутые ошибки; маппинг DTO→домен внутри хендлера
 - [ ] **DOC-05**: `knowledge/architecture.md` — DDD + гексагон (БЕЗ CQRS-шины): правила слоёв/импортов, usecases-interactor (`Execute`), query-lite (read-side в DTO), порт `UnitOfWork`, transactional outbox + relay, фабрики агрегатов и `PullEvents`; явный MUST NOT возрождать CQRS-диспетчер/`TxManager`
-- [ ] **DOC-06**: `knowledge/git.md` — git-конвенции: ветки, Conventional Commits, нормы PR, когда коммитить
+- [x] **DOC-06**: `knowledge/git.md` — git-конвенции: ветки, Conventional Commits, нормы PR, когда коммитить
 - [ ] **DOC-08**: `knowledge/boundaries.md` — правила «do-not»: не чинить/не расширять WIP-леса; стале `README`/`Makefile`/`docker-compose.yml` не авторитетны; не документировать несуществующие фичи (phantom rules)
 
 > **DOC-07** (`knowledge/glossary.md`, ubiquitous language) **выведен из этого milestone** (решение Phase 2 discuss, 2026-06-17) и перенесён в v2/domain-milestone — доменная модель ещё не спроектирована, а этот milestone закладывает правила для ИИ/команды, а не описание системы. См. v2 ниже.
@@ -72,7 +72,7 @@ Acknowledged, но вне текущего milestone.
 | KB-04 | Phase 1 | Complete |
 | DOC-01 | Phase 2 | Complete |
 | DOC-02 | Phase 2 | Complete |
-| DOC-06 | Phase 2 | Pending |
+| DOC-06 | Phase 2 | Complete |
 | DOC-08 | Phase 2 | Pending |
 | DOC-07 | — (v2/domain-milestone) | Deferred |
 | DOC-04 | Phase 3 | Pending |
