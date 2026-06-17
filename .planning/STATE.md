@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
+status: Awaiting next milestone
 stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-06-17T15:40:00.951Z"
-last_activity: 2026-06-17 -- Completed Phase 4 Plan 02 (commitlint + buf skeleton)
+last_updated: "2026-06-17T18:03:11.534Z"
+last_activity: 2026-06-17 — Milestone v1.0 completed and archived
 progress:
   total_phases: 4
   completed_phases: 4
@@ -25,12 +25,10 @@ See: .planning/PROJECT.md (updated 2026-06-17)
 
 ## Current Position
 
-Phase: 4 (enforcement) — EXECUTING
-Plan: 4 of 4
-Status: Phase complete — ready for verification
-Last activity: 2026-06-17 -- Completed Phase 4 Plan 02 (commitlint + buf skeleton)
-
-Progress: [█████░░░░░] 50%
+Phase: Milestone v1.0 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-06-17 — Milestone v1.0 completed and archived
 
 ## Performance Metrics
 
@@ -103,14 +101,22 @@ None yet.
 
 ## Deferred Items
 
-Items acknowledged and carried forward from previous milestone close:
+Items acknowledged and deferred at v1.0 milestone close on 2026-06-17:
 
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| *(none)* | | | |
+| requirement | DOC-02 — build.md:61-62 audit recipe `cd services/audit && go build ./...` exits 1 ("build output cmd already exists"); use `go build ./cmd` / `go vet ./...` | gaps_found | 2026-06-17 |
+| verification | Phase 02 — 02-VERIFICATION.md (DOC-02 build claim) | gaps_found | 2026-06-17 |
+| verification | Phase 04 — 04-VERIFICATION.md (live hook firing needs one-time bootstrap) | human_needed | 2026-06-17 |
+| uat | Phase 04 — 04-UAT.md: 7 pending live-firing scenarios (`make tools` + `lefthook install`) | testing | 2026-06-17 |
+| nyquist | Phases 1–2 no VALIDATION.md; Phases 3–4 nyquist_compliant=false (sign-off pending) | partial | 2026-06-17 |
 
 ## Session Continuity
 
 Last session: 2026-06-17T15:39:34.630Z
 Stopped at: Completed 04-02-PLAN.md
 Resume file: None
+
+## Operator Next Steps
+
+- Start the next milestone with /gsd-new-milestone

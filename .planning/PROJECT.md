@@ -16,18 +16,24 @@ gwall-e — платформа **Hardware-as-a-Service** для дата-цен�
 
 <!-- Shipped and confirmed valuable. -->
 
-(None yet — ship to validate)
+**v1.0 — Фундамент (knowledge base + enforcement), shipped 2026-06-17:**
+
+- ✓ Зафиксированы правила для ИИ/команды в `knowledge/` (10 доков, ~1101 строк): язык (русские комментарии/доменная терминология), тестирование (Ginkgo v2 + Gomega), стиль кода, структура — v1.0
+- ✓ Описаны конвенции архитектуры (DDD + гексагон, БЕЗ CQRS-шины) и раскладки репозитория (`go.work`) как воспроизводимые правила (`architecture.md`, `structure.md`, `patterns.md`) — v1.0
+- ✓ Описаны процессы работы: сборка/тесты (вкл. `GOWORK=off` для `inventory`), git-конвенции (`build.md`, `git.md`) — v1.0
+- ✓ Тонкие точки входа: `AGENTS.md` (источник истины) + урезанный `CLAUDE.md` (51 строка) + `knowledge/README.md` индекс + authoring-стандарт MUST/SHOULD/WON'T — v1.0
+- ✓ Enforcement-слой: `.golangci.yml` v2, `lefthook.yml`, commitlint, buf-скелет + статус enforcement на каждом механизируемом правиле — v1.0 (live hook firing → bootstrap UAT)
+
+> **Известный gap (v1.0):** DOC-02 — `build.md` audit-рецепт `cd services/audit && go build ./...` падает (exit 1); рабочие формы — `go build ./cmd` / `go vet ./...`. Принят как tech debt, см. MILESTONES.md и STATE.md Deferred Items.
 
 ### Active
 
-<!-- Видение платформы. Это гипотезы до тех пор, пока не отгружены и не подтверждены.
-     Конкретный текущий milestone — "Фундамент / memory-bank" — см. REQUIREMENTS.md. -->
+<!-- Видение платформы. Это гипотезы до тех пор, пока не отгружены и не подтверждены. -->
 
-**Текущий milestone — Фундамент:**
+**Следующий milestone (кандидаты):**
 
-- [ ] Зафиксированы правила для ИИ/команды в `memory-bank/`: язык (русские комментарии и доменная терминология), тестирование (Ginkgo + Gomega), стиль кода и структура
-- [ ] Описаны конвенции архитектуры (DDD + гексагон, без CQRS-шины) и раскладки репозитория как воспроизводимые правила
-- [ ] Описаны процессы работы: сборка/тесты (в т.ч. `GOWORK=off` для модулей вне workspace), git-конвенции
+- [ ] DOC-07: `knowledge/glossary.md` — ubiquitous language доменных терминов (отложено из v1, активируется в domain-milestone когда проектируется доменная модель)
+- [ ] Починить DOC-02 build-рецепт + закрыть Nyquist sign-off и live-firing UAT (tech debt из v1.0)
 
 **Видение платформы (будущие эпики/milestone'ы):**
 
@@ -54,6 +60,7 @@ gwall-e — платформа **Hardware-as-a-Service** для дата-цен�
 - **Целевая архитектура сервиса** (эталон, зафиксировано): слои `domain` (агрегаты, VO, доменные события, порты) / `usecases` (write-side, 1 use case = 1 struct + `Execute`) / `query` (read-side, query-сервисы читают Mongo напрямую в DTO) / `repositories` (Mongo-реализации портов + UnitOfWork) / `api` (gRPC-адаптеры) / `cron` (джобы); `app` — composition root (ручной DI); `cmd` — `main`. Без CQRS-шины/диспетчера: gRPC-хендлеры зовут use case'ы напрямую. Транзакции — через порт `UnitOfWork` (Mongo-транзакция). Доменные события — `PullEvents`, публикация через transactional outbox внутри UnitOfWork-транзакции + отдельный relay.
 - **Workspace:** мульти-модульный Go workspace (`go.work`, Go 1.24.6); каждый сервис/пакет — отдельный модуль `github.com/gwall-e/...`. `go.work` включает `./pkg`, `./services/analytics`, `./services/audit`; `inventory` намеренно НЕ в workspace (собирается с `GOWORK=off`).
 - **Memory Bank:** в корне есть `knowledge/` — версионируемые правила проекта (тесты, стиль и т.п.), это и есть предмет первого milestone.
+- **Shipped v1.0 (2026-06-17):** база знаний `knowledge/` (10 доков, ~1101 строк) + тонкие точки входа (`AGENTS.md`/`CLAUDE.md`) + enforcement-тулинг (`.golangci.yml` v2, `lefthook.yml`, commitlint, buf-скелет, `Makefile` с пиннингом версий). Доки заземлены на реальный репозиторий (no-phantom), каждое механизируемое правило помечено статусом enforcement.
 
 
 ## Constraints
@@ -71,15 +78,17 @@ gwall-e — платформа **Hardware-as-a-Service** для дата-цен�
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Первый milestone — только memory-bank (правила/конвенции), без кода скелета | Большой проект с множеством эпиков; нужен прочный фундамент правил для ИИ/команды до фич | — Pending |
-| DDD + гексагональная архитектура как стандарт (БЕЗ CQRS-шины) | Чёткое разделение слоёв и портов; CQRS-диспетчер (mediatr) удалён как лишняя сложность | — Pending |
-| Write-side: 1 use case = 1 struct + `Execute` (паттерн interactor) | Идиоматично для Go, изолированно, дружелюбно к ИИ; без диспетчера | — Pending |
-| Read-side: query-сервисы читают Mongo напрямую в DTO («CQRS-lite») | Разделение reads/writes без инфраструктуры CQRS-шины | — Pending |
-| Транзакции через порт `UnitOfWork` (Mongo-транзакция) | `TxManager` удалён; UoW оборачивает запись, репозитории берут транзакцию из ctx | — Pending |
-| Доменные события — transactional outbox внутри UoW + relay | Нет dual-write, at-least-once; поддерживает core value «согласованность» | — Pending |
-| Язык кода — русские комментарии/доменная терминология (имена — англ.) | Снять противоречие EN/RU; единый ubiquitous language | — Pending |
-| `inventory` вне `go.work` (сборка через `GOWORK=off`) | Изолировать незавершённый эталонный сервис от общего build | — Pending |
-| Фундамент проектируется заново (снесён `internal/` inventory, `pkg/mediatr`, `tx.go`) | Старый код — леса; архитектура переосмыслена без CQRS/TxManager | — Pending |
+| Первый milestone — только memory-bank (правила/конвенции), без кода скелета | Большой проект с множеством эпиков; нужен прочный фундамент правил для ИИ/команды до фич | ✓ Good — v1.0 shipped: `knowledge/` + enforcement |
+| DDD + гексагональная архитектура как стандарт (БЕЗ CQRS-шины) | Чёткое разделение слоёв и портов; CQRS-диспетчер (mediatr) удалён как лишняя сложность | ✓ Канонизировано в `architecture.md` (v1.0); валидация в коде — pending |
+| Write-side: 1 use case = 1 struct + `Execute` (паттерн interactor) | Идиоматично для Go, изолированно, дружелюбно к ИИ; без диспетчера | ✓ В `patterns.md`/`architecture.md` (v1.0); валидация в коде — pending |
+| Read-side: query-сервисы читают Mongo напрямую в DTO («CQRS-lite») | Разделение reads/writes без инфраструктуры CQRS-шины | ✓ В `architecture.md` (v1.0); валидация в коде — pending |
+| Транзакции через порт `UnitOfWork` (Mongo-транзакция) | `TxManager` удалён; UoW оборачивает запись, репозитории берут транзакцию из ctx | ✓ В `architecture.md`/`patterns.md` (v1.0); валидация в коде — pending |
+| Доменные события — transactional outbox внутри UoW + relay | Нет dual-write, at-least-once; поддерживает core value «согласованность» | ✓ В `architecture.md` (v1.0); валидация в коде — pending |
+| Язык кода — русские комментарии/доменная терминология (имена — англ.) | Снять противоречие EN/RU; единый ubiquitous language | ✓ Good — единственный канон в `style.md`, enforcement-метки (v1.0) |
+| `inventory` вне `go.work` (сборка через `GOWORK=off`) | Изолировать незавершённый эталонный сервис от общего build | ✓ Good — задокументировано в `structure.md`/`build.md` (v1.0) |
+| Фундамент проектируется заново (снесён `internal/` inventory, `pkg/mediatr`, `tx.go`) | Старый код — леса; архитектура переосмыслена без CQRS/TxManager | ✓ Good — MUST NOT возрождать CQRS зафиксирован + depguard ban на `pkg/mediatr` (v1.0) |
+| Enforcement: golangci-lint v2 + lefthook + commitlint + buf, версии пиннятся в `Makefile` | Механизировать правила; локальная проводка хуков до полного CI | ⚠️ Revisit — live firing требует bootstrap (`make tools`+`lefthook install`); CI ещё нет |
+| DOC-07 (glossary) отложен из v1 в domain-milestone | Доменная модель ещё не спроектирована; риск расхождения | — Pending — активируется в domain-milestone |
 
 ## Evolution
 
@@ -99,4 +108,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-17 after Phase 3 (доки конвенций и целевой архитектуры: `style.md`, `testing.md`, `architecture.md` DDD+гексагон БЕЗ CQRS, копируемый `patterns.md`). DOC-03/DOC-04/DOC-05/PAT-01 ✓. Ранее: Phase 1 (раскладка `knowledge/` + точки входа, KB-01..04 ✓), Phase 2 (foundation-доки). Дальше — Phase 4: enforcement-слой (тулинг/CI).*
+*Last updated: 2026-06-17 after v1.0 milestone — Фундамент (knowledge base + enforcement). 4 фазы / 14 планов / 17 v1-требований ✓ (DOC-07 отложен в domain-milestone). База знаний `knowledge/` (10 доков), тонкие точки входа (`AGENTS.md`/`CLAUDE.md`), enforcement-тулинг (golangci-lint v2 / lefthook / commitlint / buf-скелет). Известный gap: DOC-02 (build.md audit-рецепт). Дальше — `/gsd-new-milestone`.*
