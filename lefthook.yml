@@ -1,0 +1,68 @@
+# lefthook.yml (ENF-02) — git-hook orchestration for gwall-e
+#
+# Schema: Lefthook v2.1.9 (pre-commit / pre-push / commit-msg + commands/run/glob/stage_fixed —
+#         unchanged from v1; see .planning/phases/04-enforcement/04-RESEARCH.md §Standard Stack, Pitfall 3).
+# Activation (once per clone, after `make tools` installs lefthook v2.1.9 + `npm install` for commitlint):
+#         lefthook install
+# Source of truth for the linters/tests these hooks invoke:
+#   - .golangci.yml        (v2 schema: linters.default + errorlint + depguard; formatters: gofumpt + gci)  [04-01]
+#   - commitlint.config.mjs + package.json (exact-pinned @commitlint/cli)                                   [04-02]
+# NOTE: the proto toolchain (buf) is wired into NO hook by design — no `.proto`
+#       exist yet (D-10, no-phantom). Its skeleton config (buf.yaml/buf.gen.yaml)
+#       stays manual/opt-in until real schemas land.
+
+# ---------------------------------------------------------------------------
+# pre-commit: lint + format (D-02). Formatting (gofumpt + gci) runs EMBEDDED in
+# golangci-lint v2 `formatters` — do NOT call standalone gofumpt.
+# Run per-module so the in-workspace set (go.work active) and the out-of-workspace
+# inventory pass (GOWORK=off) stay explicit (D-01).
+# parallel: false — lint passes share caches; keep deterministic.
+# ---------------------------------------------------------------------------
+pre-commit:
+  parallel: false
+  commands:
+    lint-workspace:
+      glob: "*.go"
+      # in-workspace modules build with go.work active; lint each module root.
+      run: |
+        set -e
+        for m in pkg services/analytics services/audit; do
+          (cd "$m" && golangci-lint run ./...)
+        done
+      stage_fixed: true
+    lint-inventory:
+      glob: "services/inventory/**/*.go"
+      # inventory is intentionally OUTSIDE go.work (WIP) → must lint with GOWORK=off
+      # from its module dir. Best-effort: do NOT "fix" the scaffolding (boundaries.md).
+      # Scoped to the inventory glob so it only fires when inventory .go files change.
+      run: cd services/inventory && GOWORK=off golangci-lint run ./...
+      stage_fixed: true
+
+# ---------------------------------------------------------------------------
+# pre-push: tests for IN-WORKSPACE modules ONLY (D-03).
+# parallel: false — keep deterministic output.
+# NOTE: services/inventory is INTENTIONALLY NOT tested here. It is WIP, lives
+#       OUTSIDE go.work, and its internal/ scaffolding was deleted — boundaries.md
+#       forbids running/"fixing" WIP scaffolding. This exclusion is deliberate,
+#       NOT an oversight (D-03). Do not add an inventory test command.
+# ---------------------------------------------------------------------------
+pre-push:
+  parallel: false
+  commands:
+    test-pkg:
+      run: cd pkg && go test ./...                  # real ginkgo suite (pkg/http)
+    test-audit:
+      run: cd services/audit && go test ./...
+    test-analytics:
+      run: cd services/analytics && go test ./...   # 0 packages currently → no-op, NOT an error (build.md)
+
+# ---------------------------------------------------------------------------
+# commit-msg: Conventional Commits via commitlint (D-04).
+# `--no-install` fails loudly if `npm install` was skipped, rather than silently
+# fetching a drifted commitlint from the network (Pitfall 6). `{1}` is lefthook's
+# commit-message-file template var (resolves to .git/COMMIT_EDITMSG).
+# ---------------------------------------------------------------------------
+commit-msg:
+  commands:
+    commitlint:
+      run: npx --no-install commitlint --edit {1}
