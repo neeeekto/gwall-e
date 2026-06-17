@@ -148,7 +148,7 @@ if err := outbox.Append(ctx, events); err != nil { // тот же ctx = та ж�
 - **WON'T** возрождать CQRS-диспетчер (`CommandDispatcher` / `QueryDispatcher`),
   `pkg/mediatr` или mediatr-подобную шину — это снятая сложность; вместо диспетчера —
   inbound-адаптер (`api`/`cron`) зовёт нужный use case **напрямую**.
+  ⟶ planned: CI-gated Phase 4 (depguard на запрет импорта снесённых пакетов)
 - **WON'T** возрождать `TxManager` / `tx.go` как обёртку транзакций — вместо менеджера
   транзакций — порт `UnitOfWork` в `domain` (см. выше).
-
-⟶ planned: CI-gated Phase 4 (depguard на запрет импорта снесённых пакетов).
+  ⟶ planned: CI-gated Phase 4 (depguard на запрет импорта снесённых пакетов)
