@@ -74,11 +74,17 @@ type RegisterOrderUseCase struct {
 
 // Регистрирует заказ: создаёт агрегат фабрикой и сохраняет в одной транзакции.
 func (uc *RegisterOrderUseCase) Execute(ctx context.Context, in RegisterOrderInput) (RegisterOrderOutput, error) {
-    return uc.uow.Do(ctx, func(ctx context.Context) error {
-        order := NewOrder(in.SKU, in.Qty) // фабрика агрегата держит инварианты
+    order, err := NewOrder(in.SKU, in.Qty) // фабрика агрегата держит инварианты
+    if err != nil {
+        return RegisterOrderOutput{}, err
+    }
+    if err := uc.uow.Do(ctx, func(ctx context.Context) error {
         // запись агрегата + outbox-событий — внутри той же tx
         return saveOrderAndOutbox(ctx, order)
-    })
+    }); err != nil {
+        return RegisterOrderOutput{}, err
+    }
+    return RegisterOrderOutput{ID: order.ID()}, nil
 }
 ```
 
