@@ -13,7 +13,7 @@
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Раскладка базы знаний и точки входа** - `knowledge/` + тонкий `CLAUDE.md`/`AGENTS.md` + authoring-стандарт
+- [x] **Phase 1: Раскладка базы знаний и точки входа** - `knowledge/` + тонкий `CLAUDE.md`/`AGENTS.md` + authoring-стандарт (completed 2026-06-17)
 - [ ] **Phase 2: Стабильные доки-основы** - глоссарий, структура, сборка, git, границы
 - [ ] **Phase 3: Доки конвенций и архитектуры** - стиль/язык, тесты, DDD+гексагон (без CQRS), паттерны
 - [ ] **Phase 4: Enforcement-слой (тулинг)** - golangci-lint v2, lefthook, commitlint, buf + статус enforcement
@@ -32,14 +32,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Существует `AGENTS.md` как тонкий кросс-тульный указатель на `CLAUDE.md`/`knowledge/` без дублирования контента
   4. Зафиксирован authoring-стандарт: каждое нормативное правило помечается MUST/SHOULD/WON'T, каждый запрет сопровождается предписанной альтернативой («do»)
 
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 **Wave 1**
 
 - [x] 01-01-PLAN.md — authoring-стандарт (`knowledge/authoring.md`) + индекс (`knowledge/README.md`)
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 01-02-PLAN.md — `AGENTS.md` (источник истины) + урезание `CLAUDE.md` до тонкого гибрида
+- [x] 01-02-PLAN.md — `AGENTS.md` (источник истины) + урезание `CLAUDE.md` до тонкого гибрида
 
 ### Phase 2: Стабильные доки-основы
 
@@ -92,7 +92,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Раскладка базы знаний и точки входа | 1/2 | In Progress|  |
+| 1. Раскладка базы знаний и точки входа | 2/2 | Complete   | 2026-06-17 |
 | 2. Стабильные доки-основы | 0/TBD | Not started | - |
 | 3. Доки конвенций и архитектуры | 0/TBD | Not started | - |
 | 4. Enforcement-слой (тулинг) | 0/TBD | Not started | - |

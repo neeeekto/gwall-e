@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
+status: verifying
 stopped_at: Phase 1 context gathered
-last_updated: "2026-06-17T10:57:36.221Z"
+last_updated: "2026-06-17T11:01:44.542Z"
 last_activity: 2026-06-17 -- Phase 1 execution started
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
-  percent: 0
+  completed_plans: 2
+  percent: 25
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-06-17)
 
 Phase: 1 (knowledge-base-layout) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-06-17 -- Phase 1 execution started
 
 Progress: [░░░░░░░░░░] 0%
@@ -53,6 +53,7 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 | Phase 01 P01 | 5 | 2 tasks | 2 files |
+| Phase 01 P02 | 4min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -63,6 +64,8 @@ Recent decisions affecting current work:
 
 - Архитектура: DDD + гексагон БЕЗ CQRS-шины; `pkg/mediatr`/`CommandDispatcher`/`QueryDispatcher`/`TxManager` удалены и невалидны — доки фиксируют это как MUST NOT.
 - Язык кода: русские комментарии/доменная терминология, английские имена идентификаторов, английские комментарии в тестах — канонически в одном доке (`knowledge/style.md`).
+- [Phase ?]: AGENTS.md — канонический источник истины (тонкий кросс-тульный вход): шапка из PROJECT.md + Core Value + таблица-ссылки в knowledge/
+- [Phase ?]: CLAUDE.md урезан до тонкого гибрида (51 строка): указатель на AGENTS.md/knowledge + сохранён GSD workflow/profile; HTML-warning против re-bloat generate-claude-md
 
 ### Pending Todos
 
@@ -82,6 +85,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-06-17T10:57:11.576Z
+Last session: 2026-06-17T11:01:21.948Z
 Stopped at: Phase 1 context gathered
 Resume file: .planning/phases/01-knowledge-base-layout/01-CONTEXT.md
