@@ -19,7 +19,7 @@
 - [x] **DOC-01**: `knowledge/structure.md` — раскладка `go.work`, какие модули в/вне workspace, статус `inventory` как WIP (на уровне возможностей, без хрупкой карты путей)
 - [x] **DOC-02**: `knowledge/build.md` — команды сборки/запуска/тестов, включая `GOWORK=off` для `inventory`, `cd pkg && go test`, фронтенд `npx nx`
 - [ ] **DOC-03**: `knowledge/testing.md` — конвенции тестов: Ginkgo v2 + Gomega, комментарии в тестах на английском, структура спеков
-- [ ] **DOC-04**: `knowledge/style.md` — канонический MUST по языку (русские комментарии/доменная терминология; имена — английские); типизированные ID; sentinel vs обёрнутые ошибки; маппинг DTO→домен внутри хендлера
+- [x] **DOC-04**: `knowledge/style.md` — канонический MUST по языку (русские комментарии/доменная терминология; имена — английские); типизированные ID; sentinel vs обёрнутые ошибки; маппинг DTO→домен внутри хендлера
 - [ ] **DOC-05**: `knowledge/architecture.md` — DDD + гексагон (БЕЗ CQRS-шины): правила слоёв/импортов, usecases-interactor (`Execute`), query-lite (read-side в DTO), порт `UnitOfWork`, transactional outbox + relay, фабрики агрегатов и `PullEvents`; явный MUST NOT возрождать CQRS-диспетчер/`TxManager`
 - [x] **DOC-06**: `knowledge/git.md` — git-конвенции: ветки, Conventional Commits, нормы PR, когда коммитить
 - [x] **DOC-08**: `knowledge/boundaries.md` — правила «do-not»: не чинить/не расширять WIP-леса; стале `README`/`Makefile`/`docker-compose.yml` не авторитетны; не документировать несуществующие фичи (phantom rules)
@@ -75,7 +75,7 @@ Acknowledged, но вне текущего milestone.
 | DOC-06 | Phase 2 | Complete |
 | DOC-08 | Phase 2 | Complete |
 | DOC-07 | — (v2/domain-milestone) | Deferred |
-| DOC-04 | Phase 3 | Pending |
+| DOC-04 | Phase 3 | Complete |
 | DOC-03 | Phase 3 | Pending |
 | DOC-05 | Phase 3 | Pending |
 | PAT-01 | Phase 3 | Pending |
