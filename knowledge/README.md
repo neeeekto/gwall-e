@@ -24,9 +24,9 @@
 |------|------------|--------------|--------|
 | [authoring.md](authoring.md) | Стандарт авторинга: как писать правила (MUST/SHOULD/WON'T, парность запрет→«do») | Перед написанием/правкой любого дока | существует |
 | [README.md](README.md) | Этот индекс: карта базы и порядок чтения | Первым, для навигации | существует |
-| `glossary.md` | Ubiquitous language: доменные термины с маппингом EN/RU | Перед работой с доменом | запланировано (Phase 2) |
-| `structure.md` | Раскладка `go.work`, модули в/вне workspace, статус `inventory` | При навигации по репозиторию | запланировано (Phase 2) |
-| `build.md` | Команды сборки/запуска/тестов (вкл. `GOWORK=off`) | Перед сборкой/прогоном тестов | запланировано (Phase 2) |
+| `glossary.md` | Ubiquitous language: доменные термины с маппингом EN/RU | Перед работой с доменом | отложено (v2 / domain-milestone) |
+| [structure.md](structure.md) | Раскладка `go.work`, модули в/вне workspace, статус `inventory` | При навигации по репозиторию | существует |
+| [build.md](build.md) | Команды сборки/запуска/тестов (вкл. `GOWORK=off`) | Перед сборкой/прогоном тестов | существует |
 | `git.md` | Git-конвенции: ветки, Conventional Commits, PR | Перед коммитом/PR | запланировано (Phase 2) |
 | `boundaries.md` | Правила «do-not»: WIP-леса, устаревшие файлы, phantom rules | Чтобы не «чинить» лишнее | запланировано (Phase 2) |
 | `style.md` | Канон языка кода, типизированные ID, ошибки, маппинг DTO→домен | При написании Go-кода | запланировано (Phase 3) |
@@ -41,10 +41,10 @@
 
 1. [authoring.md](authoring.md) — как читаются и пишутся правила (сила тегов, парность запрет→«do»).
 2. Точки входа [AGENTS.md](../AGENTS.md) / [CLAUDE.md](../CLAUDE.md) (корень репо) — короткая шапка и навигация.
-3. `glossary.md` — общий язык домена *(появится в Phase 2)*.
-4. `structure.md`, `build.md` — где что лежит и как собирать *(Phase 2)*.
-5. `style.md`, `testing.md`, `architecture.md`, `patterns.md` — как писать код *(Phase 3)*.
-6. `git.md`, `boundaries.md` — процесс и границы *(Phase 2)*.
+3. [structure.md](structure.md), [build.md](build.md) — где что лежит и как собирать.
+4. `style.md`, `testing.md`, `architecture.md`, `patterns.md` — как писать код *(Phase 3)*.
+5. `git.md`, `boundaries.md` — процесс и границы *(Phase 2)*.
+6. `glossary.md` — общий язык домена *(отложен в domain-milestone)*.
 
 ## Памятка по авторингу
 
