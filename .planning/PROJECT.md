@@ -99,4 +99,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-17 after Phase 1 (раскладка базы знаний + точки входа: `knowledge/` структура, `authoring.md`, тонкий `CLAUDE.md`, `AGENTS.md`). KB-01..04 ✓*
+*Last updated: 2026-06-17 after Phase 3 (доки конвенций и целевой архитектуры: `style.md`, `testing.md`, `architecture.md` DDD+гексагон БЕЗ CQRS, копируемый `patterns.md`). DOC-03/DOC-04/DOC-05/PAT-01 ✓. Ранее: Phase 1 (раскладка `knowledge/` + точки входа, KB-01..04 ✓), Phase 2 (foundation-доки). Дальше — Phase 4: enforcement-слой (тулинг/CI).*
