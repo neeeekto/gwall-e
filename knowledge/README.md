@@ -27,7 +27,7 @@
 | `glossary.md` | Ubiquitous language: доменные термины с маппингом EN/RU | Перед работой с доменом | отложено (v2 / domain-milestone) |
 | [structure.md](structure.md) | Раскладка `go.work`, модули в/вне workspace, статус `inventory` | При навигации по репозиторию | существует |
 | [build.md](build.md) | Команды сборки/запуска/тестов (вкл. `GOWORK=off`) | Перед сборкой/прогоном тестов | существует |
-| `git.md` | Git-конвенции: ветки, Conventional Commits, PR | Перед коммитом/PR | запланировано (Phase 2) |
+| [git.md](git.md) | Git-конвенции: ветки, Conventional Commits, PR | Перед коммитом/PR | существует |
 | `boundaries.md` | Правила «do-not»: WIP-леса, устаревшие файлы, phantom rules | Чтобы не «чинить» лишнее | запланировано (Phase 2) |
 | `style.md` | Канон языка кода, типизированные ID, ошибки, маппинг DTO→домен | При написании Go-кода | запланировано (Phase 3) |
 | `testing.md` | Конвенции тестов: Ginkgo + Gomega, структура спеков | При написании тестов | запланировано (Phase 3) |
@@ -43,7 +43,7 @@
 2. Точки входа [AGENTS.md](../AGENTS.md) / [CLAUDE.md](../CLAUDE.md) (корень репо) — короткая шапка и навигация.
 3. [structure.md](structure.md), [build.md](build.md) — где что лежит и как собирать.
 4. `style.md`, `testing.md`, `architecture.md`, `patterns.md` — как писать код *(Phase 3)*.
-5. `git.md`, `boundaries.md` — процесс и границы *(Phase 2)*.
+5. [git.md](git.md), `boundaries.md` — процесс и границы *(boundaries.md — Phase 2)*.
 6. `glossary.md` — общий язык домена *(отложен в domain-milestone)*.
 
 ## Памятка по авторингу
