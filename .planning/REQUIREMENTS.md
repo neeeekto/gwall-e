@@ -22,8 +22,9 @@
 - [ ] **DOC-04**: `knowledge/style.md` — канонический MUST по языку (русские комментарии/доменная терминология; имена — английские); типизированные ID; sentinel vs обёрнутые ошибки; маппинг DTO→домен внутри хендлера
 - [ ] **DOC-05**: `knowledge/architecture.md` — DDD + гексагон (БЕЗ CQRS-шины): правила слоёв/импортов, usecases-interactor (`Execute`), query-lite (read-side в DTO), порт `UnitOfWork`, transactional outbox + relay, фабрики агрегатов и `PullEvents`; явный MUST NOT возрождать CQRS-диспетчер/`TxManager`
 - [ ] **DOC-06**: `knowledge/git.md` — git-конвенции: ветки, Conventional Commits, нормы PR, когда коммитить
-- [ ] **DOC-07**: `knowledge/glossary.md` — ubiquitous language: доменные термины (host, VM, owner, SRE, ITDC, namespace, project и т.д.) с маппингом EN/RU
 - [ ] **DOC-08**: `knowledge/boundaries.md` — правила «do-not»: не чинить/не расширять WIP-леса; стале `README`/`Makefile`/`docker-compose.yml` не авторитетны; не документировать несуществующие фичи (phantom rules)
+
+> **DOC-07** (`knowledge/glossary.md`, ubiquitous language) **выведен из этого milestone** (решение Phase 2 discuss, 2026-06-17) и перенесён в v2/domain-milestone — доменная модель ещё не спроектирована, а этот milestone закладывает правила для ИИ/команды, а не описание системы. См. v2 ниже.
 
 ### Pattern catalog (PAT)
 
@@ -43,6 +44,7 @@ Acknowledged, но вне текущего milestone.
 
 ### Knowledge Base (расширения)
 
+- **DOC-07** (отложено из v1): `knowledge/glossary.md` — ubiquitous language: доменные термины (host, VM, owner, SRE, ITDC, namespace, project + роли/отношения доступа, «согласованность») с маппингом EN/RU. Фиксируется в domain-milestone, когда проектируется сама система (иначе риск расхождения с будущей доменной моделью).
 - **ADR-01**: `decisions/ADR-*.md` — записи решений (без CQRS, UnitOfWork+outbox, RU-комментарии, inventory вне go.work), посеянные из PROJECT.md Key Decisions
 - **DOC-09**: `knowledge/anti-patterns.md` — каталог анти-паттернов
 - **DOC-10**: `knowledge/libraries.md` — справочник общих пакетов `pkg/`
@@ -68,11 +70,11 @@ Acknowledged, но вне текущего milestone.
 | KB-02 | Phase 1 | Complete |
 | KB-03 | Phase 1 | Complete |
 | KB-04 | Phase 1 | Complete |
-| DOC-07 | Phase 2 | Pending |
 | DOC-01 | Phase 2 | Pending |
 | DOC-02 | Phase 2 | Pending |
 | DOC-06 | Phase 2 | Pending |
 | DOC-08 | Phase 2 | Pending |
+| DOC-07 | — (v2/domain-milestone) | Deferred |
 | DOC-04 | Phase 3 | Pending |
 | DOC-03 | Phase 3 | Pending |
 | DOC-05 | Phase 3 | Pending |
@@ -85,10 +87,11 @@ Acknowledged, но вне текущего milestone.
 
 **Coverage:**
 
-- v1 requirements: 18 total
-- Mapped to phases: 18 ✓
+- v1 requirements: 17 total (DOC-07 отложено в v2/domain-milestone)
+- Mapped to phases: 17 ✓
 - Unmapped: 0
+- Deferred: DOC-07 (glossary) → v2
 
 ---
 *Requirements defined: 2026-06-17*
-*Last updated: 2026-06-17 after roadmap creation (traceability filled)*
+*Last updated: 2026-06-17 — DOC-07 (glossary) выведен из v1 в domain-milestone (Phase 2 discuss)*

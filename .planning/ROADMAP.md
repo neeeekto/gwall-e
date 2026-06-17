@@ -2,7 +2,7 @@
 
 ## Overview
 
-Первый milestone закладывает фундамент конвенций для ИИ/команды: версионируемую базу знаний `knowledge/` плюс проводку enforcement-тулинга. Путь идёт строго по зависимостям: сначала **раскладка и тонкие точки входа** + authoring-стандарт (MUST/SHOULD/WON'T, запрет всегда с альтернативой), затем **стабильные доки-основы** (глоссарий как DDD-prerequisite, структура, сборка, git, границы), потом **доки конвенций и архитектуры** (стиль/язык, тесты, DDD+гексагон БЕЗ CQRS-шины, каталог паттернов) и в конце **enforcement-слой** (golangci-lint v2, gofumpt/gci, lefthook, commitlint, buf + тегирование статуса enforcement). Бизнес-фичи и фронтенд — вне скоупа.
+Первый milestone закладывает фундамент конвенций для ИИ/команды: версионируемую базу знаний `knowledge/` плюс проводку enforcement-тулинга. Путь идёт строго по зависимостям: сначала **раскладка и тонкие точки входа** + authoring-стандарт (MUST/SHOULD/WON'T, запрет всегда с альтернативой), затем **стабильные доки-основы** (структура репо, сборка, git, границы), потом **доки конвенций и архитектуры** (стиль/язык, тесты, DDD+гексагон БЕЗ CQRS-шины, каталог паттернов) и в конце **enforcement-слой** (golangci-lint v2, gofumpt/gci, lefthook, commitlint, buf + тегирование статуса enforcement). Бизнес-фичи, фронтенд и **доменные доки (глоссарий ubiquitous language)** — вне скоупа: глоссарий отложен в будущий domain-milestone, т.к. доменная модель ещё не спроектирована, а этот milestone закладывает правила для ИИ/команды, а не описание системы.
 
 ## Phases
 
@@ -14,7 +14,7 @@
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Раскладка базы знаний и точки входа** - `knowledge/` + тонкий `CLAUDE.md`/`AGENTS.md` + authoring-стандарт (completed 2026-06-17)
-- [ ] **Phase 2: Стабильные доки-основы** - глоссарий, структура, сборка, git, границы
+- [ ] **Phase 2: Стабильные доки-основы** - структура, сборка, git, границы (глоссарий отложен в domain-milestone)
 - [ ] **Phase 3: Доки конвенций и архитектуры** - стиль/язык, тесты, DDD+гексагон (без CQRS), паттерны
 - [ ] **Phase 4: Enforcement-слой (тулинг)** - golangci-lint v2, lefthook, commitlint, buf + статус enforcement
 
@@ -43,16 +43,18 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 ### Phase 2: Стабильные доки-основы
 
-**Goal**: Команда/ИИ имеют стабильные доки навигации и процессов — общий язык домена, раскладка репозитория, команды сборки/тестов, git-конвенции и границы «не трогать»
+**Goal**: Команда/ИИ имеют стабильные инфра/процесс-доки навигации — раскладка репозитория, команды сборки/тестов, git-конвенции и границы «не трогать» (без описания доменной модели)
 **Depends on**: Phase 1
-**Requirements**: DOC-07, DOC-01, DOC-02, DOC-06, DOC-08
+**Requirements**: DOC-01, DOC-02, DOC-06, DOC-08
+
+> **Скоуп-изменение (2026-06-17):** `glossary.md` (DOC-07) выведен из Phase 2 и отложен в будущий domain-milestone — доменная модель ещё не спроектирована, фундамент правил для ИИ её не описывает. Phase 3 `architecture.md` опирается на DDD/гексагон-конвенции (слои/порты), а не на доменный глоссарий, и проживёт без него.
+
 **Success Criteria** (what must be TRUE):
 
-  1. `knowledge/glossary.md` фиксирует ubiquitous language (host, VM, owner, SRE, ITDC, namespace, project и т.д.) с маппингом EN/RU и существует до доков архитектуры/паттернов
-  2. `knowledge/structure.md` описывает раскладку `go.work` и какие модули в/вне workspace (статус `inventory` как WIP) на уровне возможностей, без хрупкой карты путей
-  3. `knowledge/build.md` даёт команды сборки/запуска/тестов, включая `GOWORK=off` для `inventory`, `cd pkg && go test`, фронтенд `npx nx`
-  4. `knowledge/git.md` фиксирует git-конвенции: ветки, Conventional Commits, нормы PR, когда коммитить
-  5. `knowledge/boundaries.md` содержит правила «do-not»: не чинить/не расширять WIP-леса; стале `README`/`Makefile`/`docker-compose.yml` не авторитетны; не документировать несуществующие фичи
+  1. `knowledge/structure.md` описывает раскладку `go.work` и какие модули в/вне workspace (статус `inventory` как WIP) на уровне возможностей, без хрупкой карты путей
+  2. `knowledge/build.md` даёт команды сборки/запуска/тестов, включая `GOWORK=off` для `inventory`, `cd pkg && go test`, фронтенд `npx nx`
+  3. `knowledge/git.md` фиксирует git-конвенции: ветки, Conventional Commits, нормы PR, когда коммитить
+  4. `knowledge/boundaries.md` содержит правила «do-not»: не чинить/не расширять WIP-леса; стале `README`/`Makefile`/`docker-compose.yml` не авторитетны; не документировать несуществующие фичи
 
 **Plans**: TBD
 
