@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
+status: verifying
 stopped_at: Phase 3 context gathered
-last_updated: "2026-06-17T13:58:36.734Z"
+last_updated: "2026-06-17T14:03:40.227Z"
 last_activity: 2026-06-17 -- Phase 03 execution started
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 10
-  completed_plans: 9
-  percent: 50
+  completed_plans: 10
+  percent: 75
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-06-17)
 
 Phase: 03 (conventions-architecture-docs) — EXECUTING
 Plan: 5 of 5
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-06-17 -- Phase 03 execution started
 
 Progress: [███░░░░░░░] 30%
@@ -61,6 +61,7 @@ Progress: [███░░░░░░░] 30%
 | Phase 03 P02 | 2min | 1 tasks | 1 files |
 | Phase 03 P03 | ~4m | 1 tasks | 1 files |
 | Phase 03 P04 | 4min | 1 tasks | 1 files |
+| Phase 03 P05 | 2min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -81,6 +82,7 @@ Recent decisions affecting current work:
 - [Phase ?]: 03-02: mockery закреплён как канонический генератор моков портов (testing.md); обвязка planned Phase 4
 - [Phase ?]: architecture.md держит инварианты/why; how-to рецепты — в patterns.md (D-04, pointer-over-copy)
 - [Phase ?]: [Phase 03 P04]: patterns.md — копируемые рецепты (PAT-01) вертикальным срезом до wiring; ссылается на architecture.md (правила) и style.md (язык/ошибки), не дублирует (D-04 pointer-over-copy); иллюстративные помеченные сниппеты на плейсхолдере Order (D-01/D-05)
+- [Phase ?]: [Phase 03 P05]: финальная волна интеграции — 4 дока Phase 3 вписаны в README-индекс, boundaries-карту владения и AGENTS-таблицу статусов; стале-статусы «запланировано (Phase 2/3)» сняты (no-phantom, WARNING-1); glossary.md честно оставлен без ссылки «отложено (domain-milestone)»; link integrity по всем knowledge/*.md зелёная
 
 ### Pending Todos
 
@@ -100,6 +102,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-06-17T13:58:28.050Z
+Last session: 2026-06-17T14:03:03.967Z
 Stopped at: Phase 3 context gathered
 Resume file: .planning/phases/03-conventions-architecture-docs/03-CONTEXT.md

@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Раскладка базы знаний и точки входа** - `knowledge/` + тонкий `CLAUDE.md`/`AGENTS.md` + authoring-стандарт (completed 2026-06-17)
 - [x] **Phase 2: Стабильные доки-основы** - структура, сборка, git, границы (глоссарий отложен в domain-milestone) (completed 2026-06-17)
-- [ ] **Phase 3: Доки конвенций и архитектуры** - стиль/язык, тесты, DDD+гексагон (без CQRS), паттерны
+- [x] **Phase 3: Доки конвенций и архитектуры** - стиль/язык, тесты, DDD+гексагон (без CQRS), паттерны (completed 2026-06-17)
 - [ ] **Phase 4: Enforcement-слой (тулинг)** - golangci-lint v2, lefthook, commitlint, buf + статус enforcement
 
 ## Phase Details
@@ -82,7 +82,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. `knowledge/architecture.md` существует и явно заявляет DDD + гексагон БЕЗ CQRS-шины: правила слоёв/импортов, usecases-interactor (`Execute`), query-lite (read-side в DTO), порт `UnitOfWork`, transactional outbox + relay, фабрики агрегатов и `PullEvents`; содержит явный MUST NOT возрождать CQRS-диспетчер/`TxManager`
   4. `knowledge/patterns.md` даёт копируемые пошаговые рецепты «как добавить use case / query / aggregate / repository», согласованные с `architecture.md`
 
-**Plans:** 4/5 plans executed
+**Plans:** 5/5 plans complete
 
 **Wave 1**
 
@@ -99,7 +99,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 **Wave 4** *(blocked on Waves 1–3 completion)*
 
-- [ ] 03-05-PLAN.md — интеграция: индекс README.md + карта владения boundaries.md + статусы AGENTS.md (no broken links) [DOC-04, DOC-03, DOC-05, PAT-01]
+- [x] 03-05-PLAN.md — интеграция: индекс README.md + карта владения boundaries.md + статусы AGENTS.md (no broken links) [DOC-04, DOC-03, DOC-05, PAT-01]
 
 ### Phase 4: Enforcement-слой (тулинг)
 
@@ -125,5 +125,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Раскладка базы знаний и точки входа | 2/2 | Complete    | 2026-06-17 |
 | 2. Стабильные доки-основы | 3/3 | Complete   | 2026-06-17 |
-| 3. Доки конвенций и архитектуры | 4/5 | In Progress|  |
+| 3. Доки конвенций и архитектуры | 5/5 | Complete   | 2026-06-17 |
 | 4. Enforcement-слой (тулинг) | 0/TBD | Not started | - |
