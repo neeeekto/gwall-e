@@ -1,10 +1,10 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.0
-milestone_name: L2-видение платформы
+milestone: v3.0
+milestone_name: Inventory + Event-backbone
 status: planning
-last_updated: "2026-06-17T21:36:08.035Z"
-last_activity: 2026-06-17
+last_updated: "2026-06-26T20:11:46.118Z"
+last_activity: 2026-06-26
 progress:
   total_phases: 0
   completed_phases: 0
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-06-18)
 Phase: Not started (defining requirements)
 Plan: —
 Status: Defining requirements
-Last activity: 2026-06-17 — Milestone v2.0 started
+Last activity: 2026-06-26 — Milestone v3.0 started
 
 ## Performance Metrics
 

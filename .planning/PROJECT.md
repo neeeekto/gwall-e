@@ -26,50 +26,59 @@ gwall-e — платформа **Hardware-as-a-Service** для дата-цен�
 
 > **Известный gap (v1.0):** DOC-02 — `build.md` audit-рецепт `cd services/audit && go build ./...` падает (exit 1); рабочие формы — `go build ./cmd` / `go vet ./...`. Принят как tech debt, см. MILESTONES.md и STATE.md Deferred Items.
 
-## Current Milestone: v2.0 — L2-видение платформы
+**v2.0 — L2-видение платформы, зафиксировано 2026-06-18:**
 
-**Goal:** зафиксировать верхнеуровневую (L2) карту доменов платформы и направление движения —
-«куда движемся и как что будем делать» — БЕЗ скоупа конкретной реализации. Первый buildable-эпик
-(Inventory) режется в требования/фазы следующим `/gsd-new-milestone`.
+- ✓ L2-карта доменов (12 бизнес + 3 платформенных + отложенный Host Agent), кросс-доменный принцип сущностей, гибридная синхронизация (choreography + orchestration на Kafka), Coordination-контракт — **[L2-ARCHITECTURE.md](L2-ARCHITECTURE.md)** (видение, не код) — v2.0
 
-**Что даёт milestone:** L2-карта доменов (12 бизнес-доменов + 3 платформенных + отложенный
-Host Agent), кросс-доменный принцип сущностей, гибридная модель синхронизации (choreography +
-orchestration на Kafka), Coordination-контракт согласования с Owner CMS, ключевые архитектурные
-решения. Полная карта — в **[L2-ARCHITECTURE.md](L2-ARCHITECTURE.md)**.
+## Current Milestone: v3.0 — Inventory + Event-backbone
+
+**Goal:** построить первый реальный сервис gwall-e — проработанный домен **Inventory**
+(источник истины Project / Host / локация / железо в solo-режиме) + **продюсер-бэкбон
+событий на Kafka** — как эталонную реализацию архитектуры v1.0.
+
+**Target features:**
+- Домен Inventory (solo): Project, Host (+ hardware-модель), внешние HW-модули, локации DC/Module/Rack
+- Модель идентичности и удаления: наш постоянный `ID`; без авто-мерджа; история на событиях
+- Топология зависимостей (`connections` хост↔модуль) + read-model «что зависит от X»
+- Event-backbone: outbox → relay → Kafka (compacted by `entityID`), полный продюсер
+- Эталон архитектуры v1.0 (слои/UoW/outbox, gRPC, Ginkgo) + DOC-07 glossary
+
+> Предыдущий milestone **v2.0 (L2-видение)** зафиксировал карту платформы и направление —
+> см. **[L2-ARCHITECTURE.md](L2-ARCHITECTURE.md)** и epic-таблицу в [ROADMAP.md](ROADMAP.md).
+> v3.0 — нарезка первого эпика **E1 Inventory** в требования/фазы.
 
 ### Active
 
-<!-- Видение платформы (L2). Каждый домен → отдельный будущий milestone. Гипотезы до отгрузки. -->
+<!-- v3.0 — текущий эпик. Требования с REQ-ID — в REQUIREMENTS.md. Гипотезы до отгрузки. -->
 
-**Tech debt из v1.0 (внести в первый buildable-эпик):**
+**v3.0 Inventory + Event-backbone (текущий эпик):**
 
-- [ ] DOC-07: `knowledge/glossary.md` — ubiquitous language доменных терминов (активируется при проектировании доменной модели)
-- [ ] Починить DOC-02 build-рецепт + закрыть Nyquist sign-off и live-firing UAT
+- [ ] Домен Inventory (solo): Project / Host / внешние HW-модули / локации DC·Module·Rack
+- [ ] Hardware-модель хоста (`HostHardware`: RAM/CPU/Drives + IPMI/Motherboard/MACs)
+- [ ] Идентичность/удаление: постоянный внутренний `ID`, без авто-мерджа, FQDN-uniqueness среди `active`, история на событиях; `decommissioned` ≠ `deleted`
+- [ ] Топология `connections` (Mongo cross-refs) + read-model зависимостей
+- [ ] Event-backbone: outbox → relay → Kafka (compacted/partition by `entityID`), семантические события + `actor/initiator`
+- [ ] DOC-07 glossary (ubiquitous language); DOC-02 build-рецепт — по ходу разработки
 
-**L2-домены платформы (each = сервис = будущий эпик/milestone):**
+**Платформенные эпики (L2, будущие — каждый = сервис = отдельный milestone):**
+Access · Network · Health · Coordination ⭐ · Actions · Scenarios · Remediation · Audit ·
+Analytics · Orchestrator · Integrations · Gateway/Search/Notifications · Host Agent (отложен).
+Полная карта и порядок — [L2-ARCHITECTURE.md](L2-ARCHITECTURE.md) и epic-таблица в [ROADMAP.md](ROADMAP.md).
 
-- [ ] **Inventory** — идентичность/ЖЦ Project/Host/VM, железо, локация, ссылка на owner; solo/sync-инвентарь *(фундамент, первый эпик)*
-- [ ] **Network** — свитчи, VLAN, IPAM, сетевые шаблоны, смена VLAN
-- [ ] **Health / Monitoring** — runtime, health-checks, config-compliance
-- [ ] **Access** — вся авторизация: owner-роли, права/роли, временные гранты, IDM-sync, SSH-гранты
-- [ ] **Coordination** ⭐ — approve-before-start с Owner CMS, CMS-конфиг, локи, предохранители/лимиты
-- [ ] **Actions** — единичные операции (reboot/reimage/profile), каталог наливок
-- [ ] **Scenarios** — кампании плановых массовых работ (окна, drain, shutdown на учения, move owner)
-- [ ] **Remediation** — авто-починка по правилам SRE (Automation Plot), self-healing
-- [ ] **Audit** — лог всех действий в системе
-- [ ] **Analytics** — аналитика парка
-- [ ] **Orchestrator** — кросс-доменные lifecycle-саги (provision, decommission с вето)
-- [ ] **Integrations** — адаптеры к внешним провайдерам операций (gwall-e оркестрирует, исполняют они)
-- [ ] **Платформенные:** API Gateway/BFF · Search (OpenSearch) · Notifications
-- [ ] **Host Agent** *(отложен)* — агент на хосте: сбор данных + исполнение + раздача SSH; домен vs часть Health решаем позже
+**Отложено в будущие эпики (из обсуждения v3.0):**
+
+- [ ] VM / VMGroup — модель работы не ясна (отдельный эпик)
+- [ ] Sync из внешней инвентори — отдельный интеграционный сервис (см. [SEED-001](seeds/SEED-001-inv-matching-instability.md))
+- [ ] Audit logging — домен Audit, consumer событий (см. [SEED-002](seeds/SEED-002-audit-logging.md))
 
 ### Out of Scope
 
 <!-- Explicit boundaries. Includes reasoning to prevent re-adding. -->
 
-- Любые бизнес-фичи в первом milestone (SSH-права, инвентаризация, действия, массовые работы, автопочинка, мониторинг) — фундамент закладывается отдельно, фичи идут следующими эпиками
-- Фронтенд (React/Nx dashboard) в первом milestone — сначала правила и бэкенд-фундамент
-- Реальная интеграция с внешними системами (bot-сервис, железо ДЦ) на этапе фундамента — пока заглушки/моки
+- **VM / VMGroup, sync из внешней инвентори, Audit-домен** — вынесены в будущие эпики (SEED-001/SEED-002); проектировать рано/отдельно
+- **Чужие домены в v3.0:** Access (гранты/права), Actions (действия/затирки), Network (VLAN/IPAM/свитчи), Health (runtime), оркестрация безопасного переезда, каскадные действия по топологии, consumer-side inbox — это отдельные сервисы/эпики
+- **Фронтенд (React/Nx)** — после бэкенд-доменов
+- **Авто-мердж идентичности и restore-with-merge при повторном добавлении** — запрещены by design (ложный матч на рециклинге FQDN/смене материнки); матч только советочный
 
 ## Context
 
@@ -120,6 +129,14 @@ orchestration на Kafka), Coordination-контракт согласовани�
 | **Integrations — провайдеры операций** (profile/reimage/network/reboot); CMS→Coordination, IDM→Access, ext-inv→Inventory | gwall-e оркестрирует, исполняют внешние провайдеры | — Pending (L2) |
 | **VM — только инвентаризация** (создаёт внешняя система); действий над VM нет | Скоуп: мы инвентори-система для VM | — Pending (L2) |
 | **Search — поверх OpenSearch**, event-fed, много индексов, для людей и машин | Единый поиск/выгрузка по всему парку как consumer событий | — Pending (L2) |
+| **v3.0 milestone — E1 Inventory + Event-backbone** (первый реальный сервис, эталон арх. v1.0) | Нарезка первого buildable-эпика; домен-first, интеграции потом | — Pending (v3.0) |
+| **Сущности v3.0:** Project / Host / внешние HW-модули / локации (DC·Module·Rack); **VM/VMGroup отложены** | Модель работы с VM ещё не ясна — отдельный эпик | — Pending (v3.0) |
+| **Owner = один непрозрачный внешний ID группы**; `ProjectCreated` → Access выдаёт права группе | Бизнес-владелец = ссылка наружу, резолв по интеграции; грант — домен Access | — Pending (v3.0) |
+| **Идентичность хоста = наш постоянный `ID`**; нет внешнего ключа стабильного+уникального (INV↔материнка, FQDN рециклится); re-add = новый ID, без авто-мерджа | Надёжно матчить «тот же хост?» нельзя — свойство реальности ([SEED-001](seeds/SEED-001-inv-matching-instability.md)) | — Pending (v3.0) |
+| **Удаление:** история на event-backbone/Audit (не soft-delete-флаг); FQDN уникален среди `active`; `decommissioned` (списание) ≠ `deleted` (убрать запись) | Снимает прежнее «soft-delete»; избегаем ложного матча и restore-with-merge | — Pending (v3.0) |
+| **Hardware = VO внутри Host**; дисковые полки и внешние GPU = самостоятельные модули **без owner**; внешние ID — `string` | Общее железо инфраструктурно (каскад отказа), но мы им не управляем | — Pending (v3.0) |
+| **Топология `connections` (Mongo cross-refs)** + read-model «что зависит от X»; каскадные действия — другие домены | Inventory владеет физической топологией, не операциями | — Pending (v3.0) |
+| **События на всё: семантические + compacted-снапшот по `entityID`**, `actor/initiator` в metadata; **Kafka — полный продюсер, консьюмеров нет в v3.0** | Фид для Analytics/Search + backfill; forward-compat для Audit ([SEED-002](seeds/SEED-002-audit-logging.md)) | — Pending (v3.0) |
 
 ## Evolution
 
@@ -139,4 +156,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-18 — старт milestone v2.0 (L2-видение платформы). Зафиксирована L2-карта: 12 бизнес-доменов (Inventory, Network, Health, Access, Coordination, Actions, Scenarios, Remediation, Audit, Analytics, Orchestrator, Integrations) + 3 платформенных (Gateway/Search/Notifications) + отложенный Host Agent; кросс-доменный принцип сущностей; гибридная синхронизация (choreography + orchestration на Kafka); Coordination-контракт. Полная карта — [L2-ARCHITECTURE.md](L2-ARCHITECTURE.md). Дальше — `/gsd-new-milestone` для нарезки первого эпика (Inventory) в требования/фазы.*
+*Last updated: 2026-06-19 — старт milestone v3.0 (Inventory + Event-backbone, первый реальный сервис — E1). Зафиксировано из глубокого discuss: сущности Project/Host/внешние HW-модули/локации (VM·VMGroup отложены); модель идентичности и удаления (постоянный внутренний ID, нет стабильного+уникального внешнего ключа → re-add = новый ID без авто-мерджа, история на event-backbone/Audit, `decommissioned` ≠ `deleted`); hardware как VO в Host + самостоятельные дисковые полки/GPU без owner; топология connections + read-model зависимостей; Owner = один непрозрачный внешний ID группы; event-backbone outbox→relay→Kafka (полный продюсер, семантические события + compacted-снапшот, actor/initiator). Посажены SEED-001 (матчинг/reconciliation при sync) и SEED-002 (Audit logging). Дальше — research-гейт → REQUIREMENTS.md → ROADMAP.md.*
