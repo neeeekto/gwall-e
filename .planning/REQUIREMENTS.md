@@ -104,17 +104,64 @@
 
 ## Traceability
 
-Заполняется при создании роадмапа (каждое требование → ровно одна фаза).
+Каждое требование → ровно одна фаза (v3.0 = Phases 5-10). Маппинг — из [ROADMAP.md](ROADMAP.md).
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| _(populated by roadmapper)_ | — | Pending |
+| INV-01 | Phase 6 | Pending |
+| INV-02 | Phase 6 | Pending |
+| INV-03 | Phase 6 | Pending |
+| INV-04 | Phase 6 | Pending |
+| INV-05 | Phase 6 | Pending |
+| INV-06 | Phase 6 | Pending |
+| INV-07 | Phase 6 | Pending |
+| INV-08 | Phase 6 | Pending |
+| INV-09 | Phase 6 | Pending |
+| INV-10 | Phase 6 | Pending |
+| HW-01 | Phase 6 | Pending |
+| HW-02 | Phase 6 | Pending |
+| HW-03 | Phase 6 | Pending |
+| HW-04 | Phase 6 | Pending |
+| HW-05 | Phase 6 | Pending |
+| HW-06 | Phase 6 | Pending |
+| LOC-01 | Phase 6 | Pending |
+| LOC-02 | Phase 6 | Pending |
+| LOC-03 | Phase 6 | Pending |
+| LOC-04 | Phase 6 | Pending |
+| MOD-01 | Phase 9 | Pending |
+| MOD-02 | Phase 9 | Pending |
+| MOD-03 | Phase 9 | Pending |
+| EVT-01 | Phase 6 | Pending |
+| EVT-02 | Phase 6 | Pending |
+| EVT-03 | Phase 7 | Pending |
+| EVT-04 | Phase 8 | Pending |
+| EVT-05 | Phase 8 | Pending |
+| EVT-06 | Phase 8 | Pending |
+| EVT-07 | Phase 10 | Pending |
+| SVC-01 | Phase 6 | Pending |
+| SVC-02 | Phase 7 | Pending |
+| SVC-03 | Phase 7 | Pending |
+| SVC-04 | Phase 7 | Pending |
+| SVC-05 | Phase 5 | Pending |
+| SVC-06 | Phase 5 | Pending |
+| SVC-07 | Phase 5 | Pending |
+| SVC-08 | Phase 7 | Pending |
+| DOC-07 | Phase 6 | Pending |
+| DOC-02 | Phase 5 | Pending |
 
 **Coverage:**
 - v3.0 requirements: **40** total (INV 10 · HW 6 · LOC 4 · MOD 3 · EVT 7 · SVC 8 · DOC 2)
-- Mapped to phases: TBD
-- Unmapped: TBD ⚠️
+- Mapped to phases: **40 / 40** ✓
+- Unmapped: **0**
+
+**По фазам:**
+- Phase 5 (Dev-инфра и стек): SVC-05, SVC-06, SVC-07, DOC-02 — 4
+- Phase 6 (Доменная модель Inventory): INV-01…10, HW-01…06, LOC-01…04, EVT-01, EVT-02, DOC-07, SVC-01 — 24
+- Phase 7 (Эталон записи и чтения): SVC-02, SVC-03, SVC-04, SVC-08, EVT-03 — 5
+- Phase 8 (Event-backbone — схемы + relay): EVT-06, EVT-04, EVT-05 — 3
+- Phase 9 (Топология connections): MOD-01, MOD-02, MOD-03 — 3
+- Phase 10 (Верификация backbone): EVT-07 — 1
 
 ---
 *Requirements defined: 2026-06-19*
-*Last updated: 2026-06-19 after initial definition (milestone v3.0)*
+*Last updated: 2026-06-27 — traceability заполнена при создании роадмапа v3.0 (Phases 5-10, 40/40 mapped)*
