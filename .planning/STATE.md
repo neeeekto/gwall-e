@@ -4,13 +4,13 @@ milestone: v3.0
 milestone_name: — Inventory + Event-backbone
 status: executing
 stopped_at: Phase 5 context gathered
-last_updated: "2026-06-27T07:34:54.450Z"
-last_activity: 2026-06-27 — Роадмап v3.0 создан (Phases 5-10, 40/40 требований замаплены)
+last_updated: "2026-06-27T07:47:47.202Z"
+last_activity: 2026-06-27 -- Phase 05 execution started
 progress:
   total_phases: 6
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 5
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-26)
 
 **Core value:** Безопасное и согласованное управление парком серверов как услугой — единый источник правды о хостах.
-**Current focus:** v3.0 Phase 5 — Dev-инфра и стек (готово к планированию)
+**Current focus:** Phase 05 — dev
 
 ## Current Position
 
-Phase: 5 of 10 (Dev-инфра и стек) — первая фаза v3.0
-Plan: — (фаза ещё не спланирована)
+Phase: 05 (dev) — EXECUTING
+Plan: 2 of 5
 Status: Ready to execute
-Last activity: 2026-06-27 — Роадмап v3.0 создан (Phases 5-10, 40/40 требований замаплены)
+Last activity: 2026-06-27 -- Phase 05 execution started
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 05 P01 | 5min | 3 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -89,7 +90,7 @@ Items carried forward from v1.0 milestone close (2026-06-17); адресуютс
 
 ## Session Continuity
 
-Last session: 2026-06-26T22:06:14.992Z
+Last session: 2026-06-27T07:47:41.343Z
 Stopped at: Phase 5 context gathered
 Resume file: .planning/phases/05-dev/05-CONTEXT.md
 

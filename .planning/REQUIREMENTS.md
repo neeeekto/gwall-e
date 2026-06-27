@@ -60,9 +60,9 @@
 - [ ] **SVC-02**: Запись идёт через порт `UnitOfWork` (Mongo-транзакция; требует replica set)
 - [ ] **SVC-03**: Use cases доступны через gRPC-адаптеры (хендлеры зовут use case напрямую, без диспетчера)
 - [ ] **SVC-04**: Read-side — query-сервисы читают Mongo напрямую в DTO (CQRS-lite)
-- [ ] **SVC-05**: Персистентность — MongoDB через mongo-driver **v2** (миграция с v1 до написания репозиториев)
+- [x] **SVC-05**: Персистентность — MongoDB через mongo-driver **v2** (миграция с v1 до написания репозиториев)
 - [ ] **SVC-06**: Тесты — Ginkgo v2 + Gomega + mockery; интеграционные через testcontainers (Kafka KRaft + Mongo single-node RS)
-- [ ] **SVC-07**: Dev-инфра — docker-compose (Kafka KRaft + Mongo RS) + bootstrap провижна топиков (`*.events`/`*.state` с нужной cleanup-policy)
+- [x] **SVC-07**: Dev-инфра — docker-compose (Kafka KRaft + Mongo RS) + bootstrap провижна топиков (`*.events`/`*.state` с нужной cleanup-policy)
 - [ ] **SVC-08**: gRPC-слой извлекает идентичность вызывающего (caller identity) и пробрасывает её до use case через единую точку перехвата (interceptor); проверки прав НЕ реализуем (stub под будущий Access), но identity питает `actor/initiator` (forward-compat, см. [SEED-003](seeds/SEED-003-authorization-on-all-actions.md))
 
 ### DOC — Документация и техдолг v1.0
@@ -142,19 +142,21 @@
 | SVC-02 | Phase 7 | Pending |
 | SVC-03 | Phase 7 | Pending |
 | SVC-04 | Phase 7 | Pending |
-| SVC-05 | Phase 5 | Pending |
+| SVC-05 | Phase 5 | Complete |
 | SVC-06 | Phase 5 | Pending |
-| SVC-07 | Phase 5 | Pending |
+| SVC-07 | Phase 5 | Complete |
 | SVC-08 | Phase 7 | Pending |
 | DOC-07 | Phase 6 | Pending |
 | DOC-02 | Phase 5 | Pending |
 
 **Coverage:**
+
 - v3.0 requirements: **40** total (INV 10 · HW 6 · LOC 4 · MOD 3 · EVT 7 · SVC 8 · DOC 2)
 - Mapped to phases: **40 / 40** ✓
 - Unmapped: **0**
 
 **По фазам:**
+
 - Phase 5 (Dev-инфра и стек): SVC-05, SVC-06, SVC-07, DOC-02 — 4
 - Phase 6 (Доменная модель Inventory): INV-01…10, HW-01…06, LOC-01…04, EVT-01, EVT-02, DOC-07, SVC-01 — 24
 - Phase 7 (Эталон записи и чтения): SVC-02, SVC-03, SVC-04, SVC-08, EVT-03 — 5
