@@ -1,0 +1,33 @@
+# Manual dev stand (D-05): Kafka (confluent-local, KRaft) + Mongo (mongo:7 single-node RS).
+# Dev-only: plaintext, no SASL/TLS/auth (T-05-04 accepted). NOT for production.
+# Images pinned to concrete version tags (never the floating tag) for determinism /
+# supply-chain (T-05-03, D-07/D-08).
+#
+# Client URI for the Mongo RS stand:
+#   mongodb://localhost:27017/?replicaSet=rs0&directConnection=true
+# Kafka bootstrap: localhost:9092
+services:
+  kafka:
+    image: confluentinc/confluent-local:7.5.0   # KRaft out of the box, single broker (D-07)
+    ports:
+      - "9092:9092"
+    environment:
+      # confluent-local auto-configures KRaft; advertise the host-mapped listener so
+      # clients on localhost:9092 (CLI / make topics) can reach the broker. (RESEARCH A2)
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:9092,PLAINTEXT_HOST://localhost:9092"
+
+  mongo:
+    image: mongo:7                              # single-node replica set for transactions (D-08)
+    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    ports:
+      - "27017:27017"
+    healthcheck:
+      # Idempotent RS init (Pitfall 1): rs.status() succeeds once initiated, otherwise
+      # rs.initiate(). Member host is 127.0.0.1 so directConnection clients work.
+      test: >
+        echo "try { rs.status() } catch (e) {
+          rs.initiate({_id:'rs0',members:[{_id:0,host:'127.0.0.1:27017'}]}) }" |
+        mongosh --port 27017 --quiet
+      interval: 5s
+      timeout: 30s
+      retries: 30
