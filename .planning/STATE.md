@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: — Inventory + Event-backbone
-status: planning
+status: executing
 stopped_at: Phase 5 context gathered
-last_updated: "2026-06-26T22:06:15.001Z"
+last_updated: "2026-06-27T07:34:54.450Z"
 last_activity: 2026-06-27 — Роадмап v3.0 создан (Phases 5-10, 40/40 требований замаплены)
 progress:
   total_phases: 6
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 
 Phase: 5 of 10 (Dev-инфра и стек) — первая фаза v3.0
 Plan: — (фаза ещё не спланирована)
-Status: Ready to plan
+Status: Ready to execute
 Last activity: 2026-06-27 — Роадмап v3.0 создан (Phases 5-10, 40/40 требований замаплены)
 
 Progress: [░░░░░░░░░░] 0%

@@ -86,83 +86,105 @@ Full v1.0 detail archived in [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMA
 ## Phase Details
 
 ### Phase 5: Dev-инфра и стек
+
 **Goal**: Готовое окружение и обновлённый стек, на котором можно писать репозитории и гонять интеграционные тесты — до первого доменного кода.
 **Depends on**: Nothing (нулевой шаг v3.0; продолжает v1.0-фундамент)
 **Requirements**: SVC-05, SVC-06, SVC-07, DOC-02
 **Success Criteria** (what must be TRUE):
+
   1. `services/inventory` собирается с mongo-driver/**v2** (v1 удалён из `go.mod`), `go build ./...` / `go vet ./...` зелёные из корня workspace (inventory — полноправный член `go.work`, D-01)
   2. `docker compose up` поднимает локальный стенд: Kafka (KRaft, без ZooKeeper) + MongoDB как single-node replica set (транзакции доступны)
   3. Bootstrap-скрипт провижнит топики `inventory.*.events` (cleanup=delete) и `inventory.*.state` (cleanup=compact) с заданной cleanup-policy
   4. Интеграционный тест на testcontainers (Kafka KRaft + Mongo RS) стартует и подключается; Ginkgo v2 + Gomega + mockery подключены и проходят smoke-прогон
   5. `build.md` audit-рецепт (DOC-02) исправлен: документированная команда сборки реально проходит (exit 0)
-**Plans**: 5 plans
-Plans:
+
+**Plans**: 5 plansPlans:
+**Wave 1**
+
 - [ ] 05-01-PLAN.md — go.mod→mongo-driver/v2 swap + Mongo connection-helper + topology-пакет (Bootstrap на kadm) + unit-тест констант
 - [ ] 05-02-PLAN.md — docker-compose (confluent-local + mongo:7 RS) + Makefile dev-таргеты (mockery pin, dev-up/topics/test-integration/generate-mocks) + ручной SC2-smoke
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 05-03-PLAN.md — .mockery.yaml (v3) + throwaway example-интерфейс + сгенерированный мок + unit-spec (mockery smoke)
 - [ ] 05-04-PLAN.md — bootstrap-CLI в cmd/ + integration-тест (testcontainers, build-tag integration) — оба зовут общую topology.Bootstrap
 - [ ] 05-05-PLAN.md — lefthook de-exclusion (inventory unit в pre-push) + каноны build/structure/boundaries + ROADMAP SC1 + DOC-02 audit-рецепт (go vet)
 
 ### Phase 6: Доменная модель Inventory
+
 **Goal**: Спроектированный домен Inventory как агрегаты с инвариантами идентичности/ЖЦ и семантическими доменными событиями — фундамент всего backbone (без событий нечего класть в outbox).
 **Depends on**: Phase 5
 **Requirements**: INV-01, INV-02, INV-03, INV-04, INV-05, INV-06, INV-07, INV-08, INV-09, INV-10, HW-01, HW-02, HW-03, HW-04, HW-05, HW-06, LOC-01, LOC-02, LOC-03, LOC-04, EVT-01, EVT-02, DOC-07, SVC-01
 **Success Criteria** (what must be TRUE):
+
   1. Оператор может (через usecase) завести Project (`ID`/`Name`/`Description`/`Owner` как непрозрачный внешний string-ID) и зарегистрировать Host с обязательной привязкой к Project; система присваивает внутренний постоянный, непереиспользуемый `ID`
   2. Host несёт `HostHardware` VO (Name/Platform/Motherboard/IPMIMac) со структурированными компонентами RAM/CPU/Drives/NIC/PSU/storage-controller/внутренний GPU/chassis; все внешние идентификаторы — `string`
   3. Host проходит ЖЦ `shadow → registered → decommissioned` + `deleted`; `decommissioned` ≠ `deleted`; повторное добавление = новый `ID` без авто-мерджа (матч — только советочный); FQDN-конфликт среди `active` возвращает доменный конфликт, не сырой DB-error
   4. Локации DC→Module→Rack заводятся как первоклассные сущности с иерархией; Host ссылается на Rack + позицию (юнит); Rack несёт топологические атрибуты (напр. источник питания)
   5. Каждое изменение (идентичность/ЖЦ/железо/локация) рождает **семантическое** доменное событие (`HostRegistered`/`HostHardwareChanged`/`HostReassigned`/`HostDecommissioned`/`HostDeleted`/…), не дамп `HostUpdated`; событие несёт envelope `eventId`/`version`/`actor`/`occurredAt` с первого дня
   6. `knowledge/glossary.md` (DOC-07) фиксирует ubiquitous language: границу «факт существования vs динамическое состояние», термины Project/Host/Owner/Module/Connection, идентичность и `decommission ≠ delete`; код раскладывается по канон-слоям `domain/usecases/query/repositories/api/cron` + composition root `app` (SVC-01)
+
 **Plans**: TBD
 **UI hint**: no
 
 ### Phase 7: Эталон записи и чтения (UnitOfWork + Outbox + gRPC)
+
 **Goal**: Первая реальная реализация канона записи v1.0 — атомарная запись агрегата и событий в одной Mongo-транзакции, доступная через gRPC; reference-implementation для всех будущих сервисов.
 **Depends on**: Phase 6
 **Requirements**: SVC-02, SVC-03, SVC-04, SVC-08, EVT-03
 **Success Criteria** (what must be TRUE):
+
   1. Запись агрегата идёт через порт `UnitOfWork` (Mongo-транзакция, writeconcern majority); репозитории берут транзакцию из `ctx`
   2. Доменные события пишутся в outbox-коллекцию **в той же** UoW-транзакции, что и агрегат (transactional outbox, at-least-once, нет dual-write); интеграционный тест atomicity (инъекция паники между Save и Append) проходит
   3. Use cases вызываются через gRPC-адаптеры напрямую (хендлеры зовут use case без диспетчера); read-side — query-сервисы читают Mongo напрямую в DTO (CQRS-lite)
   4. gRPC-слой извлекает identity вызывающего через единый interceptor и пробрасывает её до use case, питая `actor/initiator` события (проверки прав — stub под будущий Access, SEED-003)
   5. Partial unique index FQDN среди `lifecycleState:active` создан и реально освобождает FQDN при decommission/delete
+
 **Plans**: TBD
 **UI hint**: no
 
 ### Phase 8: Event-backbone — protobuf-схемы + relay → Kafka
+
 **Goal**: Центральный компонент v3.0 — события доходят до Kafka через relay в правильном порядке, по двум топикам с разным retention, по стабильному ключу; forward-compat контракт зафиксирован в схеме до публикации.
 **Depends on**: Phase 7
 **Requirements**: EVT-06, EVT-04, EVT-05
 **Success Criteria** (what must be TRUE):
+
   1. Схемы событий — protobuf через buf codegen: `events.proto` (HostEvent envelope `eventId`/`entityId`/`version`/`occurredAt`/`actor{id,source}` + payload-oneof) и `state.proto` (HostState) per aggregate; schema registry не вводится
   2. Relay (отдельный loop) читает outbox строго `ORDER BY sequence`, публикует через franz-go idempotent producer (`acks=all`, без лимита ретраев), помечает published; интеграционный тест порядка `create→update→decommission→delete` на одном `entityID` зелёный
   3. Каждое изменение эмитится в dual-topic: `inventory.*.events` (append-only, immutable-история фактов) + `inventory.*.state` (compacted by `entityID`, снапшот); Kafka message key = внутренний `ID`, partition by `entityID`
   4. `HostDecommissioned` = событие + смена `lifecycleState` (хост остаётся в `*.state`-снапшоте); `HostDeleted` = событие в `*.events` + tombstone в `*.state`; `delete.retention.ms` ≥ 24ч
+
 **Plans**: TBD
 **UI hint**: no
 
 ### Phase 9: Топология connections + read-model зависимостей
+
 **Goal**: Inventory владеет физической топологией парка — типизированные связи хост↔модуль и знание «что зависит от X» — без операций (каскадные действия живут в других доменах).
 **Depends on**: Phase 6 (Host identity), Phase 8 (события топологии идут через работающий relay)
 **Requirements**: MOD-01, MOD-02, MOD-03
 **Success Criteria** (what must be TRUE):
+
   1. Внешний HW-модуль (дисковая полка / внешний GPU) — самостоятельный агрегат (`type`, внешний `ID` string, **без owner**)
   2. Connections хост↔модуль — типизированные (`power`/`storage`/`data`/`pcie`/`parent-child`), отношение M:N, кросс-ссылки в Mongo по внутренним ID (для хостов) и string-ID (для модулей)
   3. Read-model отвечает двунаправленно: «что зависит от модуля/стойки/генератора» и «от чего зависит хост»; различает `impacted` vs `failed`; только знание, без действий
   4. Decommission/delete хоста или модуля эмитит `ConnectionRemoved` и снимает связи — нет висячих ссылок; каскадных **действий** нет (вне scope)
+
 **Plans**: TBD
 **UI hint**: no
 
 ### Phase 10: Верификация backbone (test-consumer)
+
 **Goal**: Приёмочный quality-gate продюсера — доказать, что backfill, история, порядок и tombstone-семантика работают end-to-end, и история восстановима после прогона компакции.
 **Depends on**: Phase 8 (relay), Phase 9 (события топологии)
 **Requirements**: EVT-07
 **Success Criteria** (what must be TRUE):
+
   1. Test-consumer (Ginkgo-suite, testcontainers KRaft) читает `inventory.*.state` с earliest и материализует карту живых сущностей (last-writer-by-version, tombstone = удалить из проекции)
   2. Сценарий онбординга нового домена через backfill из `*.state` проходит; `deleted`-сущность отсутствует в проекции, `decommissioned` — присутствует со статусом
   3. История изменений хоста (`create→hardware→reassign→decommission→delete`) восстановима из `inventory.*.events` **после** прогона компакции `*.state`-топика
   4. Чеклист «Looks Done But Isn't» из ресёрча (append-only история, decommission≠tombstone, atomicity outbox, ORDER BY sequence, actor в envelope, key=ID, partial FQDN-index, re-add-конфликт, очистка connections) пройден
+
 **Plans**: TBD
 **UI hint**: no
 

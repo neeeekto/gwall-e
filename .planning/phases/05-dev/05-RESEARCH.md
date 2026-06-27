@@ -622,9 +622,14 @@ packages:
 | A5 | compose member-host `127.0.0.1` + клиентский `directConnection=true` достаточно для дев-стенда (vs `host.docker.internal`) | Pitfalls / compose | MEDIUM — зависит от того, бежит ли клиент на хосте; для app-на-хосте `directConnection` работает; для контейнер-к-контейнеру может понадобиться `host.docker.internal` |
 | A6 | `delete.retention.ms=86400000` (24h) — приемлемый дев-дефолт для `*.state` | Code Examples / kadm | LOW — D-12 залочил «≥24h»; точное prod-значение отложено (Deferred) |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **mockery v2 vs v3?**
+> Все три вопроса разрешены при планировании Phase 5: mockery → **v3.7.1** (план 05-03 + пиннинг
+> в Makefile 05-02); новый compose/топология → **корень репо** + `internal/kafka/topology` (планы
+> 05-02/05-01); SC2 (`docker compose up`) → **manual-only** верификация (05-02/T3, требует Docker
+> engine на dev-машине).
+
+1. **mockery v2 vs v3?** — RESOLVED (v3.7.1).
    - Что знаем: v3.7.1 — текущая major; v2.53.6 — последняя v2. `knowledge/testing.md` описывает
      v3-стиль (expecter API, yaml-config). Оба генерят testify-style моки с `mock.EXPECT()`.
    - Что неясно: команда могла иметь предпочтение к v2 (стабильность) — но канон уже под v3.
