@@ -90,12 +90,18 @@ Full v1.0 detail archived in [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMA
 **Depends on**: Nothing (нулевой шаг v3.0; продолжает v1.0-фундамент)
 **Requirements**: SVC-05, SVC-06, SVC-07, DOC-02
 **Success Criteria** (what must be TRUE):
-  1. `services/inventory` собирается с mongo-driver/**v2** (v1 удалён из `go.mod`), `go build`/`go vet` зелёные с `GOWORK=off`
+  1. `services/inventory` собирается с mongo-driver/**v2** (v1 удалён из `go.mod`), `go build ./...` / `go vet ./...` зелёные из корня workspace (inventory — полноправный член `go.work`, D-01)
   2. `docker compose up` поднимает локальный стенд: Kafka (KRaft, без ZooKeeper) + MongoDB как single-node replica set (транзакции доступны)
   3. Bootstrap-скрипт провижнит топики `inventory.*.events` (cleanup=delete) и `inventory.*.state` (cleanup=compact) с заданной cleanup-policy
   4. Интеграционный тест на testcontainers (Kafka KRaft + Mongo RS) стартует и подключается; Ginkgo v2 + Gomega + mockery подключены и проходят smoke-прогон
   5. `build.md` audit-рецепт (DOC-02) исправлен: документированная команда сборки реально проходит (exit 0)
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 05-01-PLAN.md — go.mod→mongo-driver/v2 swap + Mongo connection-helper + topology-пакет (Bootstrap на kadm) + unit-тест констант
+- [ ] 05-02-PLAN.md — docker-compose (confluent-local + mongo:7 RS) + Makefile dev-таргеты (mockery pin, dev-up/topics/test-integration/generate-mocks) + ручной SC2-smoke
+- [ ] 05-03-PLAN.md — .mockery.yaml (v3) + throwaway example-интерфейс + сгенерированный мок + unit-spec (mockery smoke)
+- [ ] 05-04-PLAN.md — bootstrap-CLI в cmd/ + integration-тест (testcontainers, build-tag integration) — оба зовут общую topology.Bootstrap
+- [ ] 05-05-PLAN.md — lefthook de-exclusion (inventory unit в pre-push) + каноны build/structure/boundaries + ROADMAP SC1 + DOC-02 audit-рецепт (go vet)
 
 ### Phase 6: Доменная модель Inventory
 **Goal**: Спроектированный домен Inventory как агрегаты с инвариантами идентичности/ЖЦ и семантическими доменными событиями — фундамент всего backbone (без событий нечего класть в outbox).
@@ -168,7 +174,7 @@ Full v1.0 detail archived in [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMA
 | 2. Стабильные доки-основы | v1.0 | 3/3 | Complete | 2026-06-17 |
 | 3. Доки конвенций и архитектуры | v1.0 | 5/5 | Complete | 2026-06-17 |
 | 4. Enforcement-слой (тулинг) | v1.0 | 4/4 | Complete | 2026-06-17 |
-| 5. Dev-инфра и стек | v3.0 | 0/? | Not started | - |
+| 5. Dev-инфра и стек | v3.0 | 0/5 | Not started | - |
 | 6. Доменная модель Inventory | v3.0 | 0/? | Not started | - |
 | 7. Эталон записи и чтения | v3.0 | 0/? | Not started | - |
 | 8. Event-backbone — схемы + relay → Kafka | v3.0 | 0/? | Not started | - |
