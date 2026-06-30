@@ -14,8 +14,8 @@
 # ---------------------------------------------------------------------------
 # pre-commit: lint + format (D-02). Formatting (gofumpt + gci) runs EMBEDDED in
 # golangci-lint v2 `formatters` — do NOT call standalone gofumpt.
-# Run per-module so the in-workspace set (go.work active) and the out-of-workspace
-# inventory pass (GOWORK=off) stay explicit (D-01).
+# All active modules are members of go.work (incl. services/inventory, D-01); lint
+# each module root with go.work active — no per-module workspace override.
 # parallel: false — lint passes share caches; keep deterministic.
 # ---------------------------------------------------------------------------
 pre-commit:
@@ -26,25 +26,17 @@ pre-commit:
       # in-workspace modules build with go.work active; lint each module root.
       run: |
         set -e
-        for m in pkg services/analytics services/audit; do
+        for m in pkg services/analytics services/audit services/inventory; do
           (cd "$m" && golangci-lint run ./...)
         done
       stage_fixed: true
-    lint-inventory:
-      glob: "services/inventory/**/*.go"
-      # inventory is intentionally OUTSIDE go.work (WIP) → must lint with GOWORK=off
-      # from its module dir. Best-effort: do NOT "fix" the scaffolding (boundaries.md).
-      # Scoped to the inventory glob so it only fires when inventory .go files change.
-      run: cd services/inventory && GOWORK=off golangci-lint run ./...
-      stage_fixed: true
 
 # ---------------------------------------------------------------------------
-# pre-push: tests for IN-WORKSPACE modules ONLY (D-03).
+# pre-push: unit tests for ALL workspace modules (D-02). inventory IS included —
+# it is a full go.work member that MUST compile (D-03 invariant). Tests run unit
+# only (plain `go test ./...`, no integration build tag), so the gate never pulls
+# Docker/testcontainers — integration suites live behind a build tag (D-15).
 # parallel: false — keep deterministic output.
-# NOTE: services/inventory is INTENTIONALLY NOT tested here. It is WIP, lives
-#       OUTSIDE go.work, and its internal/ scaffolding was deleted — boundaries.md
-#       forbids running/"fixing" WIP scaffolding. This exclusion is deliberate,
-#       NOT an oversight (D-03). Do not add an inventory test command.
 # ---------------------------------------------------------------------------
 pre-push:
   parallel: false
@@ -55,6 +47,8 @@ pre-push:
       run: cd services/audit && go test ./...
     test-analytics:
       run: cd services/analytics && go test ./...   # 0 packages currently → no-op, NOT an error (build.md)
+    test-inventory:
+      run: cd services/inventory && go test ./...   # unit only (no integration build tag, D-15)
 
 # ---------------------------------------------------------------------------
 # commit-msg: Conventional Commits via commitlint (D-04).
