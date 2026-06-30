@@ -13,14 +13,14 @@
 
 - [ ] **INV-01**: Оператор может завести Project (`ID`, `Name`, `Description`, `Owner`)
 - [ ] **INV-02**: Оператор может зарегистрировать Host с обязательной привязкой к Project
-- [ ] **INV-03**: Система присваивает хосту/проекту внутренний постоянный `ID` (генерится системой, не переиспользуется) — единственный носитель идентичности
+- [x] **INV-03**: Система присваивает хосту/проекту внутренний постоянный `ID` (генерится системой, не переиспользуется) — единственный носитель идентичности
 - [ ] **INV-04**: Host имеет ЖЦ-статус `shadow → registered → decommissioned` + `deleted` (только факт существования железа, не динамическое состояние)
 - [ ] **INV-05**: Оператор может переназначить Host в другой Project (инвентарная коррекция; безопасный перенос-с-затиркой — вне scope)
 - [ ] **INV-06**: Оператор может decommission хоста (списание железа; терминально; ≠ `deleted`)
 - [ ] **INV-07**: Оператор может удалить (`deleted`) запись хоста/проекта; история сохраняется на событиях; FQDN освобождается
-- [ ] **INV-08**: Повторное добавление хоста = новый `ID` без авто-мерджа; матч с прошлыми записями по ключу — только советочный (хук под будущую интеграцию)
+- [x] **INV-08**: Повторное добавление хоста = новый `ID` без авто-мерджа; матч с прошлыми записями по ключу — только советочный (хук под будущую интеграцию)
 - [ ] **INV-09**: `Owner` хранится как непрозрачный внешний `string`-ID группы; резолв — наружу (вне scope)
-- [ ] **INV-10**: `FQDN` уникален только среди `active`-хостов (partial unique index); Project можно удалить только пустым
+- [x] **INV-10**: `FQDN` уникален только среди `active`-хостов (partial unique index); Project можно удалить только пустым
 
 ### HW — Модель железа хоста
 
@@ -46,8 +46,8 @@
 
 ### EVT — Event-backbone (Kafka, продюсер)
 
-- [ ] **EVT-01**: Сервис эмитит семантические гранулярные доменные события на все изменения (идентичность/ЖЦ/железо/локация/топология)
-- [ ] **EVT-02**: Каждое событие несёт envelope с `eventId`, `version` (поле агрегата), `actor/initiator` и `occurredAt` — с первого дня (forward-compat для Audit)
+- [x] **EVT-01**: Сервис эмитит семантические гранулярные доменные события на все изменения (идентичность/ЖЦ/железо/локация/топология)
+- [x] **EVT-02**: Каждое событие несёт envelope с `eventId`, `version` (поле агрегата), `actor/initiator` и `occurredAt` — с первого дня (forward-compat для Audit)
 - [ ] **EVT-03**: События публикуются через transactional outbox внутри UoW + отдельный relay → Kafka (idempotent producer, at-least-once)
 - [ ] **EVT-04**: Dual-topic на тип агрегата — `*.events` (append-only, immutable-история фактов: Analytics/replay/backfill/debug) + `*.state` (compacted by `entityID`, снапшот/backfill). *Как поверх этого строится Audit (envelope-consume vs выделенный audit-stream) — research при E11, см. [SEED-002](seeds/SEED-002-audit-logging.md); v3.0 от этого выбора не зависит*
 - [ ] **EVT-05**: Kafka message key = внутренний `ID`; partition by `entityID` (порядок per-entity); `decommissioned` = событие, `deleted` = tombstone в `*.state`
@@ -56,7 +56,7 @@
 
 ### SVC — Эталонный сервис и dev-инфра
 
-- [ ] **SVC-01**: Сервис реализует канон-слои `domain / usecases / query / repositories / api(gRPC) / cron` + composition root (`app`)
+- [x] **SVC-01**: Сервис реализует канон-слои `domain / usecases / query / repositories / api(gRPC) / cron` + composition root (`app`)
 - [ ] **SVC-02**: Запись идёт через порт `UnitOfWork` (Mongo-транзакция; требует replica set)
 - [ ] **SVC-03**: Use cases доступны через gRPC-адаптеры (хендлеры зовут use case напрямую, без диспетчера)
 - [ ] **SVC-04**: Read-side — query-сервисы читают Mongo напрямую в DTO (CQRS-lite)
@@ -110,14 +110,14 @@
 |-------------|-------|--------|
 | INV-01 | Phase 6 | Pending |
 | INV-02 | Phase 6 | Pending |
-| INV-03 | Phase 6 | Pending |
+| INV-03 | Phase 6 | Complete |
 | INV-04 | Phase 6 | Pending |
 | INV-05 | Phase 6 | Pending |
 | INV-06 | Phase 6 | Pending |
 | INV-07 | Phase 6 | Pending |
-| INV-08 | Phase 6 | Pending |
+| INV-08 | Phase 6 | Complete |
 | INV-09 | Phase 6 | Pending |
-| INV-10 | Phase 6 | Pending |
+| INV-10 | Phase 6 | Complete |
 | HW-01 | Phase 6 | Pending |
 | HW-02 | Phase 6 | Pending |
 | HW-03 | Phase 6 | Pending |
@@ -131,14 +131,14 @@
 | MOD-01 | Phase 9 | Pending |
 | MOD-02 | Phase 9 | Pending |
 | MOD-03 | Phase 9 | Pending |
-| EVT-01 | Phase 6 | Pending |
-| EVT-02 | Phase 6 | Pending |
+| EVT-01 | Phase 6 | Complete |
+| EVT-02 | Phase 6 | Complete |
 | EVT-03 | Phase 7 | Pending |
 | EVT-04 | Phase 8 | Pending |
 | EVT-05 | Phase 8 | Pending |
 | EVT-06 | Phase 8 | Pending |
 | EVT-07 | Phase 10 | Pending |
-| SVC-01 | Phase 6 | Pending |
+| SVC-01 | Phase 6 | Complete |
 | SVC-02 | Phase 7 | Pending |
 | SVC-03 | Phase 7 | Pending |
 | SVC-04 | Phase 7 | Pending |
