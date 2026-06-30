@@ -65,11 +65,11 @@ func Bootstrap(ctx context.Context, adm *kadm.Client, partitions int32) error {
 	for _, aggregate := range aggregates {
 		if _, err := adm.CreateTopics(ctx, partitions, replicationFactor, eventsConfig(),
 			eventsTopic(aggregate)); err != nil {
-			return fmt.Errorf("создать топик %s%s: %w", aggregate, eventsSuffix, err)
+			return fmt.Errorf("create topic %s%s: %w", aggregate, eventsSuffix, err)
 		}
 		if _, err := adm.CreateTopics(ctx, partitions, replicationFactor, stateConfig(),
 			stateTopic(aggregate)); err != nil {
-			return fmt.Errorf("создать топик %s%s: %w", aggregate, stateSuffix, err)
+			return fmt.Errorf("create topic %s%s: %w", aggregate, stateSuffix, err)
 		}
 	}
 	return nil

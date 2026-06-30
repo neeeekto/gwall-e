@@ -32,7 +32,7 @@ func Connect(ctx context.Context, uri string) (*mongo.Client, error) {
 			SetWriteConcern(writeconcern.Majority()),
 	)
 	if err != nil {
-		return nil, fmt.Errorf("подключение к Mongo: %w", err)
+		return nil, fmt.Errorf("connect to Mongo: %w", err)
 	}
 	// health-ping: readpref nil = primary; при ошибке закрываем клиент, чтобы не течь соединениями.
 	if err := cl.Ping(ctx, nil); err != nil {

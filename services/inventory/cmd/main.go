@@ -33,7 +33,7 @@ const (
 func main() {
 	// one-shot CLI: контекст всего процесса — Background.
 	if err := run(context.Background()); err != nil {
-		log.Fatalf("bootstrap топологии: %v", err)
+		log.Fatalf("bootstrap topology: %v", err)
 	}
 }
 
@@ -49,7 +49,7 @@ func run(ctx context.Context) error {
 	// kgo-клиент со seed-брокерами; kadm оборачивает его для админ-операций (CreateTopics).
 	cl, err := kgo.NewClient(kgo.SeedBrokers(brokers...))
 	if err != nil {
-		return fmt.Errorf("создать kafka-клиент: %w", err)
+		return fmt.Errorf("create kafka client: %w", err)
 	}
 	defer cl.Close()
 
@@ -57,10 +57,10 @@ func run(ctx context.Context) error {
 
 	// вся топология (имена/политики/агрегаты) — в пакете topology (D-06), CLI её не дублирует.
 	if err := topology.Bootstrap(ctx, adm, int32(partitions)); err != nil {
-		return fmt.Errorf("провижн топиков (brokers=%v, partitions=%d): %w", brokers, partitions, err)
+		return fmt.Errorf("provision topics (brokers=%v, partitions=%d): %w", brokers, partitions, err)
 	}
 
-	log.Printf("топология провижена: brokers=%v, partitions=%d", brokers, partitions)
+	log.Printf("topology provisioned: brokers=%v, partitions=%d", brokers, partitions)
 	return nil
 }
 
@@ -86,10 +86,10 @@ func parsePartitions(raw string) (int, error) {
 	}
 	n, err := strconv.Atoi(strings.TrimSpace(raw))
 	if err != nil {
-		return 0, fmt.Errorf("разобрать KAFKA_PARTITIONS=%q: %w", raw, err)
+		return 0, fmt.Errorf("parse KAFKA_PARTITIONS=%q: %w", raw, err)
 	}
 	if n <= 0 {
-		return 0, fmt.Errorf("KAFKA_PARTITIONS должно быть > 0, получено %d", n)
+		return 0, fmt.Errorf("KAFKA_PARTITIONS must be > 0, got %d", n)
 	}
 	return n, nil
 }
