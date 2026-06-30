@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: — Inventory + Event-backbone
 status: executing
-stopped_at: Completed 05-04-PLAN.md (bootstrap-CLI + integration smoke)
-last_updated: "2026-06-30T16:30:00.000Z"
-last_activity: 2026-06-30 -- Plan 05-04 executed (bootstrap-CLI + testcontainers integration smoke)
+stopped_at: Completed 05-05-PLAN.md (lefthook de-exclusion + каноны go.work + DOC-02 go vet)
+last_updated: "2026-06-30T17:00:00.000Z"
+last_activity: 2026-06-30 -- Plan 05-05 executed (inventory unit в pre-push, GOWORK=off снят, DOC-02 go vet exit 0)
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 5
-  completed_plans: 4
-  percent: 80
+  completed_plans: 5
+  percent: 100
 ---
 
 # Project State
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 
 Phase: 05 (dev) — EXECUTING
 Plan: 5 of 5
-Status: Ready to execute
-Last activity: 2026-06-30 -- Plan 05-04 executed (bootstrap-CLI + testcontainers integration smoke)
+Status: All plans executed
+Last activity: 2026-06-30 -- Plan 05-05 executed (inventory unit в pre-push, GOWORK=off снят, DOC-02 go vet exit 0)
 
-Progress: [████████░░] 80%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ Progress: [████████░░] 80%
 | Phase 05 P02 | 3 days | 3 tasks | 2 files |
 | Phase 05 P03 | ~2min | 2 tasks | 7 files |
 | Phase 05 P04 | ~6min | 2 tasks | 5 files |
+| Phase 05 P05 | ~8min | 3 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,7 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase ?]: Dev-стенд (Plan 05-02): mongo запускается явным mongod, иначе --replSet не доходит до демона; SC2 smoke пройден вручную (rs.status().ok==1, Kafka :9092)
 - [Phase 5]: mockery v3 smoke (Plan 05-03): .mockery.yaml v3-синтаксис (template testify, .SrcPackageName, моки в {{.InterfaceDir}}/mocks); throwaway example-пакет доказал кодоген до реальных портов (Phase 6/7); testify втянут тест-кодом (T-05-07 accept)
 - [Phase 5]: bootstrap-CLI + integration smoke (Plan 05-04): тонкий cmd/main.go (env→kgo/kadm→topology.Bootstrap, D-09, без дубля топологии D-06); integration-тест за //go:build integration (D-15 — go test ./... и pre-push без Docker); single-source замкнут (CLI и тест зовут одну Bootstrap); SC3/SC4 ассерт-код готов, фактический прогон требует Docker (make test-integration); go build ./cmd падает (Pitfall 2) — валидация через go vet
+- [Phase 5]: lefthook de-exclusion + каноны (Plan 05-05): pre-push гоняет inventory unit (go test ./..., без integration build tag, D-15); GOWORK=off снят везде (lefthook/build/structure/boundaries + drift в testing.md/README.md, T-05-12); DOC-02 закрыт — audit-рецепт go vet ./... exit 0 (go build ./... падает build output cmd already exists); каноны: inventory = четвёртый полноправный член go.work, всегда компилируется (D-01/D-03/D-04); pre-push smoke зелёный без Docker; live-firing требует разового lefthook install
 
 ### Pending Todos
 
@@ -87,7 +89,7 @@ Items carried forward from v1.0 milestone close (2026-06-17); адресуютс
 
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| requirement | DOC-02 — build.md audit-рецепт падает (exit 1); рабочие формы `go build ./cmd` / `go vet ./...` | gaps_found → Phase 5 | 2026-06-17 |
+| requirement | DOC-02 — build.md audit-рецепт падает (exit 1); рабочие формы `go build ./cmd` / `go vet ./...` | resolved (Plan 05-05: go vet ./... exit 0) | 2026-06-17 |
 | requirement | DOC-07 glossary (ubiquitous language) — активируется в domain-milestone | deferred → Phase 6 | 2026-06-17 |
 | verification | Phase 02 — 02-VERIFICATION.md (DOC-02 build claim) | gaps_found | 2026-06-17 |
 | verification | Phase 04 — 04-VERIFICATION.md (live hook firing needs one-time bootstrap) | human_needed | 2026-06-17 |
@@ -96,8 +98,8 @@ Items carried forward from v1.0 milestone close (2026-06-17); адресуютс
 
 ## Session Continuity
 
-Last session: 2026-06-30T16:30:00.000Z
-Stopped at: Completed 05-04-PLAN.md (bootstrap-CLI + integration smoke)
+Last session: 2026-06-30T17:00:00.000Z
+Stopped at: Completed 05-05-PLAN.md (lefthook de-exclusion + каноны go.work + DOC-02 go vet)
 Resume file: None
 
 ## Operator Next Steps

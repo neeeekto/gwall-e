@@ -108,7 +108,7 @@ Full v1.0 detail archived in [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMA
 
 - [x] 05-03-PLAN.md — .mockery.yaml (v3) + throwaway example-интерфейс + сгенерированный мок + unit-spec (mockery smoke)
 - [x] 05-04-PLAN.md — bootstrap-CLI в cmd/ + integration-тест (testcontainers, build-tag integration) — оба зовут общую topology.Bootstrap
-- [ ] 05-05-PLAN.md — lefthook de-exclusion (inventory unit в pre-push) + каноны build/structure/boundaries + ROADMAP SC1 + DOC-02 audit-рецепт (go vet)
+- [x] 05-05-PLAN.md — lefthook de-exclusion (inventory unit в pre-push) + каноны build/structure/boundaries + ROADMAP SC1 + DOC-02 audit-рецепт (go vet)
 
 ### Phase 6: Доменная модель Inventory
 
