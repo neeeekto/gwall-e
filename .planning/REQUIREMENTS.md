@@ -11,7 +11,7 @@
 
 ### INV — Inventory: идентичность и жизненный цикл
 
-- [ ] **INV-01**: Оператор может завести Project (`ID`, `Name`, `Description`, `Owner`)
+- [x] **INV-01**: Оператор может завести Project (`ID`, `Name`, `Description`, `Owner`)
 - [x] **INV-02**: Оператор может зарегистрировать Host с обязательной привязкой к Project
 - [x] **INV-03**: Система присваивает хосту/проекту внутренний постоянный `ID` (генерится системой, не переиспользуется) — единственный носитель идентичности
 - [x] **INV-04**: Host имеет ЖЦ-статус `shadow → registered → decommissioned` + `deleted` (только факт существования железа, не динамическое состояние)
@@ -19,7 +19,7 @@
 - [x] **INV-06**: Оператор может decommission хоста (списание железа; терминально; ≠ `deleted`)
 - [x] **INV-07**: Оператор может удалить (`deleted`) запись хоста/проекта; история сохраняется на событиях; FQDN освобождается
 - [x] **INV-08**: Повторное добавление хоста = новый `ID` без авто-мерджа; матч с прошлыми записями по ключу — только советочный (хук под будущую интеграцию)
-- [ ] **INV-09**: `Owner` хранится как непрозрачный внешний `string`-ID группы; резолв — наружу (вне scope)
+- [x] **INV-09**: `Owner` хранится как непрозрачный внешний `string`-ID группы; резолв — наружу (вне scope)
 - [x] **INV-10**: `FQDN` уникален только среди `active`-хостов (partial unique index); Project можно удалить только пустым
 
 ### HW — Модель железа хоста
@@ -33,10 +33,10 @@
 
 ### LOC — Локации
 
-- [ ] **LOC-01**: Оператор может завести/изменить DC, Module, Rack как первоклассные сущности (CRUD)
-- [ ] **LOC-02**: Локации образуют иерархию `DC → Module → Rack`
+- [x] **LOC-01**: Оператор может завести/изменить DC, Module, Rack как первоклассные сущности (CRUD)
+- [x] **LOC-02**: Локации образуют иерархию `DC → Module → Rack`
 - [x] **LOC-03**: Host ссылается на Rack + позицию (юнит) в стойке
-- [ ] **LOC-04**: Rack несёт атрибуты (напр. источник питания / дизель-генератор) как узлы топологии
+- [x] **LOC-04**: Rack несёт атрибуты (напр. источник питания / дизель-генератор) как узлы топологии
 
 ### MOD — Внешние HW-модули и топология
 
@@ -108,7 +108,7 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INV-01 | Phase 6 | Pending |
+| INV-01 | Phase 6 | Complete |
 | INV-02 | Phase 6 | Complete |
 | INV-03 | Phase 6 | Complete |
 | INV-04 | Phase 6 | Complete |
@@ -116,7 +116,7 @@
 | INV-06 | Phase 6 | Complete |
 | INV-07 | Phase 6 | Complete |
 | INV-08 | Phase 6 | Complete |
-| INV-09 | Phase 6 | Pending |
+| INV-09 | Phase 6 | Complete |
 | INV-10 | Phase 6 | Complete |
 | HW-01 | Phase 6 | Complete |
 | HW-02 | Phase 6 | Complete |
@@ -124,10 +124,10 @@
 | HW-04 | Phase 6 | Complete |
 | HW-05 | Phase 6 | Complete |
 | HW-06 | Phase 6 | Complete |
-| LOC-01 | Phase 6 | Pending |
-| LOC-02 | Phase 6 | Pending |
+| LOC-01 | Phase 6 | Complete |
+| LOC-02 | Phase 6 | Complete |
 | LOC-03 | Phase 6 | Complete |
-| LOC-04 | Phase 6 | Pending |
+| LOC-04 | Phase 6 | Complete |
 | MOD-01 | Phase 9 | Pending |
 | MOD-02 | Phase 9 | Pending |
 | MOD-03 | Phase 9 | Pending |

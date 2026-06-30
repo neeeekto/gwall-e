@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: — Inventory + Event-backbone
 status: executing
-stopped_at: Completed 06-01-PLAN.md
-last_updated: "2026-06-30T19:22:23.371Z"
-last_activity: 2026-06-30 -- Phase 06 execution started
+stopped_at: Completed 06-03-PLAN.md
+last_updated: "2026-06-30T19:28:30.000Z"
+last_activity: 2026-06-30 -- Completed 06-03 (Project + location aggregates)
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 11
-  completed_plans: 7
-  percent: 17
+  completed_plans: 8
+  percent: 18
 ---
 
 # Project State
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 ## Current Position
 
 Phase: 06 (inventory) — EXECUTING
-Plan: 3 of 6
+Plan: 4 of 6
 Status: Ready to execute
-Last activity: 2026-06-30 -- Phase 06 execution started
+Last activity: 2026-06-30 -- Completed 06-03 (Project + DC/Module/Rack aggregates)
 
 Progress: [██████████] 100%
 
@@ -59,6 +59,7 @@ Progress: [██████████] 100%
 | Phase 05 P05 | ~8min | 3 tasks | 7 files |
 | Phase 06 P01 | 5min | 3 tasks | 23 files |
 | Phase 06 P02 | ~5min | 2 tasks | 6 files |
+| Phase 06 P03 | ~4min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -81,6 +82,7 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase ?]: 06-02: host_test.go white-box — lifecycleState неэкспортируем, матрица переходов требует прямого доступа
 - [Phase ?]: 06-02: deleted ≠ lifecycle-state (Pitfall 1/D-09); ровно 3 члена enum, Delete()+repo.Delete
 - [Phase ?]: 06-02: immutable HostHardware с defensive-copy слайсов в конструкторе/геттерах + глубокая копия NIC.MACs (Pitfall 2)
+- [Phase 06]: 06-03: Project-агрегат (NewProject non-empty name INV-01, Owner raw string INV-09, операции по одному событию D-13); DC/Module/Rack — три независимых агрегата (D-04, НЕ дерево), иерархия по внутреннему ID (Module.DCID/Rack.ModuleID, LOC-02/D-06), guard на zero parent-ID (T-06-09); Rack.PowerTopology VO (LOC-04); aggregates_stub.go удалён (все 5 агрегатов реальные); Rule 2: ErrInvalidProject/ErrInvalidLocation sentinel.
 
 ### Pending Todos
 
@@ -106,8 +108,8 @@ Items carried forward from v1.0 milestone close (2026-06-17); адресуютс
 
 ## Session Continuity
 
-Last session: 2026-06-30T19:22:00.211Z
-Stopped at: Completed 06-01-PLAN.md
+Last session: 2026-06-30T19:28:30.000Z
+Stopped at: Completed 06-03-PLAN.md
 Resume file: None
 
 ## Operator Next Steps

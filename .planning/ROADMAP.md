@@ -135,7 +135,7 @@ Plans:
 **Wave 2** *(blocked on Wave 1)*
 
 - [x] 06-02-PLAN.md — Host-агрегат + immutable HostHardware VO + lifecycle SM (shadow/registered/decommissioned) + hard-Delete + операции-события
-- [ ] 06-03-PLAN.md — Project-агрегат + локации DC/Module/Rack (3 независимых, иерархия по ID) + CRUD-события
+- [x] 06-03-PLAN.md — Project-агрегат + локации DC/Module/Rack (3 независимых, иерархия по ID) + CRUD-события
 
 **Wave 3** *(blocked on Wave 2)*
 
@@ -218,7 +218,7 @@ Plans:
 | 3. Доки конвенций и архитектуры | v1.0 | 5/5 | Complete | 2026-06-17 |
 | 4. Enforcement-слой (тулинг) | v1.0 | 4/4 | Complete | 2026-06-17 |
 | 5. Dev-инфра и стек | v3.0 | 5/5 | Complete | 2026-06-30 |
-| 6. Доменная модель Inventory | v3.0 | 2/6 | In Progress|  |
+| 6. Доменная модель Inventory | v3.0 | 3/6 | In Progress|  |
 | 7. Эталон записи и чтения | v3.0 | 0/? | Not started | - |
 | 8. Event-backbone — схемы + relay → Kafka | v3.0 | 0/? | Not started | - |
 | 9. Топология connections + read-model | v3.0 | 0/? | Not started | - |
