@@ -40,9 +40,14 @@ Enforcement-тулинг (lint/format/git-хуки/commit-msg) ставится 
   `lefthook install`
 
 После bootstrap'а хуки бьют на реальных git-событиях: `pre-commit` — lint+format,
-`pre-push` — тесты in-workspace модулей, `commit-msg` — commitlint (Conventional Commits).
-В `pre-push` модуль `inventory` **исключён намеренно** (WIP вне `go.work`, см. раздел
-inventory ниже и `boundaries.md`) — это осознанное исключение, **не** пропуск.
+`pre-push` — unit-тесты всех модулей workspace, `commit-msg` — commitlint
+(Conventional Commits). `inventory` — полноправный член `go.work` (см. раздел inventory
+ниже и [structure.md](structure.md)), поэтому `pre-push` **включает** его unit-тесты
+(`cd services/inventory && go test ./...`).
+
+- **MUST** держать `pre-push` на unit-тестах: интеграционные suite'ы (testcontainers,
+  Kafka/Mongo) спрятаны за build-тегом и в `pre-push` **WON'T** запускаться, потому что
+  хук не должен тянуть Docker; вместо этого их гоняет отдельный таргет/тег вручную.
 
 > proto-тулинг (buf) поставится `make tools`'ом, но в git-хуки **не** включён: `.proto` в
 > репозитории ещё нет, codegen — заготовка. Выдавать buf-codegen за «работающий» — **WON'T**
@@ -56,28 +61,31 @@ inventory ниже и `boundaries.md`) — это осознанное искл�
 
 Это рабочий рецепт: в `pkg` есть тесты (`pkg/http`), прогон зелёный.
 
-## Сборка модулей workspace
+## Сборка/валидация модулей workspace
 
-- **MUST** собирать `audit` из его модуля: `cd services/audit && go build ./...` —
-  модуль содержит пакеты (есть `cmd/main.go`), сборка проходит.
+- **MUST** валидировать `audit` через `cd services/audit && go vet ./...` (exit `0`,
+  проверено эмпирически): `go vet` компилирует пакеты и гоняет статанализ без сборки
+  бинаря. Использовать `go build ./...` или `go build ./cmd` для аудита — **WON'T**: при
+  `package main` в `cmd/` они падают с `build output "cmd" already exists` (коллизия имени
+  выходного файла); вместо бинаря — `go vet ./...` как каноническая валидация.
 - **SHOULD** помнить, что `analytics` — пока модуль-заготовка: в нём ещё нет Go-пакетов,
-  поэтому `cd services/analytics && go build ./...` матчит ноль пакетов и печатает
+  поэтому `cd services/analytics && go vet ./...` матчит ноль пакетов и печатает
   `matched no packages` — это **не** ошибка. **WON'T** выдавать `analytics` за «собранный
   сервис с кодом»: вместо этого помечать его как заготовку до появления пакетов.
 
-## inventory — WIP, `GOWORK=off`
+## inventory — член workspace
 
-`inventory` собирается отдельно, **вне** workspace (почему — см.
-[structure.md](structure.md), раздел про inventory).
+`inventory` — полноправный член `go.work` (D-01; членство — канон в
+[structure.md](structure.md)), поэтому собирается/валидируется **вместе со всеми**, без
+`go.work`-override.
 
-**MUST** запускать команды inventory с `GOWORK=off` из каталога модуля:
-
-`cd services/inventory && GOWORK=off go build ./...`
-
-- **MUST** относиться к этим командам как к **WIP**: `inventory` сейчас **не**
-  гарантированно компилируется — рецепт документируется как WIP, **WON'T** выдавать его
-  за «проверенно рабочий». Если сборка падает — это ожидаемо для WIP; вместо «починки»
-  лесов — следовать правилам границ (`boundaries.md`).
+- **MUST** собирать/валидировать `inventory` из корня workspace общими командами
+  (`go build ./...` / `go vet ./...`) — он входит в `go.work`, отдельный per-module
+  override **WON'T** нужен; вместо этого — единый workspace-build.
+- **MUST** считать инвариантом, что `inventory` **всегда компилируется** (D-03): он в
+  `go.work` и в `pre-push`-гейте unit-тестов. Выдавать его за «не гарантированно
+  компилируемый WIP» — **WON'T** (формулировка отменена D-01/D-03); вместо этого — держать
+  модуль зелёным как любой активный сервис.
 
 ## Фронтенд `web/` (Nx)
 
