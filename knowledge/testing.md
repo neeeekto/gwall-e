@@ -144,7 +144,7 @@ var _ = Describe("RegisterOrderUseCase", func() {
 
 ## Что где живёт (без дублей)
 
-- **Команды прогона** (`cd pkg && go test ./...`, `GOWORK=off` для `inventory`, версия
+- **Команды прогона** (`cd pkg && go test ./...`, workspace-build/`go vet`, версия
   Go) — канон в [build.md](build.md) (раскладка модулей — `structure.md`). Перечислять
   их здесь — **WON'T**; вместо этого — ссылка.
 - **Язык комментариев в тестах** (английский) — канон в [style.md](style.md). `testing.md`

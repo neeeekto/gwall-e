@@ -18,7 +18,7 @@ Full v1.0 detail archived in [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMA
 - [x] Phase 3: Доки конвенций и архитектуры (5/5 plans) — completed 2026-06-17
 - [x] Phase 4: Enforcement-слой (тулинг) (4/4 plans) — completed 2026-06-17
 
-**Known gap (tech debt):** DOC-02 — `build.md` audit-рецепт `cd services/audit && go build ./...` падает (exit 1); рабочие формы `go build ./cmd` / `go vet ./...`. См. [MILESTONES.md](MILESTONES.md). *(Адресуется в Phase 5.)*
+**Resolved (Phase 5, Plan 05-05):** DOC-02 — `build.md` audit-рецепт переведён на `cd services/audit && go vet ./...` (exit 0, проверено эмпирически); падающий `go build ./...` снят. См. [MILESTONES.md](MILESTONES.md).
 
 </details>
 

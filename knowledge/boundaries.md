@@ -15,10 +15,11 @@
   заново, а не сломаны. Вместо «починки наугад» — **MUST** оставить леса как есть и
   работать в активных модулях workspace; если что-то не собирается, сначала свериться с
   правилами ([structure.md](structure.md), [build.md](build.md)), а не патчить.
-- Пример (не жёсткий список): `services/inventory` — WIP вне `go.work`; его актуальный
-  WIP-статус — канон в [structure.md](structure.md) (владение фактом WIP там). `gateway`,
-  `outgate` (только `README` + `go.mod`-заглушки, кода нет) — тоже примеры лесов, которые
-  **WON'T** достраивать до появления реального кода.
+- Пример (не жёсткий список): `gateway`, `outgate` (только `README` + `go.mod`-заглушки,
+  кода нет) — примеры лесов вне `go.work`, которые **WON'T** достраивать до появления
+  реального кода. `services/inventory` к таким лесам **НЕ** относится: это полноправный
+  компилируемый член `go.work` (членство — канон в [structure.md](structure.md)), его
+  трогать/развивать как активный модуль можно и нужно.
 
 ## Стале-файлы не авторитетны
 
@@ -60,8 +61,8 @@
 
 | Факт | Канон | Статус |
 |------|-------|--------|
-| WIP-статус `inventory`, членство `go.work`, раскладка модулей | [structure.md](structure.md) | существует |
-| Команды сборки/запуска/тестов (вкл. `GOWORK=off`) | [build.md](build.md) | существует |
+| Членство `go.work` (вкл. `inventory`), раскладка модулей | [structure.md](structure.md) | существует |
+| Команды сборки/запуска/тестов/валидации (`go vet ./...`, workspace-build) | [build.md](build.md) | существует |
 | Git-конвенции: ветки, Conventional Commits, PR, когда коммитить | [git.md](git.md) | существует |
 | Стандарт авторинга (MUST/SHOULD/WON'T, парность, pointer-over-copy) | [authoring.md](authoring.md) | существует |
 | Язык кода/комментариев, типизированные ID, маппинг DTO→домен | [style.md](style.md) | существует |
@@ -69,7 +70,7 @@
 | Слои/направление импортов, Execute, query-lite, UnitOfWork, outbox+relay, PullEvents, MUST NOT CQRS | [architecture.md](architecture.md) | существует |
 | Пошаговые рецепты add use case / query / aggregate / repository | [patterns.md](patterns.md) | существует |
 | Таксономия статусов enforcement (`hook` / `convention-only` / `CI-gated`-reserved) | [authoring.md](authoring.md) | существует |
-| Bootstrap тулинга (`make tools` / `npm install` / `lefthook install`), исключение `inventory` из pre-push | [build.md](build.md) | существует |
+| Bootstrap тулинга (`make tools` / `npm install` / `lefthook install`), состав `pre-push` (вкл. `inventory` unit) | [build.md](build.md) | существует |
 
 > Enforcement-конфиги живут в **корне репо** (не в `knowledge/`), но факты о них
 > канонизированы выше: `.golangci.yml` (lint+format), `lefthook.yml` (git-хуки),
