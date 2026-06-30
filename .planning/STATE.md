@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: — Inventory + Event-backbone
-status: phase_complete
-stopped_at: Phase 05 complete — verified 5/5 + post-exec pkg refactor (generic Kafka/Mongo → pkg/)
-last_updated: "2026-06-30T18:30:00.000Z"
-last_activity: 2026-06-30 -- Phase 05 verified 5/5; generic plumbing вынесен в pkg/kafka + pkg/mongoconn; строки ошибок → EN
+status: completed
+stopped_at: Phase 6 context gathered
+last_updated: "2026-06-30T18:12:25.440Z"
+last_activity: "2026-06-30 -- Phase 05 verified 5/5; post-exec рефактор: generic Kafka/Mongo → pkg/; строки ошибок → EN"
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 5
   completed_plans: 5
-  percent: 100
+  percent: 17
 ---
 
 # Project State
@@ -100,9 +100,9 @@ Items carried forward from v1.0 milestone close (2026-06-17); адресуютс
 
 ## Session Continuity
 
-Last session: 2026-06-30T17:00:00.000Z
-Stopped at: Completed 05-05-PLAN.md (lefthook de-exclusion + каноны go.work + DOC-02 go vet)
-Resume file: None
+Last session: 2026-06-30T18:12:25.430Z
+Stopped at: Phase 6 context gathered
+Resume file: .planning/phases/06-inventory/06-CONTEXT.md
 
 ## Operator Next Steps
 
