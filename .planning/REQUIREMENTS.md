@@ -12,30 +12,30 @@
 ### INV — Inventory: идентичность и жизненный цикл
 
 - [ ] **INV-01**: Оператор может завести Project (`ID`, `Name`, `Description`, `Owner`)
-- [ ] **INV-02**: Оператор может зарегистрировать Host с обязательной привязкой к Project
+- [x] **INV-02**: Оператор может зарегистрировать Host с обязательной привязкой к Project
 - [x] **INV-03**: Система присваивает хосту/проекту внутренний постоянный `ID` (генерится системой, не переиспользуется) — единственный носитель идентичности
-- [ ] **INV-04**: Host имеет ЖЦ-статус `shadow → registered → decommissioned` + `deleted` (только факт существования железа, не динамическое состояние)
-- [ ] **INV-05**: Оператор может переназначить Host в другой Project (инвентарная коррекция; безопасный перенос-с-затиркой — вне scope)
-- [ ] **INV-06**: Оператор может decommission хоста (списание железа; терминально; ≠ `deleted`)
-- [ ] **INV-07**: Оператор может удалить (`deleted`) запись хоста/проекта; история сохраняется на событиях; FQDN освобождается
+- [x] **INV-04**: Host имеет ЖЦ-статус `shadow → registered → decommissioned` + `deleted` (только факт существования железа, не динамическое состояние)
+- [x] **INV-05**: Оператор может переназначить Host в другой Project (инвентарная коррекция; безопасный перенос-с-затиркой — вне scope)
+- [x] **INV-06**: Оператор может decommission хоста (списание железа; терминально; ≠ `deleted`)
+- [x] **INV-07**: Оператор может удалить (`deleted`) запись хоста/проекта; история сохраняется на событиях; FQDN освобождается
 - [x] **INV-08**: Повторное добавление хоста = новый `ID` без авто-мерджа; матч с прошлыми записями по ключу — только советочный (хук под будущую интеграцию)
 - [ ] **INV-09**: `Owner` хранится как непрозрачный внешний `string`-ID группы; резолв — наружу (вне scope)
 - [x] **INV-10**: `FQDN` уникален только среди `active`-хостов (partial unique index); Project можно удалить только пустым
 
 ### HW — Модель железа хоста
 
-- [ ] **HW-01**: Host несёт `HostHardware` как VO внутри агрегата (`Name`, `Platform`, `Motherboard`, `IPMIMac`)
-- [ ] **HW-02**: Hardware включает структурированные компоненты RAM / CPU / Drives (`slot`/`model`/`vendor`/`lot`/`serial`/`Inv string` + спеки)
-- [ ] **HW-03**: NIC моделируется как структурированный компонент (модель, скорость, MAC'и) вместо плоского `MACs[]`
-- [ ] **HW-04**: Hardware включает PSU (блоки питания) — узлы power-зависимости
-- [ ] **HW-05**: Hardware покрывает storage-controller/RAID, внутренние GPU и паспорт шасси отдельно от материнки
-- [ ] **HW-06**: Все внешние идентификаторы компонентов хранятся как `string` (любой формат — числа…UUID)
+- [x] **HW-01**: Host несёт `HostHardware` как VO внутри агрегата (`Name`, `Platform`, `Motherboard`, `IPMIMac`)
+- [x] **HW-02**: Hardware включает структурированные компоненты RAM / CPU / Drives (`slot`/`model`/`vendor`/`lot`/`serial`/`Inv string` + спеки)
+- [x] **HW-03**: NIC моделируется как структурированный компонент (модель, скорость, MAC'и) вместо плоского `MACs[]`
+- [x] **HW-04**: Hardware включает PSU (блоки питания) — узлы power-зависимости
+- [x] **HW-05**: Hardware покрывает storage-controller/RAID, внутренние GPU и паспорт шасси отдельно от материнки
+- [x] **HW-06**: Все внешние идентификаторы компонентов хранятся как `string` (любой формат — числа…UUID)
 
 ### LOC — Локации
 
 - [ ] **LOC-01**: Оператор может завести/изменить DC, Module, Rack как первоклассные сущности (CRUD)
 - [ ] **LOC-02**: Локации образуют иерархию `DC → Module → Rack`
-- [ ] **LOC-03**: Host ссылается на Rack + позицию (юнит) в стойке
+- [x] **LOC-03**: Host ссылается на Rack + позицию (юнит) в стойке
 - [ ] **LOC-04**: Rack несёт атрибуты (напр. источник питания / дизель-генератор) как узлы топологии
 
 ### MOD — Внешние HW-модули и топология
@@ -109,24 +109,24 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | INV-01 | Phase 6 | Pending |
-| INV-02 | Phase 6 | Pending |
+| INV-02 | Phase 6 | Complete |
 | INV-03 | Phase 6 | Complete |
-| INV-04 | Phase 6 | Pending |
-| INV-05 | Phase 6 | Pending |
-| INV-06 | Phase 6 | Pending |
-| INV-07 | Phase 6 | Pending |
+| INV-04 | Phase 6 | Complete |
+| INV-05 | Phase 6 | Complete |
+| INV-06 | Phase 6 | Complete |
+| INV-07 | Phase 6 | Complete |
 | INV-08 | Phase 6 | Complete |
 | INV-09 | Phase 6 | Pending |
 | INV-10 | Phase 6 | Complete |
-| HW-01 | Phase 6 | Pending |
-| HW-02 | Phase 6 | Pending |
-| HW-03 | Phase 6 | Pending |
-| HW-04 | Phase 6 | Pending |
-| HW-05 | Phase 6 | Pending |
-| HW-06 | Phase 6 | Pending |
+| HW-01 | Phase 6 | Complete |
+| HW-02 | Phase 6 | Complete |
+| HW-03 | Phase 6 | Complete |
+| HW-04 | Phase 6 | Complete |
+| HW-05 | Phase 6 | Complete |
+| HW-06 | Phase 6 | Complete |
 | LOC-01 | Phase 6 | Pending |
 | LOC-02 | Phase 6 | Pending |
-| LOC-03 | Phase 6 | Pending |
+| LOC-03 | Phase 6 | Complete |
 | LOC-04 | Phase 6 | Pending |
 | MOD-01 | Phase 9 | Pending |
 | MOD-02 | Phase 9 | Pending |

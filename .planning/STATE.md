@@ -4,13 +4,13 @@ milestone: v3.0
 milestone_name: — Inventory + Event-backbone
 status: executing
 stopped_at: Completed 06-01-PLAN.md
-last_updated: "2026-06-30T19:12:52.829Z"
+last_updated: "2026-06-30T19:22:23.371Z"
 last_activity: 2026-06-30 -- Phase 06 execution started
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 11
-  completed_plans: 6
+  completed_plans: 7
   percent: 17
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 ## Current Position
 
 Phase: 06 (inventory) — EXECUTING
-Plan: 2 of 6
+Plan: 3 of 6
 Status: Ready to execute
 Last activity: 2026-06-30 -- Phase 06 execution started
 
@@ -58,6 +58,7 @@ Progress: [██████████] 100%
 | Phase 05 P04 | ~6min | 2 tasks | 5 files |
 | Phase 05 P05 | ~8min | 3 tasks | 7 files |
 | Phase 06 P01 | 5min | 3 tasks | 23 files |
+| Phase 06 P02 | ~5min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 5][post-exec]: **правило** — все общие/generic элементы живут в `pkg/`, не дублируются между сервисами. Generic Kafka-механика → `pkg/kafka` (NewAdminClient/EnsureTopics/TopicSpec/StringPtr), RS-aware Mongo connect → `pkg/mongoconn`. Доменная топология топиков остаётся в inventory; D-06 single-source сохранён (topology.Bootstrap делегирует в pkg/kafka). pkg go-директива → 1.25.0 (mongo-driver/v2); inventory: require+replace на локальный pkg (commits 8b2025f/4e293b0/e7423b6)
 - [Phase 5]: lefthook de-exclusion + каноны (Plan 05-05): pre-push гоняет inventory unit (go test ./..., без integration build tag, D-15); GOWORK=off снят везде (lefthook/build/structure/boundaries + drift в testing.md/README.md, T-05-12); DOC-02 закрыт — audit-рецепт go vet ./... exit 0 (go build ./... падает build output cmd already exists); каноны: inventory = четвёртый полноправный член go.work, всегда компилируется (D-01/D-03/D-04); pre-push smoke зелёный без Docker; live-firing требует разового lefthook install
 - [Phase 06]: [Phase 6][06-01] Доменное ядро Inventory: 5 typed ID-VO struct-over-uuid (D-05), aggregateBase (record/PullEvents, Pitfall 3/5), DomainEvent+EventEnvelope+Actor (D-14/D-15), sentinel+typed conflicts (D-11), 12 портов+моки (D-02). MatchAdvisor без HostHardware (Wave-1 compile). Rule 3: aggregates_stub.go — placeholder-агрегаты, 06-02/03 расширяют их (не переобъявляют).
+- [Phase ?]: 06-02: host_test.go white-box — lifecycleState неэкспортируем, матрица переходов требует прямого доступа
+- [Phase ?]: 06-02: deleted ≠ lifecycle-state (Pitfall 1/D-09); ровно 3 члена enum, Delete()+repo.Delete
+- [Phase ?]: 06-02: immutable HostHardware с defensive-copy слайсов в конструкторе/геттерах + глубокая копия NIC.MACs (Pitfall 2)
 
 ### Pending Todos
 
@@ -102,7 +106,7 @@ Items carried forward from v1.0 milestone close (2026-06-17); адресуютс
 
 ## Session Continuity
 
-Last session: 2026-06-30T19:12:52.822Z
+Last session: 2026-06-30T19:22:00.211Z
 Stopped at: Completed 06-01-PLAN.md
 Resume file: None
 
