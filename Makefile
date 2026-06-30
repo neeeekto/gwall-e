@@ -19,11 +19,14 @@ tools:
 	@echo "Next: 'npm install' (commitlint) and 'lefthook install' (git hooks)."
 
 # --- Dev stand & test targets (D-09/D-15/SVC-06) ---
-# Use the docker compose v2 plugin (NOT the legacy docker-compose binary).
+# Uses the docker-compose v1 binary (operator's verified local setup).
 
 .PHONY: dev-up
 dev-up:
-	docker compose up -d
+	docker-compose up -d
+.PHONY: dev-down
+dev-down:
+	docker-compose down
 
 # Provision Kafka bootstrap topics via the inventory bootstrap CLI (CLI lands in Plan 04).
 .PHONY: topics

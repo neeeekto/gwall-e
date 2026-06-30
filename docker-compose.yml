@@ -23,7 +23,7 @@ services:
     # are passed to the daemon. RS name rs0 must match rs.initiate() in the healthcheck below.
     command: ["mongod", "--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
     ports:
-      - "27017:27017"
+      - "27018:27017"
     healthcheck:
       # Idempotent RS init (Pitfall 1): rs.status() succeeds once initiated; otherwise
       # rs.initiate() bootstraps it. The try/catch swallows the "already initialized" error
