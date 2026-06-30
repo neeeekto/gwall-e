@@ -1,0 +1,16 @@
+# Конфиг mockery v3 (Pitfall 5: v3-синтаксис — НЕ v2).
+# Бинарь пиннут в Makefile (MOCKERY_VERSION := v3.7.1), запуск — `make generate-mocks`.
+# v3-инварианты: моки рядом с кодом (template testify), .SrcPackageName/.SrcPackagePath
+# (НЕ v2 .PackageName/.PackagePath), один файл на пакет.
+all: false
+formatter: goimports
+template: testify
+dir: "{{.InterfaceDir}}/mocks"
+filename: "{{.InterfaceName}}.go"
+pkgname: "mocks"
+packages:
+  # Throwaway example-пакет: доказывает smoke-кодоген mockery до появления реальных
+  # доменных портов (они придут в Phase 6/7).
+  github.com/gwall-e/services/inventory/internal/example:
+    interfaces:
+      ExampleProvisioner: {} # пример-порт; реальные доменные порты — Phase 6/7
