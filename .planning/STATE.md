@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: — Inventory + Event-backbone
-status: completed
+status: executing
 stopped_at: Phase 6 context gathered
-last_updated: "2026-06-30T18:12:25.440Z"
+last_updated: "2026-06-30T18:45:53.574Z"
 last_activity: "2026-06-30 -- Phase 05 verified 5/5; post-exec рефактор: generic Kafka/Mongo → pkg/; строки ошибок → EN"
 progress:
   total_phases: 6
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 
 Phase: 05 (dev) — COMPLETE (verified 5/5)
 Plan: 5 of 5
-Status: Phase complete — все must-have критерии подтверждены; SC2 dev-стенд smoke approved пользователем (rs.status().ok==1, Kafka :9092)
+Status: Ready to execute
 Last activity: 2026-06-30 -- Phase 05 verified 5/5; post-exec рефактор: generic Kafka/Mongo → pkg/; строки ошибок → EN
 
 Progress: [██████████] 100%
