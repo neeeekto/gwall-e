@@ -61,7 +61,7 @@
 - [ ] **SVC-03**: Use cases доступны через gRPC-адаптеры (хендлеры зовут use case напрямую, без диспетчера)
 - [ ] **SVC-04**: Read-side — query-сервисы читают Mongo напрямую в DTO (CQRS-lite)
 - [x] **SVC-05**: Персистентность — MongoDB через mongo-driver **v2** (миграция с v1 до написания репозиториев)
-- [ ] **SVC-06**: Тесты — Ginkgo v2 + Gomega + mockery; интеграционные через testcontainers (Kafka KRaft + Mongo single-node RS)
+- [x] **SVC-06**: Тесты — Ginkgo v2 + Gomega + mockery; интеграционные через testcontainers (Kafka KRaft + Mongo single-node RS)
 - [x] **SVC-07**: Dev-инфра — docker-compose (Kafka KRaft + Mongo RS) + bootstrap провижна топиков (`*.events`/`*.state` с нужной cleanup-policy)
 - [ ] **SVC-08**: gRPC-слой извлекает идентичность вызывающего (caller identity) и пробрасывает её до use case через единую точку перехвата (interceptor); проверки прав НЕ реализуем (stub под будущий Access), но identity питает `actor/initiator` (forward-compat, см. [SEED-003](seeds/SEED-003-authorization-on-all-actions.md))
 
@@ -143,7 +143,7 @@
 | SVC-03 | Phase 7 | Pending |
 | SVC-04 | Phase 7 | Pending |
 | SVC-05 | Phase 5 | Complete |
-| SVC-06 | Phase 5 | Pending |
+| SVC-06 | Phase 5 | Complete |
 | SVC-07 | Phase 5 | Complete |
 | SVC-08 | Phase 7 | Pending |
 | DOC-07 | Phase 6 | Pending |

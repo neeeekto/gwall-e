@@ -4,13 +4,13 @@ milestone: v3.0
 milestone_name: — Inventory + Event-backbone
 status: executing
 stopped_at: Phase 5 context gathered
-last_updated: "2026-06-27T07:47:47.202Z"
+last_updated: "2026-06-30T15:46:17.262Z"
 last_activity: 2026-06-27 -- Phase 05 execution started
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 5
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 ## Current Position
 
 Phase: 05 (dev) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 Status: Ready to execute
 Last activity: 2026-06-27 -- Phase 05 execution started
 
@@ -53,6 +53,7 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 | Phase 05 P01 | 5min | 3 tasks | 7 files |
+| Phase 05 P02 | 3 days | 3 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -65,6 +66,7 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - **Event-backbone = dual-topic per aggregate:** `*.events` (cleanup=delete, история фактов) + `*.state` (cleanup=compact by entityID, снапшот/backfill). Kafka key = внутренний ID; tombstone только на терминальный `deleted`.
 - **Стек v3.0:** franz-go (idempotent producer by default), mongo-driver/**v2** (v1 deprecated — миграция до репозиториев), testcontainers (KRaft + Mongo single-node RS). Schema registry не вводится (продюсер-only).
 - Канон v1.0 не пересматривается: DDD+гексагон без CQRS-шины, UoW (Mongo-txn), transactional outbox в той же txn, relay — отдельный async-процесс (нет dual-write).
+- [Phase ?]: Dev-стенд (Plan 05-02): mongo запускается явным mongod, иначе --replSet не доходит до демона; SC2 smoke пройден вручную (rs.status().ok==1, Kafka :9092)
 
 ### Pending Todos
 
@@ -90,7 +92,7 @@ Items carried forward from v1.0 milestone close (2026-06-17); адресуютс
 
 ## Session Continuity
 
-Last session: 2026-06-27T07:47:41.343Z
+Last session: 2026-06-30T15:45:49.972Z
 Stopped at: Phase 5 context gathered
 Resume file: .planning/phases/05-dev/05-CONTEXT.md
 

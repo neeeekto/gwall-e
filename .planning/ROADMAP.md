@@ -102,7 +102,7 @@ Full v1.0 detail archived in [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMA
 **Wave 1**
 
 - [x] 05-01-PLAN.md — go.mod→mongo-driver/v2 swap + Mongo connection-helper + topology-пакет (Bootstrap на kadm) + unit-тест констант
-- [ ] 05-02-PLAN.md — docker-compose (confluent-local + mongo:7 RS) + Makefile dev-таргеты (mockery pin, dev-up/topics/test-integration/generate-mocks) + ручной SC2-smoke
+- [x] 05-02-PLAN.md — docker-compose (confluent-local + mongo:7 RS) + Makefile dev-таргеты (mockery pin, dev-up/topics/test-integration/generate-mocks) + ручной SC2-smoke
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -196,7 +196,7 @@ Full v1.0 detail archived in [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMA
 | 2. Стабильные доки-основы | v1.0 | 3/3 | Complete | 2026-06-17 |
 | 3. Доки конвенций и архитектуры | v1.0 | 5/5 | Complete | 2026-06-17 |
 | 4. Enforcement-слой (тулинг) | v1.0 | 4/4 | Complete | 2026-06-17 |
-| 5. Dev-инфра и стек | v3.0 | 1/5 | In Progress|  |
+| 5. Dev-инфра и стек | v3.0 | 2/5 | In Progress|  |
 | 6. Доменная модель Inventory | v3.0 | 0/? | Not started | - |
 | 7. Эталон записи и чтения | v3.0 | 0/? | Not started | - |
 | 8. Event-backbone — схемы + relay → Kafka | v3.0 | 0/? | Not started | - |
