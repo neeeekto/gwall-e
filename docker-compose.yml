@@ -18,12 +18,17 @@ services:
 
   mongo:
     image: mongo:7                              # single-node replica set for transactions (D-08)
-    command: ["--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+    # Explicit `mongod` entrypoint: a bare ["--replSet", ...] command did not reach mongod
+    # (server came up "not running with --replSet"). Naming the binary guarantees the RS flags
+    # are passed to the daemon. RS name rs0 must match rs.initiate() in the healthcheck below.
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
     ports:
       - "27017:27017"
     healthcheck:
-      # Idempotent RS init (Pitfall 1): rs.status() succeeds once initiated, otherwise
-      # rs.initiate(). Member host is 127.0.0.1 so directConnection clients work.
+      # Idempotent RS init (Pitfall 1): rs.status() succeeds once initiated; otherwise
+      # rs.initiate() bootstraps it. The try/catch swallows the "already initialized" error
+      # on subsequent probes, so the healthcheck never fails once the RS is up. Member host
+      # is 127.0.0.1 so directConnection clients work.
       test: >
         echo "try { rs.status() } catch (e) {
           rs.initiate({_id:'rs0',members:[{_id:0,host:'127.0.0.1:27017'}]}) }" |
