@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: — Inventory + Event-backbone
 status: executing
-stopped_at: Phase 5 context gathered
-last_updated: "2026-06-30T15:46:17.262Z"
-last_activity: 2026-06-27 -- Phase 05 execution started
+stopped_at: Completed 05-03-PLAN.md (mockery v3 smoke)
+last_updated: "2026-06-30T15:50:00.000Z"
+last_activity: 2026-06-30 -- Plan 05-03 executed (mockery v3 smoke)
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 5
-  completed_plans: 2
-  percent: 0
+  completed_plans: 3
+  percent: 60
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 ## Current Position
 
 Phase: 05 (dev) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 Status: Ready to execute
-Last activity: 2026-06-27 -- Phase 05 execution started
+Last activity: 2026-06-30 -- Plan 05-03 executed (mockery v3 smoke)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██████░░░░] 60%
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 05 P01 | 5min | 3 tasks | 7 files |
 | Phase 05 P02 | 3 days | 3 tasks | 2 files |
+| Phase 05 P03 | ~2min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -67,6 +68,7 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - **Стек v3.0:** franz-go (idempotent producer by default), mongo-driver/**v2** (v1 deprecated — миграция до репозиториев), testcontainers (KRaft + Mongo single-node RS). Schema registry не вводится (продюсер-only).
 - Канон v1.0 не пересматривается: DDD+гексагон без CQRS-шины, UoW (Mongo-txn), transactional outbox в той же txn, relay — отдельный async-процесс (нет dual-write).
 - [Phase ?]: Dev-стенд (Plan 05-02): mongo запускается явным mongod, иначе --replSet не доходит до демона; SC2 smoke пройден вручную (rs.status().ok==1, Kafka :9092)
+- [Phase 5]: mockery v3 smoke (Plan 05-03): .mockery.yaml v3-синтаксис (template testify, .SrcPackageName, моки в {{.InterfaceDir}}/mocks); throwaway example-пакет доказал кодоген до реальных портов (Phase 6/7); testify втянут тест-кодом (T-05-07 accept)
 
 ### Pending Todos
 
@@ -92,9 +94,9 @@ Items carried forward from v1.0 milestone close (2026-06-17); адресуютс
 
 ## Session Continuity
 
-Last session: 2026-06-30T15:45:49.972Z
-Stopped at: Phase 5 context gathered
-Resume file: .planning/phases/05-dev/05-CONTEXT.md
+Last session: 2026-06-30T15:50:00.000Z
+Stopped at: Completed 05-03-PLAN.md (mockery v3 smoke)
+Resume file: None
 
 ## Operator Next Steps
 

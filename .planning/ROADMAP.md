@@ -106,7 +106,7 @@ Full v1.0 detail archived in [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMA
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 05-03-PLAN.md — .mockery.yaml (v3) + throwaway example-интерфейс + сгенерированный мок + unit-spec (mockery smoke)
+- [x] 05-03-PLAN.md — .mockery.yaml (v3) + throwaway example-интерфейс + сгенерированный мок + unit-spec (mockery smoke)
 - [ ] 05-04-PLAN.md — bootstrap-CLI в cmd/ + integration-тест (testcontainers, build-tag integration) — оба зовут общую topology.Bootstrap
 - [ ] 05-05-PLAN.md — lefthook de-exclusion (inventory unit в pre-push) + каноны build/structure/boundaries + ROADMAP SC1 + DOC-02 audit-рецепт (go vet)
 
@@ -196,7 +196,7 @@ Full v1.0 detail archived in [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMA
 | 2. Стабильные доки-основы | v1.0 | 3/3 | Complete | 2026-06-17 |
 | 3. Доки конвенций и архитектуры | v1.0 | 5/5 | Complete | 2026-06-17 |
 | 4. Enforcement-слой (тулинг) | v1.0 | 4/4 | Complete | 2026-06-17 |
-| 5. Dev-инфра и стек | v3.0 | 2/5 | In Progress|  |
+| 5. Dev-инфра и стек | v3.0 | 3/5 | In Progress|  |
 | 6. Доменная модель Inventory | v3.0 | 0/? | Not started | - |
 | 7. Эталон записи и чтения | v3.0 | 0/? | Not started | - |
 | 8. Event-backbone — схемы + relay → Kafka | v3.0 | 0/? | Not started | - |
