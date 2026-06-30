@@ -17,15 +17,6 @@ package domain
 // Host-агрегат вынесен в host.go (06-02): полная фабрика, lifecycle state-machine и
 // операции-события. Заглушка удалена — реальный тип живёт в host.go (иначе redeclaration).
 
-// Project — агрегат проекта (наполняется 06-03).
-type Project struct {
-	aggregateBase
-	id ProjectID
-}
-
-// ID возвращает идентификатор проекта.
-func (p *Project) ID() ProjectID { return p.id }
-
 // DC — агрегат дата-центра (наполняется 06-03).
 type DC struct {
 	aggregateBase

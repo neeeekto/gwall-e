@@ -23,6 +23,12 @@ var (
 	ErrInvalidHardware = errors.New("invalid host hardware")
 	// ErrMissingProject — попытка создать хост без обязательной привязки к Project (INV-02).
 	ErrMissingProject = errors.New("host requires a project")
+	// ErrInvalidProject — невалидный проект при сборке/переименовании (напр. пустое
+	// обязательное name) — V5 input validation на границе домена (INV-01).
+	ErrInvalidProject = errors.New("invalid project")
+	// ErrInvalidLocation — невалидная локация (DC/Module/Rack): пустое обязательное поле
+	// или висячая привязка к родителю по zero parent-ID — V5/LOC-02/D-06.
+	ErrInvalidLocation = errors.New("invalid location")
 )
 
 // ErrFQDNConflict — типизированный конфликт уникальности FQDN среди active-хостов
