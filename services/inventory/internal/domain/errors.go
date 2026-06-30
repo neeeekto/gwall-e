@@ -18,6 +18,11 @@ var (
 	ErrInvalidTransition = errors.New("invalid lifecycle transition")
 	// ErrAlreadyDecommissioned — действие над уже выведенным из эксплуатации хостом.
 	ErrAlreadyDecommissioned = errors.New("host already decommissioned")
+	// ErrInvalidHardware — невалидный состав железа при сборке HostHardware (напр. пустое
+	// обязательное поле name) — V5 input validation на границе домена.
+	ErrInvalidHardware = errors.New("invalid host hardware")
+	// ErrMissingProject — попытка создать хост без обязательной привязки к Project (INV-02).
+	ErrMissingProject = errors.New("host requires a project")
 )
 
 // ErrFQDNConflict — типизированный конфликт уникальности FQDN среди active-хостов
