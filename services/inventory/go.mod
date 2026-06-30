@@ -3,6 +3,7 @@ module github.com/gwall-e/services/inventory
 go 1.25.0
 
 require (
+	github.com/gwall-e/pkg v0.0.0
 	github.com/onsi/ginkgo/v2 v2.32.0
 	github.com/onsi/gomega v1.42.1
 	github.com/stretchr/testify v1.11.1
@@ -11,8 +12,11 @@ require (
 	github.com/testcontainers/testcontainers-go/modules/mongodb v0.43.0
 	github.com/twmb/franz-go v1.21.4
 	github.com/twmb/franz-go/pkg/kadm v1.18.0
-	go.mongodb.org/mongo-driver/v2 v2.7.0
 )
+
+// github.com/gwall-e/pkg — локальный модуль монорепо (не публикуется); резолвится по пути.
+// go.work покрывает build/vet/test, replace нужен для go mod tidy/verify без удалённого origin.
+replace github.com/gwall-e/pkg => ../../pkg
 
 require (
 	dario.cat/mergo v1.0.2 // indirect
@@ -67,6 +71,7 @@ require (
 	github.com/xdg-go/stringprep v1.0.4 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20240726163527-a2c0da244d78 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
+	go.mongodb.org/mongo-driver/v2 v2.7.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.60.0 // indirect
 	go.opentelemetry.io/otel v1.41.0 // indirect

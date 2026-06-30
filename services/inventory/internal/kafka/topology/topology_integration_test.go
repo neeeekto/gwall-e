@@ -21,8 +21,8 @@ import (
 	"github.com/twmb/franz-go/pkg/kadm"
 	"github.com/twmb/franz-go/pkg/kgo"
 
+	"github.com/gwall-e/pkg/mongoconn"
 	"github.com/gwall-e/services/inventory/internal/kafka/topology"
-	"github.com/gwall-e/services/inventory/internal/repository/mongoconn"
 )
 
 func TestTopologyIntegrationSuite(t *testing.T) {

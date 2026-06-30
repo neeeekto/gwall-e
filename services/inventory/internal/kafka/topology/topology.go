@@ -1,15 +1,19 @@
-// Package topology — единственный источник истины топологии Kafka-топиков inventory (D-06).
+// Package topology — единственный источник истины ДОМЕННОЙ топологии Kafka-топиков
+// inventory (D-06).
 //
-// Здесь живут имена топиков, cleanup-политики и число партиций. И тонкий CLI-провижн
-// (cmd/), и интеграционные тесты зовут Bootstrap из этого пакета напрямую — дублировать
-// конфиг топиков где-либо ещё запрещено (anti-pattern D-06).
+// Здесь живут имена топиков, cleanup-политики и набор агрегатов. Механика провижна
+// (admin-клиент, CreateTopics) вынесена в общую библиотеку pkg/kafka — этот пакет лишь
+// описывает домен и делегирует. И тонкий CLI-провижн (cmd/), и интеграционные тесты зовут
+// Bootstrap из этого пакета напрямую — дублировать конфиг топиков где-либо ещё запрещено
+// (anti-pattern D-06).
 package topology
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/twmb/franz-go/pkg/kadm"
+
+	"github.com/gwall-e/pkg/kafka"
 )
 
 // aggregates — список агрегатов, под которые провижнятся топики (data-driven, D-10).
@@ -44,33 +48,36 @@ func stateTopic(aggregate string) string {
 // eventsConfig — cleanup-конфиг топика *.events: только delete-политика (immutable-история, D-12).
 func eventsConfig() map[string]*string {
 	return map[string]*string{
-		"cleanup.policy": kadm.StringPtr("delete"),
+		"cleanup.policy": kafka.StringPtr("delete"),
 	}
 }
 
 // stateConfig — cleanup-конфиг топика *.state: compact + delete.retention.ms≥24h (снапшот, D-12).
 func stateConfig() map[string]*string {
 	return map[string]*string{
-		"cleanup.policy":      kadm.StringPtr("compact"),
-		"delete.retention.ms": kadm.StringPtr(stateRetentionMs),
+		"cleanup.policy":      kafka.StringPtr("compact"),
+		"delete.retention.ms": kafka.StringPtr(stateRetentionMs),
 	}
 }
 
-// Bootstrap провижнит для каждого агрегата пару топиков inventory.<agg>.events / .state
-// с соответствующими cleanup-политиками. Число партиций — параметр (дев-дефолт задаёт
-// вызывающий, D-11); replication factor — 1 (single broker, D-07). Идемпотентность
-// поверх уже существующих топиков обеспечивает вызывающий (kadm возвращает ошибку на
-// дубликат — её обработка делается на уровне CLI/теста по контексту).
-func Bootstrap(ctx context.Context, adm *kadm.Client, partitions int32) error {
+// specs строит декларативные спецификации топиков по списку агрегатов: на каждый агрегат —
+// пара inventory.<agg>.events / .state с соответствующими cleanup-политиками.
+func specs() []kafka.TopicSpec {
+	out := make([]kafka.TopicSpec, 0, len(aggregates)*2)
 	for _, aggregate := range aggregates {
-		if _, err := adm.CreateTopics(ctx, partitions, replicationFactor, eventsConfig(),
-			eventsTopic(aggregate)); err != nil {
-			return fmt.Errorf("create topic %s%s: %w", aggregate, eventsSuffix, err)
-		}
-		if _, err := adm.CreateTopics(ctx, partitions, replicationFactor, stateConfig(),
-			stateTopic(aggregate)); err != nil {
-			return fmt.Errorf("create topic %s%s: %w", aggregate, stateSuffix, err)
-		}
+		out = append(out,
+			kafka.TopicSpec{Name: eventsTopic(aggregate), Configs: eventsConfig()},
+			kafka.TopicSpec{Name: stateTopic(aggregate), Configs: stateConfig()},
+		)
 	}
-	return nil
+	return out
+}
+
+// Bootstrap провижнит для каждого агрегата пару топиков inventory.<agg>.events / .state с
+// соответствующими cleanup-политиками, делегируя механику в pkg/kafka. Число партиций —
+// параметр (дев-дефолт задаёт вызывающий, D-11); replication factor — 1 (single broker,
+// D-07). Идемпотентность поверх уже существующих топиков обеспечивает вызывающий (kadm
+// возвращает ошибку на дубликат — её обработка делается на уровне CLI/теста по контексту).
+func Bootstrap(ctx context.Context, adm *kadm.Client, partitions int32) error {
+	return kafka.EnsureTopics(ctx, adm, partitions, replicationFactor, specs()...)
 }

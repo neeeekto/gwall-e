@@ -2,7 +2,7 @@
 //
 // CLI НЕ дублирует топологию: имена топиков, cleanup-политики и число партиций живут в
 // пакете internal/kafka/topology (D-06). Здесь — только склейка: читаем env, поднимаем
-// kgo/kadm-клиент и зовём общую topology.Bootstrap. Дёргается make-таргетом `topics`
+// admin-клиент через pkg/kafka и зовём общую topology.Bootstrap. Дёргается make-таргетом `topics`
 // после `make dev-up`.
 //
 // ВНИМАНИЕ: cmd/ — это package main; `go build ./cmd` / `go build ./...` падает
@@ -18,9 +18,8 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/gwall-e/pkg/kafka"
 	"github.com/gwall-e/services/inventory/internal/kafka/topology"
-	"github.com/twmb/franz-go/pkg/kadm"
-	"github.com/twmb/franz-go/pkg/kgo"
 )
 
 const (
@@ -37,7 +36,7 @@ func main() {
 	}
 }
 
-// run выполняет провижн: парсит env → поднимает kgo/kadm-клиент → зовёт общую topology.Bootstrap.
+// run выполняет провижн: парсит env → поднимает admin-клиент (pkg/kafka) → зовёт общую topology.Bootstrap.
 func run(ctx context.Context) error {
 	brokers := parseBrokers(os.Getenv("KAFKA_BROKERS"))
 
@@ -46,14 +45,12 @@ func run(ctx context.Context) error {
 		return err
 	}
 
-	// kgo-клиент со seed-брокерами; kadm оборачивает его для админ-операций (CreateTopics).
-	cl, err := kgo.NewClient(kgo.SeedBrokers(brokers...))
+	// admin-клиент поднимает общая библиотека pkg/kafka; closeAdm закрывает нижележащий kgo.
+	adm, closeAdm, err := kafka.NewAdminClient(brokers)
 	if err != nil {
-		return fmt.Errorf("create kafka client: %w", err)
+		return err
 	}
-	defer cl.Close()
-
-	adm := kadm.NewClient(cl)
+	defer closeAdm()
 
 	// вся топология (имена/политики/агрегаты) — в пакете topology (D-06), CLI её не дублирует.
 	if err := topology.Bootstrap(ctx, adm, int32(partitions)); err != nil {
