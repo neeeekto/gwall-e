@@ -76,7 +76,7 @@ Full v1.0 detail archived in [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMA
 заложен в доменные события (Phase 6) и фиксируется в protobuf-схеме (Phase 8) **до** relay-кода —
 переэмит immutable-лога задним числом невозможен.
 
-- [ ] **Phase 5: Dev-инфра и стек** — mongo-driver/v2 миграция, docker-compose (Kafka KRaft + Mongo RS), provisioning топиков, тест-тулинг; DOC-02 fix
+- [x] **Phase 5: Dev-инфра и стек** — mongo-driver/v2 миграция, docker-compose (Kafka KRaft + Mongo RS), provisioning топиков, тест-тулинг; DOC-02 fix
 - [ ] **Phase 6: Доменная модель Inventory** — агрегаты Project/Host (+ HW VO, локации DC·Module·Rack), идентичность/ЖЦ, семантические доменные события с envelope, glossary DOC-07
 - [ ] **Phase 7: Эталон записи и чтения** — UnitOfWork (Mongo-txn) + transactional Outbox (атомарно), gRPC-адаптеры + identity-interceptor, query-сервисы (CQRS-lite)
 - [ ] **Phase 8: Event-backbone — схемы + relay → Kafka** — protobuf events/state, relay (idempotent producer, key=ID, ORDER BY sequence), dual-topic (`*.events` delete + `*.state` compact), decommission≠delete на потоке

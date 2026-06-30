@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: — Inventory + Event-backbone
-status: executing
-stopped_at: Completed 05-05-PLAN.md (lefthook de-exclusion + каноны go.work + DOC-02 go vet)
-last_updated: "2026-06-30T17:00:00.000Z"
-last_activity: 2026-06-30 -- Plan 05-05 executed (inventory unit в pre-push, GOWORK=off снят, DOC-02 go vet exit 0)
+status: phase_complete
+stopped_at: Phase 05 complete — verified 5/5 + post-exec pkg refactor (generic Kafka/Mongo → pkg/)
+last_updated: "2026-06-30T18:30:00.000Z"
+last_activity: 2026-06-30 -- Phase 05 verified 5/5; generic plumbing вынесен в pkg/kafka + pkg/mongoconn; строки ошибок → EN
 progress:
   total_phases: 6
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 5
   completed_plans: 5
   percent: 100
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-06-26)
 
 ## Current Position
 
-Phase: 05 (dev) — EXECUTING
+Phase: 05 (dev) — COMPLETE (verified 5/5)
 Plan: 5 of 5
-Status: All plans executed
-Last activity: 2026-06-30 -- Plan 05-05 executed (inventory unit в pre-push, GOWORK=off снят, DOC-02 go vet exit 0)
+Status: Phase complete — все must-have критерии подтверждены; SC2 dev-стенд smoke approved пользователем (rs.status().ok==1, Kafka :9092)
+Last activity: 2026-06-30 -- Phase 05 verified 5/5; post-exec рефактор: generic Kafka/Mongo → pkg/; строки ошибок → EN
 
 Progress: [██████████] 100%
 
@@ -72,6 +72,8 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase ?]: Dev-стенд (Plan 05-02): mongo запускается явным mongod, иначе --replSet не доходит до демона; SC2 smoke пройден вручную (rs.status().ok==1, Kafka :9092)
 - [Phase 5]: mockery v3 smoke (Plan 05-03): .mockery.yaml v3-синтаксис (template testify, .SrcPackageName, моки в {{.InterfaceDir}}/mocks); throwaway example-пакет доказал кодоген до реальных портов (Phase 6/7); testify втянут тест-кодом (T-05-07 accept)
 - [Phase 5]: bootstrap-CLI + integration smoke (Plan 05-04): тонкий cmd/main.go (env→kgo/kadm→topology.Bootstrap, D-09, без дубля топологии D-06); integration-тест за //go:build integration (D-15 — go test ./... и pre-push без Docker); single-source замкнут (CLI и тест зовут одну Bootstrap); SC3/SC4 ассерт-код готов, фактический прогон требует Docker (make test-integration); go build ./cmd падает (Pitfall 2) — валидация через go vet
+- [Phase 5][post-exec]: язык кода — комментарии RU (canon-MUST style.md), но строки ошибок/логов → EN (established-конвенция pkg/http/errors.go); поправлено в main.go/topology.go/conn.go (commit e4b7ddb)
+- [Phase 5][post-exec]: **правило** — все общие/generic элементы живут в `pkg/`, не дублируются между сервисами. Generic Kafka-механика → `pkg/kafka` (NewAdminClient/EnsureTopics/TopicSpec/StringPtr), RS-aware Mongo connect → `pkg/mongoconn`. Доменная топология топиков остаётся в inventory; D-06 single-source сохранён (topology.Bootstrap делегирует в pkg/kafka). pkg go-директива → 1.25.0 (mongo-driver/v2); inventory: require+replace на локальный pkg (commits 8b2025f/4e293b0/e7423b6)
 - [Phase 5]: lefthook de-exclusion + каноны (Plan 05-05): pre-push гоняет inventory unit (go test ./..., без integration build tag, D-15); GOWORK=off снят везде (lefthook/build/structure/boundaries + drift в testing.md/README.md, T-05-12); DOC-02 закрыт — audit-рецепт go vet ./... exit 0 (go build ./... падает build output cmd already exists); каноны: inventory = четвёртый полноправный член go.work, всегда компилируется (D-01/D-03/D-04); pre-push smoke зелёный без Docker; live-firing требует разового lefthook install
 
 ### Pending Todos
@@ -104,4 +106,5 @@ Resume file: None
 
 ## Operator Next Steps
 
-- Plan first phase with `/gsd-plan-phase 5`
+- Phase 05 завершена и верифицирована (5/5). Следующий шаг: `/gsd-discuss-phase 6` → `/gsd-plan-phase 6` (Доменная модель Inventory: агрегаты Project/Host, glossary DOC-07).
+- Опционально: разовый `make tools` + `lefthook install` на dev-машине для live-firing хуков; `make test-integration` для фактического прогона testcontainers-smoke (требует Docker).
