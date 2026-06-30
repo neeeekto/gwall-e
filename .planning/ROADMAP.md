@@ -124,7 +124,20 @@ Full v1.0 detail archived in [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMA
   5. Каждое изменение (идентичность/ЖЦ/железо/локация) рождает **семантическое** доменное событие (`HostRegistered`/`HostHardwareChanged`/`HostReassigned`/`HostDecommissioned`/`HostDeleted`/…), не дамп `HostUpdated`; событие несёт envelope `eventId`/`version`/`actor`/`occurredAt` с первого дня
   6. `knowledge/glossary.md` (DOC-07) фиксирует ubiquitous language: границу «факт существования vs динамическое состояние», термины Project/Host/Owner/Module/Connection, идентичность и `decommission ≠ delete`; код раскладывается по канон-слоям `domain/usecases/query/repositories/api/cron` + composition root `app` (SVC-01)
 
-**Plans**: TBD
+**Plans**: 6 plans
+
+Plans:
+
+**Wave 1**
+- [ ] 06-01-PLAN.md — Доменное ядро: ID-VO, aggregateBase, DomainEvent+EventEnvelope+Actor, sentinel/типизированные конфликты, порты + .mockery.yaml/моки
+**Wave 2** *(blocked on Wave 1)*
+- [ ] 06-02-PLAN.md — Host-агрегат + immutable HostHardware VO + lifecycle SM (shadow/registered/decommissioned) + hard-Delete + операции-события
+- [ ] 06-03-PLAN.md — Project-агрегат + локации DC/Module/Rack (3 независимых, иерархия по ID) + CRUD-события
+**Wave 3** *(blocked on Wave 2)*
+- [ ] 06-04-PLAN.md — envelope-enrichment + фейки uow/outbox/clock/idgen + Host write-usecases (RegisterHost FQDN-конфликт/advisory, Decommission/Delete/Reassign/Relocate/ChangeHardware)
+**Wave 4** *(blocked on Wave 3)*
+- [ ] 06-05-PLAN.md — Project usecases (Create/Update/Delete-if-empty) + DC/Module/Rack CRUD-usecases
+- [ ] 06-06-PLAN.md — DOC-07 knowledge/glossary.md + README-индекс + сверка канон-слоёв (SVC-01)
 **UI hint**: no
 
 ### Phase 7: Эталон записи и чтения (UnitOfWork + Outbox + gRPC)
@@ -196,8 +209,8 @@ Full v1.0 detail archived in [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMA
 | 2. Стабильные доки-основы | v1.0 | 3/3 | Complete | 2026-06-17 |
 | 3. Доки конвенций и архитектуры | v1.0 | 5/5 | Complete | 2026-06-17 |
 | 4. Enforcement-слой (тулинг) | v1.0 | 4/4 | Complete | 2026-06-17 |
-| 5. Dev-инфра и стек | v3.0 | 3/5 | In Progress|  |
-| 6. Доменная модель Inventory | v3.0 | 0/? | Not started | - |
+| 5. Dev-инфра и стек | v3.0 | 5/5 | Complete | 2026-06-30 |
+| 6. Доменная модель Inventory | v3.0 | 0/6 | Planned | - |
 | 7. Эталон записи и чтения | v3.0 | 0/? | Not started | - |
 | 8. Event-backbone — схемы + relay → Kafka | v3.0 | 0/? | Not started | - |
 | 9. Топология connections + read-model | v3.0 | 0/? | Not started | - |
