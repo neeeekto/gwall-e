@@ -14,14 +14,8 @@ package domain
 // эти заглушки сливаются с реальными определениями (поля/методы — в host.go/project.go и
 // т.п., type-объявление остаётся здесь до явного решения executor'а соответствующего плана).
 
-// Host — агрегат хоста (наполняется 06-02: lifecycle/state-machine/события).
-type Host struct {
-	aggregateBase
-	id HostID
-}
-
-// ID возвращает идентификатор хоста.
-func (h *Host) ID() HostID { return h.id }
+// Host-агрегат вынесен в host.go (06-02): полная фабрика, lifecycle state-machine и
+// операции-события. Заглушка удалена — реальный тип живёт в host.go (иначе redeclaration).
 
 // Project — агрегат проекта (наполняется 06-03).
 type Project struct {
