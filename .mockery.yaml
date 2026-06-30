@@ -14,3 +14,19 @@ packages:
   github.com/gwall-e/services/inventory/internal/example:
     interfaces:
       ExampleProvisioner: {} # пример-порт; реальные доменные порты — Phase 6/7
+  # Доменные порты Inventory (Phase 6, 06-01): репозитории, UoW, outbox, query-порты,
+  # advisor, Clock/IDGenerator. Моки → internal/domain/mocks (D-02/D-03).
+  github.com/gwall-e/services/inventory/internal/domain:
+    interfaces:
+      HostRepository: {}
+      ProjectRepository: {}
+      DCRepository: {}
+      ModuleRepository: {}
+      RackRepository: {}
+      UnitOfWork: {}
+      Outbox: {}
+      ActiveHostByFQDN: {}
+      HostsInProject: {}
+      MatchAdvisor: {}
+      Clock: {}
+      IDGenerator: {}
